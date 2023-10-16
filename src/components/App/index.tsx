@@ -1,4 +1,4 @@
-import MainPage from '../Main';
+import MainPage from '..//../pages/Main';
 
 export type Place = {
   mark: string;
