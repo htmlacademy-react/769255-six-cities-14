@@ -1,4 +1,4 @@
-import MainPage from '..//../pages/Main';
+import MainPage from '../../pages/Main';
 
 export type Place = {
   mark: string;
@@ -16,7 +16,7 @@ type AppProps = {
   places: Place[];
 };
 
-function App({ places }: AppProps): JSX.Element {
+function App({ places }: AppProps) {
   return <MainPage places={places} />;
 }
 

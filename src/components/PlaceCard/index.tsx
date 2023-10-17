@@ -12,7 +12,7 @@ type PlaceCardProps = {
   };
 };
 
-function PlaceCard({ place }: PlaceCardProps): JSX.Element {
+function PlaceCard({ place }: PlaceCardProps) {
   return (
     <article className="cities__card place-card">
       <div className="place-card__mark">

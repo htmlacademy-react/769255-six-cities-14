@@ -1,4 +1,4 @@
-export function OfferNotLogged(): JSX.Element {
+export function OfferNotLogged() {
   return (
     <div className="page">
       <header className="header">

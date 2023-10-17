@@ -1,4 +1,4 @@
-export function Login(): JSX.Element {
+export function Login() {
   return (
     <div className="page page--gray page--login">
       <header className="header">
