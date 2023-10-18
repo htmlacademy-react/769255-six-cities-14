@@ -1,13 +1,13 @@
 import { Helmet } from 'react-helmet-async';
+import { Link } from 'react-router-dom';
 import Header from '../../components/Header';
 import { AppRoute } from '../../const';
-import { Link } from 'react-router-dom';
 
 function NotFound(): React.ReactNode {
   return (
     <>
       <Helmet>
-        <title>6 cities. Not found :(</title>
+        <title>6 cities. Not found</title>
       </Helmet>
       <Header />
       <div className="page page--gray page--main">
@@ -17,9 +17,6 @@ function NotFound(): React.ReactNode {
               <section className="cities__no-places">
                 <div className="cities__status-wrapper tabs__content">
                   <b className="cities__status">Not found</b>
-                  <p className="cities__status-description">
-                    Page doesn't exist
-                  </p>
                   <Link to={AppRoute.Main}>
                     <button
                       className="reviews__submit form__submit button"

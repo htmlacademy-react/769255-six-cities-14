@@ -30,8 +30,8 @@ function Main({ places }: MainProps): React.ReactNode {
           <div className="tabs">
             <section className="locations container">
               <ul className="locations__list tabs__list">
-                {cities.map((item, index) => (
-                  <Location city={item} key={index} />
+                {cities.map((item) => (
+                  <Location city={item} key={item} />
                 ))}
               </ul>
             </section>
