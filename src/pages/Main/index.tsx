@@ -1,4 +1,6 @@
+import { Helmet } from 'react-helmet-async';
 import { Place } from '../../App';
+import Header from '../../components/Header';
 import Main from './Content';
 
 type MainPageProps = {
@@ -6,7 +8,15 @@ type MainPageProps = {
 };
 
 function MainPage({ places }: MainPageProps): React.ReactNode {
-  return <Main places={places} />;
+  return (
+    <>
+      <Helmet>
+        <title>6 cities</title>
+      </Helmet>
+      <Header />
+      <Main places={places} />
+    </>
+  );
 }
 
 export default MainPage;

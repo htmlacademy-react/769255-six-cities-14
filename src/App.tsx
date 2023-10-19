@@ -30,7 +30,7 @@ function App({ places }: AppProps): React.ReactNode {
       <BrowserRouter>
         <Routes>
           <Route path={AppRoute.Main} element={<MainPage places={places} />} />
-          <Route path={AppRoute.Offer} element={<OfferPage />} />
+          <Route path={`${AppRoute.Offer}/:offerId`} element={<OfferPage />} />
           <Route path={AppRoute.Login} element={<LoginPage />} />
           <Route
             path={AppRoute.Favorites}

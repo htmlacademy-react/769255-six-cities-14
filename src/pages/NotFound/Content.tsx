@@ -1,15 +1,9 @@
-import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import Header from '../../components/Header';
 import { AppRoute } from '../../const';
 
 function NotFound(): React.ReactNode {
   return (
     <>
-      <Helmet>
-        <title>6 cities. Not found</title>
-      </Helmet>
-      <Header />
       <div className="page page--gray page--main">
         <main className="page__main page__main--index page__main--index-empty">
           <div className="cities">
