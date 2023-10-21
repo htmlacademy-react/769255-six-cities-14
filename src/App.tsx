@@ -1,13 +1,13 @@
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { AppRoute, AuthorizationStatus } from './const';
-import MainPage from './pages/MainPage';
+import MainPage from './pages/MainPage/MainPage';
 import OfferPage from './pages/OfferPage';
 import NotFoundPage from './pages/NotFoundPage';
 import FavoritesPage from './pages/FavoritesPage';
 import LoginPage from './pages/LoginPage';
-import PrivateRoute from './components/PrivateRoute';
-import Layout from './components/Layout';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import Layout from './components/Layout/Layout';
 
 export type Place = {
   mark: string;

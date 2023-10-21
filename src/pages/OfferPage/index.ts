@@ -1,2 +1,2 @@
-import Offer from '../../components/Offer';
+import Offer from '../../components/Offer/Offer';
 export default Offer;

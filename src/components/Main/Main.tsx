@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { Place } from '../../App';
-import Location from '../../components/Location';
-import PlaceCard from '../../components/PlaceCard';
+import Location from '../Location/Location';
+import PlaceCard from '../PlaceCard/PlaceCard';
 
 const cities: string[] = [
   'Paris',

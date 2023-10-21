@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import FavoritesPlaceCard from '../../components/FavoritesPlaceCard';
-import Footer from '../../components/Footer';
+import FavoritesPlaceCard from '../FavoritesPlaceCard/FavoritesPlaceCard';
+import Footer from '../Footer/Footer';
 
 //будет разбит на более мелкие компоненты позже
 function Favorites(): React.ReactNode {

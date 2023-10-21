@@ -1,5 +1,5 @@
 import { Place } from '../../App';
-import Main from '../../components/Main';
+import Main from '../../components/Main/Main';
 
 type MainPageProps = {
   places: Place[];

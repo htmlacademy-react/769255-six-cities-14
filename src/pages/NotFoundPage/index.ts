@@ -1,2 +1,2 @@
-import NotFound from '../../components/NotFound';
+import NotFound from '../../components/NotFound/NotFound';
 export default NotFound;
