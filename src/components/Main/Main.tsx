@@ -1,8 +1,8 @@
 import { Helmet } from 'react-helmet-async';
-import Location from '../location/location';
-import { TOffer } from '../../types/offer';
 import { cities } from '../../mocks/cities';
+import { TOffer } from '../../types/offer';
 import OffersList from '../offers-list/offers-list';
+import LocationCity from '../location/location';
 
 type MainProps = {
   offers: TOffer[];
@@ -21,7 +21,7 @@ function Main({ offers }: MainProps): React.ReactNode {
             <section className="locations container">
               <ul className="locations__list tabs__list">
                 {cities.map((item) => (
-                  <Location city={item} key={item} />
+                  <LocationCity city={item} key={item} />
                 ))}
               </ul>
             </section>

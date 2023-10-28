@@ -4,7 +4,7 @@ type OfferImagesProps = {
   images: TOfferImages;
 };
 
-export default function OfferImages({ images }: OfferImagesProps): JSX.Element {
+function OfferImages({ images }: OfferImagesProps): JSX.Element {
   const countImage = images.length;
   let slicedImages: TOfferImages | [] = [];
   if (countImage > 6) {
@@ -23,3 +23,5 @@ export default function OfferImages({ images }: OfferImagesProps): JSX.Element {
     </div>
   );
 }
+
+export default OfferImages;

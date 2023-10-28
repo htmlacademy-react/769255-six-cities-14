@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import OfferCard from '../offer-card/offer-card';
 import { TOffer } from '../../types/offer';
+import OfferCard from '../offer-card/offer-card';
 
 type OffersListProps = {
   offers: TOffer[];
 };
 
-export default function OffersList({ offers }: OffersListProps) {
+function OffersList({ offers }: OffersListProps) {
   const [, setActiveOfferCard] = useState<number | null>(null);
 
   const handleActive = (offerId: number | null) => {
@@ -21,3 +21,5 @@ export default function OffersList({ offers }: OffersListProps) {
     </div>
   );
 }
+
+export default OffersList;

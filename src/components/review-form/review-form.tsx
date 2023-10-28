@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export default function ReviewFrom() {
+function ReviewFrom() {
   const [, setComment] = useState('');
 
   const handlerChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -122,3 +122,5 @@ export default function ReviewFrom() {
     </form>
   );
 }
+
+export default ReviewFrom;

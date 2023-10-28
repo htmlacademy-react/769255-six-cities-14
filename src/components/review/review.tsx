@@ -1,6 +1,6 @@
-import ReviewFrom from './review-form/review-form';
+import ReviewFrom from '../review-form/review-form';
 
-export default function Review() {
+function Review() {
   return (
     <section className="offer__reviews reviews">
       <h2 className="reviews__title">
@@ -42,3 +42,5 @@ export default function Review() {
     </section>
   );
 }
+
+export default Review;

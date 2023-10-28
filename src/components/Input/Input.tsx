@@ -6,13 +6,7 @@ type InputProps = {
   required: boolean;
 };
 
-export default function Input({
-  label,
-  placeholder,
-  type,
-  name,
-  required,
-}: InputProps) {
+function Input({ label, placeholder, type, name, required }: InputProps) {
   return (
     <div className="login__input-wrapper form__input-wrapper">
       <label className="visually-hidden">{label}</label>
@@ -26,3 +20,5 @@ export default function Input({
     </div>
   );
 }
+
+export default Input;

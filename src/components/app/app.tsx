@@ -1,14 +1,14 @@
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import MainPage from '../../pages/main-page/main-page';
-import OfferPage from '../../pages/offer-page';
-import NotFoundPage from '../../pages/not-found-page';
 import FavoritesPage from '../../pages/favorites-page';
 import LoginPage from '../../pages/login-page';
-import PrivateRoute from '../private-route/private-route';
-import Layout from '../layout/layout';
+import MainPage from '../../pages/main-page/main-page';
+import NotFoundPage from '../../pages/not-found-page';
+import OfferPage from '../../pages/offer-page';
 import { TOffer } from '../../types/offer';
+import Layout from '../layout/layout';
+import PrivateRoute from '../private-route/private-route';
 import { favorites } from '../../mocks/favorites';
 
 type AppProps = {

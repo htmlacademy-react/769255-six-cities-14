@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
 
-type LocationProps = {
+type LocationCityProps = {
   city: string;
 };
 
-function Location({ city }: LocationProps): React.ReactNode {
+function LocationCity({ city }: LocationCityProps): React.ReactNode {
   return (
     <li className="locations__item">
       <Link className="locations__item-link tabs__item" to="#">
@@ -14,4 +14,4 @@ function Location({ city }: LocationProps): React.ReactNode {
   );
 }
 
-export default Location;
+export default LocationCity;
