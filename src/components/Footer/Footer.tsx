@@ -1,4 +1,4 @@
-export default function Footer() {
+export default function Footer(): React.ReactNode {
   return (
     <footer className="footer container">
       <a className="footer__logo-link" href="main.html">
