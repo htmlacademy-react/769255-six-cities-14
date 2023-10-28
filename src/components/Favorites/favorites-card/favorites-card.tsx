@@ -1,14 +1,21 @@
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute } from '../../../const';
+import { TOffer } from '../../../types/offer';
 
-function FavoritesPlaceCard(): React.ReactNode {
+type FavoritesCardProps = {
+  favorite: TOffer;
+};
+
+function FavoritesCard({ favorite }: FavoritesCardProps): React.ReactNode {
   return (
     <article className="favorites__card place-card">
-      <div className="place-card__mark">
-        <span>Premium</span>
-      </div>
+      {favorite.isPremium && (
+        <div className="place-card__mark">
+          <span>Premium</span>
+        </div>
+      )}
       <div className="favorites__image-wrapper place-card__image-wrapper">
-        <Link to={AppRoute.Offer}>
+        <Link to={`${AppRoute.Offer}/${favorite.id}`}>
           <img
             className="place-card__image"
             src="img/apartment-small-03.jpg"
@@ -21,7 +28,7 @@ function FavoritesPlaceCard(): React.ReactNode {
       <div className="favorites__card-info place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">&euro;180</b>
+            <b className="place-card__price-value">&euro;{favorite.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button
@@ -41,12 +48,12 @@ function FavoritesPlaceCard(): React.ReactNode {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={AppRoute.Offer}>Nice, cozy, warm big bed apartment</Link>
+          <Link to={`${AppRoute.Offer}/${favorite.id}`}>{favorite.title}</Link>
         </h2>
-        <p className="place-card__type">Apartment</p>
+        <p className="place-card__type">{favorite.type}</p>
       </div>
     </article>
   );
 }
 
-export default FavoritesPlaceCard;
+export default FavoritesCard;

@@ -1,22 +1,14 @@
 import { Helmet } from 'react-helmet-async';
-import { Place } from '../../App';
-import Location from '../Location/Location';
-import PlaceCard from '../PlaceCard/PlaceCard';
-
-const cities: string[] = [
-  'Paris',
-  'Cologne',
-  'Brussels',
-  'Amsterdam',
-  'Hamburg',
-  'Dusseldorf',
-];
+import Location from '../location/location';
+import { TOffer } from '../../types/offer';
+import OffersList from '../offer/offers-list/offers-list';
+import { cities } from '../../mocks/cities';
 
 type MainProps = {
-  places: Place[];
+  offers: TOffer[];
 };
 
-function Main({ places }: MainProps): React.ReactNode {
+function Main({ offers }: MainProps): React.ReactNode {
   return (
     <>
       <Helmet>
@@ -65,11 +57,7 @@ function Main({ places }: MainProps): React.ReactNode {
                     </li>
                   </ul>
                 </form>
-                <div className="cities__places-list places__list tabs__content">
-                  {places.map((place) => (
-                    <PlaceCard place={place} key={place.id} />
-                  ))}
-                </div>
+                <OffersList offers={offers} />
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map"></section>

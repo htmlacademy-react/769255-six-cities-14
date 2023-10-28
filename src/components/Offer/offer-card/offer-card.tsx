@@ -1,31 +1,29 @@
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute } from '../../../const';
+import { TOffer } from '../../../types/offer';
 
-type PlaceCardProps = {
-  place: {
-    mark: string;
-    image: string;
-    price: number;
-    priceText: string;
-    bookmark?: boolean;
-    rating?: number;
-    name: string;
-    type: string;
-    id?: number;
-  };
+type OfferCardProps = {
+  offer: TOffer;
+  handleActive: (offerId: number | null) => void;
 };
 
-function PlaceCard({ place }: PlaceCardProps) {
+//Карточка предложения
+function OfferCard({ offer, handleActive }: OfferCardProps) {
   return (
-    <article className="cities__card place-card">
-      <div className="place-card__mark">
-        <span>{place.mark}</span>
-      </div>
+    <article
+      className="cities__card place-card"
+      onMouseOver={() => handleActive(offer.id)}
+    >
+      {offer.isPremium && (
+        <div className="place-card__mark">
+          <span>Premium</span>
+        </div>
+      )}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to={AppRoute.Offer}>
+        <Link to={`${AppRoute.Offer}/${offer.id}`}>
           <img
             className="place-card__image"
-            src={place.image}
+            src={offer.images[0]}
             width="260"
             height="200"
             alt="Place image"
@@ -35,10 +33,8 @@ function PlaceCard({ place }: PlaceCardProps) {
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">&euro;{place.price}</b>
-            <span className="place-card__price-text">
-              &#47;&nbsp;{place.priceText}
-            </span>
+            <b className="place-card__price-value">&euro;{offer.price}</b>
+            <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button className="place-card__bookmark-button button" type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">
@@ -54,12 +50,12 @@ function PlaceCard({ place }: PlaceCardProps) {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to="#">{place.name}</Link>
+          <Link to="#">{offer.title}</Link>
         </h2>
-        <p className="place-card__type">{place.type}</p>
+        <p className="place-card__type">{offer.type}</p>
       </div>
     </article>
   );
 }
 
-export default PlaceCard;
+export default OfferCard;
