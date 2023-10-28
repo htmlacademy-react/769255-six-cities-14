@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import Input from '../input/input';
+import Input from '../input-component/input-component';
 
 function Login(): React.ReactNode {
   return (
