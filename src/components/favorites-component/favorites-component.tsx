@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { TOffer } from '../../types/offer';
 import FavoritesCard from '../favorites-card/favorites-card';
-import Footer from '../footer/footer';
+import Footer from '../footer-component/footer-component';
 
 type FavoritesProps = {
   favorites: TOffer[];

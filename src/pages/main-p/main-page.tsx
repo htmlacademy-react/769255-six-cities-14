@@ -1,4 +1,4 @@
-import Main from '../../components/main/main';
+import Main from '../../components/main-component/main-component';
 import { TOffer } from '../../types/offer';
 
 type MainPageProps = {
