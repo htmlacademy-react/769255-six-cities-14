@@ -1,8 +1,8 @@
 import { Helmet } from 'react-helmet-async';
 import Location from '../location/location';
 import { TOffer } from '../../types/offer';
-import OffersList from '../offer/offers-list/offers-list';
 import { cities } from '../../mocks/cities';
+import OffersList from '../offers-list/offers-list';
 
 type MainProps = {
   offers: TOffer[];

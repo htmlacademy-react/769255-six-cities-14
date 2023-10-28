@@ -1,4 +1,4 @@
-import { TOfferImages } from '../../../types/offer';
+import { TOfferImages } from '../../types/offer';
 
 type OfferImagesProps = {
   images: TOfferImages;

@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 import { TOffer } from '../../types/offer';
-import OfferImages from './offer-images/offer-images';
+import OfferImages from '../offer-images/offer-images';
 import Review from '../review/review';
 import NotFound from '../not-found/not-found';
 

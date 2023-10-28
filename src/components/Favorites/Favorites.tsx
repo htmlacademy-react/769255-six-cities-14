@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import FavoritesCard from './favorites-card/favorites-card';
+import FavoritesCard from '../favorites-card/favorites-card';
 import { TOffer } from '../../types/offer';
 import Footer from '../footer/footer';
 

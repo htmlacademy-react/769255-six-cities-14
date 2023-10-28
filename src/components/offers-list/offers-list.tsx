@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { TOffer } from '../../../types/offer';
 import OfferCard from '../offer-card/offer-card';
+import { TOffer } from '../../types/offer';
 
 type OffersListProps = {
   offers: TOffer[];
