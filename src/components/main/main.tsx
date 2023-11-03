@@ -2,13 +2,30 @@ import { Helmet } from 'react-helmet-async';
 import { cities } from '../../mocks/cities';
 import { TOffer } from '../../types/offer';
 import OffersList from '../offers-list/offers-list';
-import LocationCity from '../location-component/location-component';
+import LocationCities from '../location-cities/location-cities';
+import Map from '../map/map';
+import { TLocation } from '../../types/location';
+import { CITY } from '../../const';
+
+function getLocations(offers: TOffer[], city: string): TLocation[] {
+  const locations: TLocation[] = [];
+
+  offers.filter((offer) => {
+    if (offer.city.name === city) {
+      locations.push(offer.location);
+    }
+  });
+
+  return locations;
+}
 
 type MainProps = {
   offers: TOffer[];
 };
 
 function Main({ offers }: MainProps): React.ReactNode {
+  const locations = getLocations(offers, CITY.name);
+
   return (
     <>
       <Helmet>
@@ -17,15 +34,7 @@ function Main({ offers }: MainProps): React.ReactNode {
       <div className="page page--gray page--main">
         <main className="page__main page__main--index">
           <h1 className="visually-hidden">Cities</h1>
-          <div className="tabs">
-            <section className="locations container">
-              <ul className="locations__list tabs__list">
-                {cities.map((item) => (
-                  <LocationCity city={item} key={item} />
-                ))}
-              </ul>
-            </section>
-          </div>
+          <LocationCities cities={cities} />
           <div className="cities">
             <div className="cities__places-container container">
               <section className="cities__places places">
@@ -60,7 +69,7 @@ function Main({ offers }: MainProps): React.ReactNode {
                 <OffersList offers={offers} />
               </section>
               <div className="cities__right-section">
-                <section className="cities__map map"></section>
+                <Map city={CITY} points={locations} />
               </div>
             </div>
           </div>
