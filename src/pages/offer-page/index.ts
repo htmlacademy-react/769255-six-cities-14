@@ -1,2 +1,2 @@
-import Offer from '../../components/offer-component/offer-component.tsx';
+import Offer from '../../components/offer/offer.tsx';
 export default Offer;
