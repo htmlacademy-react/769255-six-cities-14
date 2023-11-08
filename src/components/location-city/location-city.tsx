@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
 import { fullOffers } from '../../mocks/fullOffers';
 import { changeCity, getCityOffers } from '../../store/action';
+import { TOffer } from '../../types/offer';
 
 type LocationCityProps = {
   city: string;
@@ -9,7 +10,7 @@ type LocationCityProps = {
 
 function LocationCity({ city }: LocationCityProps): React.ReactNode {
   const dispatch = useAppDispatch();
-  const offers = fullOffers;
+  const offers: TOffer[] = fullOffers;
 
   return (
     <li className="locations__item">
