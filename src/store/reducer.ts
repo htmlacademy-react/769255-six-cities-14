@@ -4,7 +4,8 @@ import { changeCity, getCityOffers } from './action';
 
 const initialState = {
   cityName: 'Paris',
-  cityOffers: fullOffers
+  cityOffers: fullOffers,
+  offers: fullOffers
 };
 
 export const reducer = createReducer(initialState, (builder) => {
