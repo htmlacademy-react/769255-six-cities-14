@@ -1,19 +1,24 @@
+import { fullOffers } from '../../mocks/fullOffers';
+import { getCities } from '../../utils';
 import LocationCity from '../location-city/location-city';
 
-type LoctaionCitiesProps = {
-  cities: string[];
-};
+//Список городов
+export default function LocationCities() {
+  const offers = fullOffers;
+  const cities = getCities(offers);
 
-export default function LocationCities({ cities }: LoctaionCitiesProps) {
   return (
-    <div className="tabs">
-      <section className="locations container">
-        <ul className="locations__list tabs__list">
-          {cities.map((item) => (
-            <LocationCity city={item} key={item} />
-          ))}
-        </ul>
-      </section>
-    </div>
+    <>
+      <h1 className="visually-hidden">Cities</h1>
+      <div className="tabs">
+        <section className="locations container">
+          <ul className="locations__list tabs__list">
+            {cities.map((item) => (
+              <LocationCity city={item.name} key={item.name} />
+            ))}
+          </ul>
+        </section>
+      </div>
+    </>
   );
 }

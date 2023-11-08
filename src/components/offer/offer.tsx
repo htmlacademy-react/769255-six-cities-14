@@ -1,15 +1,13 @@
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
-import { TOffer } from '../../types/offer';
+import { fullOffers } from '../../mocks/fullOffers';
+import NotFound from '../not-found/not-found';
 import OfferImages from '../offer-images/offer-images';
 import Review from '../review/review';
-import NotFound from '../not-found/not-found';
 
-type OfferProps = {
-  offers: TOffer[];
-};
-
-function Offer({ offers }: OfferProps): React.ReactNode {
+//Карточка предложения
+function Offer(): React.ReactNode {
+  const offers = fullOffers;
   const offerId = Number(useParams().id);
   const offer = offers.find((item) => item.id === offerId);
 
