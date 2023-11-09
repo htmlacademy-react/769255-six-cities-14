@@ -12,7 +12,7 @@ function OffersList() {
     setActiveOfferCard(offerId);
   };
 
-  const cityName = useAppSelector((state) => state.cityName);
+  const cityName = useAppSelector((state) => state.activeCity);
   const cityOffers = useAppSelector((state) => state.cityOffers);
   const countOffers = cityOffers.length;
   const locations = getLocations(cityOffers);

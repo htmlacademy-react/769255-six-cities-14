@@ -1,11 +1,10 @@
 import { useAppSelector } from '../../hooks';
-import { TOffer } from '../../types/offer';
 import { getCities } from '../../utils';
 import LocationCity from '../location-city/location-city';
 
 //Список городов
 export default function LocationCities() {
-  const offers: TOffer[] = useAppSelector((state) => state.offers);
+  const offers = useAppSelector((state) => state.offers);
   const cities = getCities(offers);
 
   return (
