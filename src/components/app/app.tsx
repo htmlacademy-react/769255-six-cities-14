@@ -6,26 +6,18 @@ import LoginPage from '../../pages/login-page';
 import MainPage from '../../pages/main-page/main-page';
 import NotFoundPage from '../../pages/not-found-page';
 import OfferPage from '../../pages/offer-page';
-import { TOffer } from '../../types/offer';
 import Layout from '../layout/layout';
 import PrivateRoute from '../private-route/private-route';
 import { favorites } from '../../mocks/favorites';
 
-type AppProps = {
-  offers: TOffer[];
-};
-
-function App({ offers }: AppProps): React.ReactNode {
+function App(): React.ReactNode {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route path={AppRoute.Main} element={<Layout />}>
-            <Route index element={<MainPage offers={offers} />} />
-            <Route
-              path={`${AppRoute.Offer}/:id`}
-              element={<OfferPage offers={offers} />}
-            />
+            <Route index element={<MainPage />} />
+            <Route path={`${AppRoute.Offer}/:id`} element={<OfferPage />} />
             <Route path={AppRoute.Login} element={<LoginPage />} />
             <Route
               path={AppRoute.Favorites}
