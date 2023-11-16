@@ -22,3 +22,20 @@ export function getCities(offers: TOffer[]) {
   });
   return cities;
 }
+
+export function sortOffers(offers: TOffer[], sortingType: string | null) {
+  const sortedOffers: TOffer[] = [...offers];
+  if (sortingType === 'Price: low to high') {
+    return sortedOffers.sort((offer1, offer2) => offer1?.price - offer2?.price);
+  }
+  if (sortingType === 'Price: high to low') {
+    return sortedOffers.sort((offer1, offer2) => offer2?.price - offer1?.price);
+  }
+  if (sortingType === 'Top rated first') {
+    return sortedOffers.sort(
+      (offer1, offer2) => offer2?.rating - offer1?.rating
+    );
+  } else {
+    return offers;
+  }
+}

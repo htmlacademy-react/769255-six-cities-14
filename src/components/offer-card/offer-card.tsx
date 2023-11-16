@@ -4,15 +4,15 @@ import { TOffer } from '../../types/offer';
 
 type OfferCardProps = {
   offer: TOffer;
-  handleActive: (offerId: number | null) => void;
+  handleHoverOffer: (offerId: number | null) => void;
 };
 
 //Карточка предложения
-function OfferCard({ offer, handleActive }: OfferCardProps) {
+function OfferCard({ offer, handleHoverOffer }: OfferCardProps) {
   return (
     <article
       className="cities__card place-card"
-      onMouseOver={() => handleActive(offer.id)}
+      onMouseOver={() => handleHoverOffer(offer.id)}
     >
       {offer.isPremium && (
         <div className="place-card__mark">

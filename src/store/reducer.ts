@@ -8,7 +8,7 @@ const initialState = {
   offers: fullOffers
 };
 
-export const reducer = createReducer(initialState, (builder) => {
+export const placesReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(changeCity, (state, action) => {
       if(action.payload){

@@ -6,7 +6,7 @@ import leaflet from 'leaflet';
 
 export default function useMap(mapRef: MutableRefObject<null>, city: TCity) {
   const [map, setMap] = useState<Map | null>(null);
-  const [cityState, setCityState] = useState<string>('');
+  const [cityState, setCityState] = useState<string>('Paris');
   const isRenderedRef = useRef<boolean>(false);
 
   useEffect(() => {

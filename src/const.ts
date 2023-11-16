@@ -25,3 +25,10 @@ export const CITY = {
   },
   name: 'Amsterdam',
 };
+
+export const sortingTypes = [
+  'Popular',
+  'Price: low to high',
+  'Price: high to low',
+  'Top rated first',
+];
