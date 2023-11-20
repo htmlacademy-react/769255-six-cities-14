@@ -23,19 +23,34 @@ export function getCities(offers: TOffer[]) {
   return cities;
 }
 
+export function getCityOffers(offers: TOffer[], cityName: string | null) {
+  if(cityName === null){
+    return offers
+  }
+
+  const cityOffers = offers.filter((offer) => offer.city.name === cityName);
+  return cityOffers;
+}
+
 export function sortOffers(offers: TOffer[], sortingType: string | null) {
   const sortedOffers: TOffer[] = [...offers];
-  if (sortingType === 'Price: low to high') {
-    return sortedOffers.sort((offer1, offer2) => offer1?.price - offer2?.price);
-  }
-  if (sortingType === 'Price: high to low') {
-    return sortedOffers.sort((offer1, offer2) => offer2?.price - offer1?.price);
-  }
-  if (sortingType === 'Top rated first') {
-    return sortedOffers.sort(
-      (offer1, offer2) => offer2?.rating - offer1?.rating
-    );
-  } else {
-    return offers;
+  switch (sortingType) {
+    case 'Price: low to high':
+      return sortedOffers.sort(
+        (offer1, offer2) => offer1?.price - offer2?.price
+      );
+
+    case 'Price: high to low':
+      return sortedOffers.sort(
+        (offer1, offer2) => offer2?.price - offer1?.price
+      );
+
+    case 'Top rated first':
+      return sortedOffers.sort(
+        (offer1, offer2) => offer2?.rating - offer1?.rating
+      );
+
+    default:
+      return offers;
   }
 }

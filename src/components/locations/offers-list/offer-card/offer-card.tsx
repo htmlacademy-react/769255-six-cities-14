@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
-import { TOffer } from '../../types/offer';
+import { AppRoute } from '../../../../const';
+import { TOffer } from '../../../../types/offer';
 
 type OfferCardProps = {
   offer: TOffer;
