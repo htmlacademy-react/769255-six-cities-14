@@ -1,5 +1,5 @@
 import { SetStateAction, useState } from 'react';
-import { sortingTypes } from '../../const';
+import { sortingTypes } from '../../../const';
 
 type SortingProps = {
   activeSorting: string | null;

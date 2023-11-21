@@ -1,6 +1,6 @@
 import { useAppSelector } from '../../hooks';
 import { getCities } from '../../utils';
-import LocationCity from '../location-city/location-city';
+import LocationCity from './location-city/location-city';
 
 //Список городов
 export default function LocationCities() {

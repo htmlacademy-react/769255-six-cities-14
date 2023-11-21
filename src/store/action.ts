@@ -1,22 +1,8 @@
 import { createAction } from '@reduxjs/toolkit';
 import { TOffer } from '../types/offer';
 
-export const changeCity = createAction(
-  'MAIN/changeCity',
-  (cityName: string | null) => ({
-    payload: cityName,
-  })
-);
+export const changeCity = createAction<string | null>('main/changeCity');
 
-export const getCityOffers = createAction(
-  'MAIN/getCityOffers',
-  (cityName: string | null, offers: TOffer[]) => {
-    const cityOffers: TOffer[] = offers.filter(
-      (offer) => offer.city.name === cityName
-    );
+export const getAllOffers = createAction<TOffer[]>('main/getAllOffers');
 
-    return {
-      payload: cityOffers,
-    };
-  }
-);
+export const setIsLoading = createAction<boolean>('main/setIsLoading');

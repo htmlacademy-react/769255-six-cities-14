@@ -2,8 +2,8 @@ import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 import { fullOffers } from '../../mocks/fullOffers';
 import NotFound from '../not-found/not-found';
-import OfferImages from '../offer-images/offer-images';
-import Review from '../review/review';
+import OfferImages from './offer-images/offer-images';
+import Review from './review/review';
 
 //Карточка предложения
 function Offer(): React.ReactNode {
