@@ -3,14 +3,14 @@ import LocationCities from '../location-cities/location-cities';
 import Locations from '../locations/locations';
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchOffers } from '../../store/api-actions';
+import { fetchOffersAction } from '../../store/api-actions';
 import Spinner from '../spinner/spinner';
 
 function Main(): React.ReactNode {
   const isLoading = useAppSelector((state) => state.isLoading);
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(fetchOffers());
+    dispatch(fetchOffersAction());
   }, [dispatch]);
 
   return (
