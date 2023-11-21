@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { sortingTypes } from '../../const';
-import { useAppSelector } from '../../hooks';
-import { getCityOffers, getLocations, sortOffers } from '../../utils';
-import Spinner from '../spinner/spinner';
+import { sortingTypes } from '../../../const';
+import { useAppSelector } from '../../../hooks';
+import { getCityOffers, getLocations, sortOffers } from '../../../utils';
+import Spinner from '../../spinner/spinner';
 import Map from './map/map';
 import OffersList from './offers-list/offers-list';
 import Sorting from './sorting/sorting';

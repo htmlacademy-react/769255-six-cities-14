@@ -10,7 +10,7 @@ function Login(): JSX.Element {
 
   const dispatch = useAppDispatch();
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
-    evt.preventDefault;
+    evt.preventDefault();
 
     if (loginRef.current !== null && passwordRef.current !== null) {
       const authData = {

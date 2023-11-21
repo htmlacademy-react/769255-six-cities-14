@@ -1,7 +1,12 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { AuthorizationStatus } from '../const';
 import { TOffer } from '../types/offer';
-import { changeCity, getAllOffers, requireAuthorization, setError } from './action';
+import {
+  changeCity,
+  getAllOffers,
+  requireAuthorization,
+  setError,
+} from './action';
 
 type TInitialState = {
   activeCity: string;
@@ -19,7 +24,7 @@ const initialState: TInitialState = {
   authorizationStatus: AuthorizationStatus.Unknown,
 };
 
-export const placesReducer = createReducer(initialState, (builder) => {
+export const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(changeCity, (state, action) => {
       if (action.payload) {
@@ -32,7 +37,7 @@ export const placesReducer = createReducer(initialState, (builder) => {
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
     })
-    .addCase(setError, (state, action)=> {
+    .addCase(setError, (state, action) => {
       state.error = action.payload;
     });
 });

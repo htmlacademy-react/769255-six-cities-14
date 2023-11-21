@@ -8,7 +8,7 @@ type PrivateRouteProps = {
 
 //компонент для описания приватных маршрутов
 function PrivateRoute({ authorizationStatus, children }: PrivateRouteProps) {
-  return authorizationStatus === AuthorizationStatus.NoAuth ? (
+  return authorizationStatus === AuthorizationStatus.Auth ? (
     children
   ) : (
     <Navigate to={AppRoute.Login} />

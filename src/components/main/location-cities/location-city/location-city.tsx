@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import { useAppDispatch } from '../../../hooks';
-import { changeCity } from '../../../store/action';
+import { useAppDispatch } from '../../../../hooks';
+import { changeCity } from '../../../../store/action';
 
 type LocationCityProps = {
   city: string;

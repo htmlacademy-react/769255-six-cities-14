@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchOffersAction } from '../../store/api-actions';
-import LocationCities from '../location-cities/location-cities';
-import Locations from '../locations/locations';
+import LocationCities from './location-cities/location-cities';
+import Locations from './locations/locations';
 import Spinner from '../spinner/spinner';
 
 function Main(): JSX.Element {
