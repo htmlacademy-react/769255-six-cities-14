@@ -1,8 +1,26 @@
+import { FormEvent, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import Input from '../input/input';
+import { useAppDispatch } from '../../hooks';
+import { loginAction } from '../../store/api-actions';
 
-function Login(): React.ReactNode {
+function Login(): JSX.Element {
+  const loginRef = useRef<HTMLInputElement | null>(null);
+  const passwordRef = useRef<HTMLInputElement | null>(null);
+
+  const dispatch = useAppDispatch();
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault;
+
+    if (loginRef.current !== null && passwordRef.current !== null) {
+      const authData = {
+        login: loginRef.current.value,
+        password: passwordRef.current.value,
+      };
+      dispatch(loginAction(authData));
+    }
+  };
+
   return (
     <>
       <Helmet>
@@ -13,21 +31,34 @@ function Login(): React.ReactNode {
           <div className="page__login-container container">
             <section className="login">
               <h1 className="login__title">Sign in</h1>
-              <form className="login__form form" action="#" method="post">
-                <Input
-                  label="E-mail"
-                  type="email"
-                  name="email"
-                  placeholder="Email"
-                  required
-                />
-                <Input
-                  label="Password"
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                  required
-                />
+              <form
+                className="login__form form"
+                action="#"
+                method="post"
+                onSubmit={handleSubmit}
+              >
+                <div className="login__input-wrapper form__input-wrapper">
+                  <label className="visually-hidden">Email</label>
+                  <input
+                    ref={loginRef}
+                    className="login__input form__input"
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    required
+                  />
+                </div>
+                <div className="login__input-wrapper form__input-wrapper">
+                  <label className="visually-hidden">Password</label>
+                  <input
+                    ref={passwordRef}
+                    className="login__input form__input"
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    required
+                  />
+                </div>
                 <button
                   className="login__submit form__submit button"
                   type="submit"

@@ -6,7 +6,7 @@ import OfferImages from './offer-images/offer-images';
 import Review from './review/review';
 
 //Карточка предложения
-function Offer(): React.ReactNode {
+function Offer(): JSX.Element {
   const offers = useAppSelector((state) => state.offers);
   const offerId = Number(useParams().id);
   const offer = offers.find((item) => item.id === offerId);

@@ -6,7 +6,7 @@ type LocationCityProps = {
   city: string;
 };
 
-function LocationCity({ city }: LocationCityProps): React.ReactNode {
+function LocationCity({ city }: LocationCityProps): JSX.Element {
   const dispatch = useAppDispatch();
 
   return (

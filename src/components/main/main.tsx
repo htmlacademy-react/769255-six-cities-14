@@ -1,12 +1,12 @@
-import { Helmet } from 'react-helmet-async';
-import LocationCities from '../location-cities/location-cities';
-import Locations from '../locations/locations';
 import { useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchOffersAction } from '../../store/api-actions';
+import LocationCities from '../location-cities/location-cities';
+import Locations from '../locations/locations';
 import Spinner from '../spinner/spinner';
 
-function Main(): React.ReactNode {
+function Main(): JSX.Element {
   const isLoading = useAppSelector((state) => state.isLoading);
   const dispatch = useAppDispatch();
   useEffect(() => {

@@ -1,9 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
-import { APIRoute, AuthorizationStatus } from '../const';
+import { APIRoute, AppRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR } from '../const';
+import { dropToken, saveToken } from '../services/token';
+import { TAuthData } from '../types/auth-data';
 import { TOffer } from '../types/offer';
 import { AppDispatch, State } from '../types/state';
-import { getAllOffers, requireAuthorization, setIsLoading } from './action';
+import { TUserData } from '../types/user-data';
+import { getAllOffers, redirectToRoute, requireAuthorization, setError, setIsLoading } from './action';
+import { store } from '.';
 
 export const fetchOffersAction = createAsyncThunk<
   void,
@@ -13,7 +17,7 @@ export const fetchOffersAction = createAsyncThunk<
     state: State;
     extra: AxiosInstance;
   }
->('main/fetchOffers', async (_arg, { dispatch, extra: api }) => {
+>('cities/fetchOffers', async (_arg, { dispatch, extra: api }) => {
   dispatch(setIsLoading(true));
   const { data } = await api.get<TOffer[]>(APIRoute.Offers);
   dispatch(getAllOffers(data));
@@ -35,4 +39,38 @@ export const checkAuthAction = createAsyncThunk<
   } catch {
     dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
   }
+});
+
+export const loginAction = createAsyncThunk<
+  void,
+  TAuthData,
+  {
+    dispath: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
+  'user/login',
+  async ({ login: email, password }, { dispatch, extra: api }) => {
+    const {
+      data: { token },
+    } = await api.post<TUserData>(APIRoute.Login, { email, password });
+    saveToken(token);
+    dispatch(requireAuthorization(AuthorizationStatus.Auth));
+    dispatch(redirectToRoute(AppRoute.Main));
+  }
+);
+
+export const logoutAction = createAsyncThunk<
+  void,
+  undefined,
+  { dispatch: AppDispatch; state: State; extra: AxiosInstance }
+>('user/logout', async (_arg, { dispatch, extra: api }) => {
+  await api.delete(APIRoute.Logout);
+  dropToken();
+  dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+});
+
+export const clearErrorAction = createAsyncThunk('cities/clearError', () => {
+  setTimeout(() => store.dispatch(setError(null)), TIMEOUT_SHOW_ERROR);
 });
