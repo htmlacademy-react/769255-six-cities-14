@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 
-function NotFound(): React.ReactNode {
+function NotFound(): JSX.Element {
   return (
     <>
       <Helmet>

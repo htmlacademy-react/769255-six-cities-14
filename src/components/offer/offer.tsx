@@ -1,13 +1,13 @@
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
-import { fullOffers } from '../../mocks/fullOffers';
+import { useAppSelector } from '../../hooks';
 import NotFound from '../not-found/not-found';
 import OfferImages from './offer-images/offer-images';
 import Review from './review/review';
 
 //Карточка предложения
-function Offer(): React.ReactNode {
-  const offers = fullOffers;
+function Offer(): JSX.Element {
+  const offers = useAppSelector((state) => state.offers);
   const offerId = Number(useParams().id);
   const offer = offers.find((item) => item.id === offerId);
 

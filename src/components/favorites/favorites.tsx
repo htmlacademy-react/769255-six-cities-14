@@ -2,13 +2,13 @@ import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { TOffer } from '../../types/offer';
 import FavoritesCard from './favorites-card/favorites-card';
-import Footer from '../footer/footer';
+import Footer from './footer/footer';
 
 type FavoritesProps = {
   favorites: TOffer[];
 };
 
-function Favorites({ favorites }: FavoritesProps): React.ReactNode {
+function Favorites({ favorites }: FavoritesProps): JSX.Element {
   return (
     <>
       <Helmet>

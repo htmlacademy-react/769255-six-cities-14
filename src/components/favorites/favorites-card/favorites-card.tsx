@@ -6,7 +6,7 @@ type FavoritesCardProps = {
   favorite: TOffer;
 };
 
-function FavoritesCard({ favorite }: FavoritesCardProps): React.ReactNode {
+function FavoritesCard({ favorite }: FavoritesCardProps): JSX.Element {
   return (
     <article className="favorites__card place-card">
       {favorite.isPremium && (

@@ -1,10 +1,10 @@
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useEffect, useRef } from 'react';
-import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../../const';
-import useMap from '../../../hooks/use-map';
-import { TCity } from '../../../types/city';
-import { TLocation } from '../../../types/location';
+import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../../../const';
+import useMap from '../../../../hooks/use-map';
+import { TCity } from '../../../../types/city';
+import { TLocation } from '../../../../types/location';
 
 const defaultCustomIcon = leaflet.icon({
   iconUrl: URL_MARKER_DEFAULT,

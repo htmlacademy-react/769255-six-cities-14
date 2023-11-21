@@ -1,19 +1,25 @@
-import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { Route, Routes } from 'react-router-dom';
+import browserHistory from '../../browser-history';
+import { AppRoute } from '../../const';
+import { useAppSelector } from '../../hooks';
+import { favorites } from '../../mocks/favorites';
 import FavoritesPage from '../../pages/favorites-page';
 import LoginPage from '../../pages/login-page';
 import MainPage from '../../pages/main-page/main-page';
 import NotFoundPage from '../../pages/not-found-page';
 import OfferPage from '../../pages/offer-page';
+import HistoryRouter from '../history-route/history-route';
 import Layout from '../layout/layout';
 import PrivateRoute from '../private-route/private-route';
-import { favorites } from '../../mocks/favorites';
 
-function App(): React.ReactNode {
+function App(): JSX.Element {
+  const authorizationStatus = useAppSelector(
+    (state) => state.authorizationStatus
+  );
   return (
     <HelmetProvider>
-      <BrowserRouter>
+      <HistoryRouter history={browserHistory}>
         <Routes>
           <Route path={AppRoute.Main} element={<Layout />}>
             <Route index element={<MainPage />} />
@@ -22,7 +28,7 @@ function App(): React.ReactNode {
             <Route
               path={AppRoute.Favorites}
               element={
-                <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+                <PrivateRoute authorizationStatus={authorizationStatus}>
                   <FavoritesPage favorites={favorites} />
                 </PrivateRoute>
               }
@@ -30,7 +36,7 @@ function App(): React.ReactNode {
             <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>
-      </BrowserRouter>
+      </HistoryRouter>
     </HelmetProvider>
   );
 }
