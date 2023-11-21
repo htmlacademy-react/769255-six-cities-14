@@ -9,7 +9,7 @@ export type TOfferGoods = string[];
 export type TOffer = {
   city: TCity;
   previewImage: string;
-  images: TOfferImages;
+  images?: TOfferImages;
   title: string;
   isFavorite: boolean;
   isPremium: boolean;

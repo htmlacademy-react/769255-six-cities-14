@@ -24,8 +24,8 @@ export function getCities(offers: TOffer[]) {
 }
 
 export function getCityOffers(offers: TOffer[], cityName: string | null) {
-  if(cityName === null){
-    return offers
+  if (cityName === null) {
+    return offers;
   }
 
   const cityOffers = offers.filter((offer) => offer.city.name === cityName);

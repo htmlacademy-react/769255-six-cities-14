@@ -1,5 +1,4 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { fullOffers } from '../mocks/fullOffers';
 import { TOffer } from '../types/offer';
 import { changeCity, getAllOffers } from './action';
 
@@ -12,9 +11,9 @@ type TInitialState = {
 
 const initialState: TInitialState = {
   activeCity: 'Paris',
-  offers: fullOffers,
+  offers: [],
   error: null,
-  isLoading: true
+  isLoading: false,
 };
 
 export const placesReducer = createReducer(initialState, (builder) => {
@@ -27,7 +26,6 @@ export const placesReducer = createReducer(initialState, (builder) => {
     .addCase(getAllOffers, (state, action) => {
       if (action.payload) {
         state.offers = action.payload;
-        
       }
     });
 });
