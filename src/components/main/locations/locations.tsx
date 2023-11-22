@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { sortingTypes } from '../../../const';
 import { useAppSelector } from '../../../hooks';
 import { getCityOffers, getLocations, sortOffers } from '../../../utils';
-import Spinner from '../../spinner/spinner';
+import Spinner from '../../common/spinner/spinner';
 import Map from './map/map';
 import OffersPreviewList from './offers-preview-list/offers-preview-list';
 import Sorting from './sorting/sorting';

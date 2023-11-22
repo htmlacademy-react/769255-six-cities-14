@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchOffersAction } from '../../store/api-actions';
 import LocationCities from './location-cities/location-cities';
 import Locations from './locations/locations';
-import Spinner from '../spinner/spinner';
+import Spinner from '../common/spinner/spinner';
 
 function Main(): JSX.Element {
   const isLoading = useAppSelector((state) => state.places.isLoading);

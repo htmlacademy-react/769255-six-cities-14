@@ -39,7 +39,7 @@ const initialState: TInitialState = {
   error: { error: null },
   offer: {
     offer: null,
-    offerIsLoadingStatus: true,
+    offerIsLoadingStatus: false,
     offerId: '',
     offersNearBy: [],
     comments: [],

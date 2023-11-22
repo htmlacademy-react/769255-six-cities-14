@@ -1,15 +1,14 @@
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../../../../const';
-import { useAppDispatch } from '../../../../../hooks';
-import { setOfferId } from '../../../../../store/actions';
-import { TOfferPreview } from '../../../../../types/offer-preview';
+import { AppRoute } from '../../../const';
+import { useAppDispatch } from '../../../hooks';
+import { setOfferId } from '../../../store/actions';
+import { TOfferPreview } from '../../../types/offer-preview';
 
 type OfferCardProps = {
   offer: TOfferPreview;
   handleHoverOffer: (offerId: string | null) => void;
 };
 
-//Карточка предложения
 function OfferPreviewCard({ offer, handleHoverOffer }: OfferCardProps) {
   const dispatch = useAppDispatch();
   const handleClickOffer = () => {

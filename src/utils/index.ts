@@ -23,7 +23,10 @@ export function getCities(offers: TOfferPreview[]) {
   return cities;
 }
 
-export function getCityOffers(offers: TOfferPreview[], cityName: string | null) {
+export function getCityOffers(
+  offers: TOfferPreview[],
+  cityName: string | null
+) {
   if (cityName === null) {
     return offers;
   }
@@ -32,7 +35,10 @@ export function getCityOffers(offers: TOfferPreview[], cityName: string | null) 
   return cityOffers;
 }
 
-export function sortOffers(offers: TOfferPreview[], sortingType: string | null) {
+export function sortOffers(
+  offers: TOfferPreview[],
+  sortingType: string | null
+) {
   const sortedOffers: TOfferPreview[] = [...offers];
   switch (sortingType) {
     case 'Price: low to high':
@@ -53,4 +59,15 @@ export function sortOffers(offers: TOfferPreview[], sortingType: string | null) 
     default:
       return offers;
   }
+}
+
+export function dateFormat(date: string) {
+  const formatDate = new Date(date);
+  const options = {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  };
+  return formatDate.toLocaleString('ru-RU', options);
 }

@@ -1,5 +1,5 @@
 import { TOfferPreview } from '../../../../types/offer-preview';
-import OfferPreviewCard from './offer-preview-card/offer-preview-card';
+import OfferPreviewCard from '../../../common/offer-preview-card/offer-preview-card';
 
 type OffersListProps = {
   cityOffers: TOfferPreview[];
