@@ -1,4 +1,4 @@
-import { createReducer } from '@reduxjs/toolkit';
+import { combineReducers, createReducer } from '@reduxjs/toolkit';
 import { AuthorizationStatus } from '../const';
 import { TComment } from '../types/comment';
 import { TOffer } from '../types/offer';
@@ -111,3 +111,11 @@ export const favoriteReducer = createReducer(initialState.favorite, (builder) =>
       state.isLoading = action.payload;
     })
 );
+
+export const reducer = combineReducers({
+  places: placesReducer,
+  auth: authReducer,
+  error: errorReducer,
+  offer: offerReducer,
+  favorite: favoriteReducer
+});
