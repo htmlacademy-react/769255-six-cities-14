@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../../const';
-import { TOffer } from '../../../types/offer';
+import { TOfferPreview } from '../../../types/offer-preview';
 
-type FavoritesCardProps = {
-  favorite: TOffer;
+type FavoriteCardProps = {
+  favorite: TOfferPreview;
 };
 
-function FavoritesCard({ favorite }: FavoritesCardProps): JSX.Element {
+function FavoriteCard({ favorite }: FavoriteCardProps): JSX.Element {
   return (
     <article className="favorites__card place-card">
       {favorite.isPremium && (
@@ -15,7 +15,7 @@ function FavoritesCard({ favorite }: FavoritesCardProps): JSX.Element {
         </div>
       )}
       <div className="favorites__image-wrapper place-card__image-wrapper">
-        <Link to={`${AppRoute.Offer}/${favorite.id}`}>
+        <Link to={`${AppRoute.Offers}/${favorite.id}`}>
           <img
             className="place-card__image"
             src="img/apartment-small-03.jpg"
@@ -48,7 +48,7 @@ function FavoritesCard({ favorite }: FavoritesCardProps): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`${AppRoute.Offer}/${favorite.id}`}>{favorite.title}</Link>
+          <Link to={`${AppRoute.Offers}/${favorite.id}`}>{favorite.title}</Link>
         </h2>
         <p className="place-card__type">{favorite.type}</p>
       </div>
@@ -56,4 +56,4 @@ function FavoritesCard({ favorite }: FavoritesCardProps): JSX.Element {
   );
 }
 
-export default FavoritesCard;
+export default FavoriteCard;

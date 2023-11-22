@@ -1,20 +1,22 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { AuthorizationStatus } from '../const';
+import { TComment } from '../types/comment';
 import { TOffer } from '../types/offer';
+import { TOfferPreview } from '../types/offer-preview';
 import {
   changeCity,
   getAllOffers,
   getComments,
+  getFavoriteOffers,
   getOffer,
   getOfferNearBy,
   requireAuthorization,
   setError,
+  setFavoriteIsLoading,
   setIsLoading,
   setOfferId,
   setOfferIsLoadingStatus,
 } from './actions';
-import { TOfferPreview } from '../types/offer-preview';
-import { TComment } from '../types/comment';
 
 type TInitialState = {
   places: { activeCity: string; offers: TOfferPreview[]; isLoading: boolean };
@@ -22,10 +24,14 @@ type TInitialState = {
   error: { error: string | null };
   offer: {
     offer: TOffer | null;
-    offerIsLoadingStatus: boolean;
+    isLoading: boolean;
     offerId: string;
     offersNearBy: TOfferPreview[];
     comments: TComment[];
+  };
+  favorite: {
+    offers: TOfferPreview[];
+    isLoading: boolean;
   };
 };
 
@@ -39,10 +45,14 @@ const initialState: TInitialState = {
   error: { error: null },
   offer: {
     offer: null,
-    offerIsLoadingStatus: false,
+    isLoading: false,
     offerId: '',
     offersNearBy: [],
     comments: [],
+  },
+  favorite: {
+    offers: [],
+    isLoading: false,
   },
 };
 
@@ -82,7 +92,7 @@ export const offerReducer = createReducer(initialState.offer, (builder) => {
       state.offer = action.payload;
     })
     .addCase(setOfferIsLoadingStatus, (state, action) => {
-      state.offerIsLoadingStatus = action.payload;
+      state.isLoading = action.payload;
     })
     .addCase(getOfferNearBy, (state, action) => {
       state.offersNearBy = action.payload;
@@ -91,3 +101,13 @@ export const offerReducer = createReducer(initialState.offer, (builder) => {
       state.comments = action.payload;
     });
 });
+
+export const favoriteReducer = createReducer(initialState.favorite, (builder) =>
+  builder
+    .addCase(getFavoriteOffers, (state, action) => {
+      state.offers = action.payload;
+    })
+    .addCase(setFavoriteIsLoading, (state, action) => {
+      state.isLoading = action.payload;
+    })
+);

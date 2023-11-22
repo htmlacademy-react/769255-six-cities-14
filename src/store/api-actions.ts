@@ -1,30 +1,32 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
+import { store } from '.';
 import {
   APIRoute,
   AppRoute,
   AuthorizationStatus,
   TIMEOUT_SHOW_ERROR,
 } from '../const';
-import { dropToken, saveToken } from '../services/token';
+import { dropToken, getToken, saveToken } from '../services/token';
 import { TAuthData } from '../types/auth-data';
+import { TComment } from '../types/comment';
 import { TOffer } from '../types/offer';
+import { TOfferPreview } from '../types/offer-preview';
 import { AppDispatch, State } from '../types/state';
 import { TUserData } from '../types/user-data';
 import {
   getAllOffers,
   getComments,
+  getFavoriteOffers,
   getOffer,
   getOfferNearBy,
   redirectToRoute,
   requireAuthorization,
   setError,
+  setFavoriteIsLoading,
   setIsLoading,
   setOfferIsLoadingStatus,
 } from './actions';
-import { store } from '.';
-import { TOfferPreview } from '../types/offer-preview';
-import { TComment } from '../types/comment';
 
 export const fetchOffersAction = createAsyncThunk<
   void,
@@ -129,13 +131,34 @@ export const fetchOffersNearByAction = createAsyncThunk<
   }
 );
 
-export const fetchOfferComments = createAsyncThunk<
+export const fetchOfferCommentsAction = createAsyncThunk<
   void,
   undefined,
   { dispatch: AppDispatch; state: State; extra: AxiosInstance }
->('offer/comments', async (_arg, { dispatch, getState, extra: api }) => {
-  const state = getState();
-  const offerId = state.offer.offerId;
-  const { data } = await api.get<TComment[]>(`${APIRoute.Comments}/${offerId}`);
-  dispatch(getComments(data));
+>(
+  'offer/fetchOfferComments',
+  async (_arg, { dispatch, getState, extra: api }) => {
+    const state = getState();
+    const offerId = state.offer.offerId;
+    const { data } = await api.get<TComment[]>(
+      `${APIRoute.Comments}/${offerId}`
+    );
+    dispatch(getComments(data));
+  }
+);
+
+export const fetchFavoriteOffersAction = createAsyncThunk<
+  void,
+  undefined,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>('favorite/fetchFavoriteOffers', async (_arg, { dispatch, extra: api }) => {
+  dispatch(setFavoriteIsLoading(true));
+  getToken();
+  const { data } = await api.get<TOfferPreview[]>(APIRoute.Favorite);
+  dispatch(getFavoriteOffers(data));
+  dispatch(setFavoriteIsLoading(false));
 });

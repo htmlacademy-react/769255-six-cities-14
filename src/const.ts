@@ -8,7 +8,7 @@ export const URL_MARKER_CURRENT =
 
 export enum AppRoute {
   Login = '/login',
-  Favorites = '/favorites',
+  Favorite = '/favorite',
   Main = '/',
   Offers = '/offers',
 }
@@ -22,7 +22,7 @@ export enum AuthorizationStatus {
 export enum APIRoute {
   Login = '/login',
   Logout = '/logout',
-  Favorites = '/favorites',
+  Favorite = '/favorite',
   Offers = '/offers',
   Comments = '/comments'
 }

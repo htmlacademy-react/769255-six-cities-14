@@ -26,9 +26,15 @@ export const setOfferIsLoadingStatus = createAction<boolean>(
   'offer/setOfferIsLoadingStatus'
 );
 
-export const setOfferId = createAction<string>('offer/offerId');
+export const setOfferId = createAction<string>('offer/setOfferId');
 
 export const getOfferNearBy =
   createAction<TOfferPreview[]>('offer/offersNearBy');
 
-export const getComments = createAction<TComment[]>('offer/offerComments');
+export const getComments = createAction<TComment[]>('offer/getComments');
+
+export const getFavoriteOffers = createAction<TOfferPreview[]>(
+  'favorite/getFavoriteOffers'
+);
+
+export const setFavoriteIsLoading = createAction<boolean>('favorite/setFavoriteIsLoading');

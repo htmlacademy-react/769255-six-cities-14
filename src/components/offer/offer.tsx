@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
   fetchOfferAction,
-  fetchOfferComments,
+  fetchOfferCommentsAction,
   fetchOffersNearByAction,
 } from '../../store/api-actions';
 import { TOfferPreview } from '../../types/offer-preview';
@@ -19,7 +19,7 @@ import { setOfferId } from '../../store/actions';
 function Offer(): JSX.Element {
   const dispatch = useAppDispatch();
   const offerId = useParams<string>().id;
-  const isLoading = useAppSelector((state) => state.offer.offerIsLoadingStatus);
+  const isLoading = useAppSelector((state) => state.offer.isLoading);
   const offer = useAppSelector((state) => state.offer.offer);
   const offersNearBy = useAppSelector((state) => state.offer.offersNearBy);
 
@@ -28,7 +28,7 @@ function Offer(): JSX.Element {
       dispatch(setOfferId(offerId));
       dispatch(fetchOfferAction());
       dispatch(fetchOffersNearByAction());
-      dispatch(fetchOfferComments());
+      dispatch(fetchOfferCommentsAction());
     }
   }, [dispatch, offerId]);
 
