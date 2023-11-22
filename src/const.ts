@@ -9,8 +9,8 @@ export const URL_MARKER_CURRENT =
 export enum AppRoute {
   Login = '/login',
   Favorites = '/favorites',
-  Offer = '/offer',
   Main = '/',
+  Offers = '/offers',
 }
 
 export enum AuthorizationStatus {
@@ -22,9 +22,9 @@ export enum AuthorizationStatus {
 export enum APIRoute {
   Login = '/login',
   Logout = '/logout',
-  Offer = '/offer',
   Favorites = '/favorites',
   Offers = '/offers',
+  Comments = '/comments'
 }
 
 export const sortingTypes = [

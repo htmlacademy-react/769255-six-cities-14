@@ -4,7 +4,7 @@ import LocationCity from './location-city/location-city';
 
 //Список городов
 export default function LocationCities() {
-  const offers = useAppSelector((state) => state.offers);
+  const offers = useAppSelector((state) => state.places.offers);
   const cities = getCities(offers);
 
   return (

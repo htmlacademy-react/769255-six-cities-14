@@ -7,7 +7,7 @@ import Locations from './locations/locations';
 import Spinner from '../spinner/spinner';
 
 function Main(): JSX.Element {
-  const isLoading = useAppSelector((state) => state.isLoading);
+  const isLoading = useAppSelector((state) => state.places.isLoading);
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchOffersAction());

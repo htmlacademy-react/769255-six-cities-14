@@ -13,12 +13,18 @@ import { AppDispatch, State } from '../types/state';
 import { TUserData } from '../types/user-data';
 import {
   getAllOffers,
+  getComments,
+  getOffer,
+  getOfferNearBy,
   redirectToRoute,
   requireAuthorization,
   setError,
   setIsLoading,
-} from './action';
+  setOfferIsLoadingStatus,
+} from './actions';
 import { store } from '.';
+import { TOfferPreview } from '../types/offer-preview';
+import { TComment } from '../types/comment';
 
 export const fetchOffersAction = createAsyncThunk<
   void,
@@ -30,7 +36,7 @@ export const fetchOffersAction = createAsyncThunk<
   }
 >('cities/fetchOffers', async (_arg, { dispatch, extra: api }) => {
   dispatch(setIsLoading(true));
-  const { data } = await api.get<TOffer[]>(APIRoute.Offers);
+  const { data } = await api.get<TOfferPreview[]>(APIRoute.Offers);
   dispatch(getAllOffers(data));
   dispatch(setIsLoading(false));
 });
@@ -84,4 +90,52 @@ export const logoutAction = createAsyncThunk<
 
 export const clearErrorAction = createAsyncThunk('cities/clearError', () => {
   setTimeout(() => store.dispatch(setError(null)), TIMEOUT_SHOW_ERROR);
+});
+
+export const fetchOfferAction = createAsyncThunk<
+  void,
+  undefined,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>('offer/fetchOffer', async (_arg, { dispatch, getState, extra: api }) => {
+  dispatch(setOfferIsLoadingStatus(true));
+  const state = getState();
+  const offerId = state.offer.offerId;
+  const { data } = await api.get<TOffer>(`${APIRoute.Offers}/${offerId}`);
+  dispatch(getOffer(data));
+  dispatch(setOfferIsLoadingStatus(false));
+});
+
+export const fetchOffersNearByAction = createAsyncThunk<
+  void,
+  undefined,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
+  'offer/fetchOffersNearBy',
+  async (_arg, { dispatch, getState, extra: api }) => {
+    const state = getState();
+    const offerId = state.offer.offerId;
+    const { data } = await api.get<TOfferPreview[]>(
+      `${APIRoute.Offers}/${offerId}/nearBy`
+    );
+    dispatch(getOfferNearBy(data));
+  }
+);
+
+export const fetchOfferComments = createAsyncThunk<
+  void,
+  undefined,
+  { dispatch: AppDispatch; state: State; extra: AxiosInstance }
+>('offer/comments', async (_arg, { dispatch, getState, extra: api }) => {
+  const state = getState();
+  const offerId = state.offer.offerId;
+  const { data } = await api.get<TComment[]>(`${APIRoute.Comments}/${offerId}`);
+  dispatch(getComments(data));
 });

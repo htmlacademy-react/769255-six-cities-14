@@ -1,8 +1,8 @@
 import { TCity } from '../types/city';
 import { TLocation } from '../types/location';
-import { TOffer } from '../types/offer';
+import { TOfferPreview } from '../types/offer-preview';
 
-export function getLocations(offers: TOffer[]): TLocation[] {
+export function getLocations(offers: TOfferPreview[]): TLocation[] {
   const locations: TLocation[] = [];
 
   offers.filter((offer) => {
@@ -12,7 +12,7 @@ export function getLocations(offers: TOffer[]): TLocation[] {
   return locations;
 }
 
-export function getCities(offers: TOffer[]) {
+export function getCities(offers: TOfferPreview[]) {
   const cities: TCity[] = [];
 
   offers.filter((offer) => {
@@ -23,7 +23,7 @@ export function getCities(offers: TOffer[]) {
   return cities;
 }
 
-export function getCityOffers(offers: TOffer[], cityName: string | null) {
+export function getCityOffers(offers: TOfferPreview[], cityName: string | null) {
   if (cityName === null) {
     return offers;
   }
@@ -32,8 +32,8 @@ export function getCityOffers(offers: TOffer[], cityName: string | null) {
   return cityOffers;
 }
 
-export function sortOffers(offers: TOffer[], sortingType: string | null) {
-  const sortedOffers: TOffer[] = [...offers];
+export function sortOffers(offers: TOfferPreview[], sortingType: string | null) {
+  const sortedOffers: TOfferPreview[] = [...offers];
   switch (sortingType) {
     case 'Price: low to high':
       return sortedOffers.sort(

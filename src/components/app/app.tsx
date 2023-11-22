@@ -15,7 +15,7 @@ import PrivateRoute from '../private-route/private-route';
 
 function App(): JSX.Element {
   const authorizationStatus = useAppSelector(
-    (state) => state.authorizationStatus
+    (state) => state.auth.authorizationStatus
   );
   return (
     <HelmetProvider>
@@ -23,7 +23,7 @@ function App(): JSX.Element {
         <Routes>
           <Route path={AppRoute.Main} element={<Layout />}>
             <Route index element={<MainPage />} />
-            <Route path={`${AppRoute.Offer}/:id`} element={<OfferPage />} />
+            <Route path={`${AppRoute.Offers}/:id`} element={<OfferPage />} />
             <Route path={AppRoute.Login} element={<LoginPage />} />
             <Route
               path={AppRoute.Favorites}
