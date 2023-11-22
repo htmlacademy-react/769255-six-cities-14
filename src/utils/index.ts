@@ -63,7 +63,7 @@ export function sortOffers(
 
 export function dateFormat(date: string) {
   const formatDate = new Date(date);
-  const options = {
+  const options: Intl.DateTimeFormatOptions = {
     weekday: 'long',
     year: 'numeric',
     month: 'long',

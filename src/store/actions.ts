@@ -33,8 +33,11 @@ export const getOfferNearBy =
 
 export const getComments = createAction<TComment[]>('offer/getComments');
 
+export const postComment = createAction('offer/postComment');
+
 export const getFavoriteOffers = createAction<TOfferPreview[]>(
   'favorite/getFavoriteOffers'
 );
 
 export const setFavoriteIsLoading = createAction<boolean>('favorite/setFavoriteIsLoading');
+
