@@ -7,3 +7,8 @@ export type TComment = {
   comment: string;
   rating: number;
 };
+
+export type TNewComment = {
+  comment: string;
+  rating: number;
+};

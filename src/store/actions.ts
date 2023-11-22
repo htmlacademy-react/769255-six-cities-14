@@ -1,8 +1,8 @@
 import { createAction } from '@reduxjs/toolkit';
-import { TOffer } from '../types/offer';
 import { AppRoute, AuthorizationStatus } from '../const';
+import { TComment, TNewComment } from '../types/comment';
+import { TOffer } from '../types/offer';
 import { TOfferPreview } from '../types/offer-preview';
-import { TComment } from '../types/comment';
 
 export const changeCity = createAction<string | null>('cities/changeCity');
 
@@ -33,7 +33,11 @@ export const getOfferNearBy =
 
 export const getComments = createAction<TComment[]>('offer/getComments');
 
-export const postComment = createAction('offer/postComment');
+export const setComment = createAction<TNewComment>('offer/setComment');
+
+export const setCommentIsLoadingStatus = createAction<boolean>(
+  'offer/setCommentIsLoadingStatus'
+);
 
 export const getFavoriteOffers = createAction<TOfferPreview[]>(
   'favorite/getFavoriteOffers'

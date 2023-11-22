@@ -1,6 +1,6 @@
 import { combineReducers, createReducer } from '@reduxjs/toolkit';
 import { AuthorizationStatus } from '../const';
-import { TComment } from '../types/comment';
+import { TComment, TNewComment } from '../types/comment';
 import { TOffer } from '../types/offer';
 import { TOfferPreview } from '../types/offer-preview';
 import {
@@ -11,6 +11,8 @@ import {
   getOffer,
   getOfferNearBy,
   requireAuthorization,
+  setComment,
+  setCommentIsLoadingStatus,
   setError,
   setFavoriteIsLoading,
   setIsLoading,
@@ -28,6 +30,8 @@ type TInitialState = {
     offerId: string;
     offersNearBy: TOfferPreview[];
     comments: TComment[];
+    newComment: TNewComment | null;
+    commentIsLoading: boolean;
   };
   favorite: {
     offers: TOfferPreview[];
@@ -49,6 +53,8 @@ const initialState: TInitialState = {
     offerId: '',
     offersNearBy: [],
     comments: [],
+    newComment: null,
+    commentIsLoading: false,
   },
   favorite: {
     offers: [],
@@ -99,6 +105,12 @@ export const offerReducer = createReducer(initialState.offer, (builder) => {
     })
     .addCase(getComments, (state, action) => {
       state.comments = action.payload;
+    })
+    .addCase(setComment, (state, action) => {
+      state.newComment = action.payload;
+    })
+    .addCase(setCommentIsLoadingStatus, (state, action) => {
+      state.commentIsLoading = action.payload;
     });
 });
 
@@ -117,5 +129,5 @@ export const reducer = combineReducers({
   auth: authReducer,
   error: errorReducer,
   offer: offerReducer,
-  favorite: favoriteReducer
+  favorite: favoriteReducer,
 });

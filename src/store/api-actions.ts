@@ -9,7 +9,7 @@ import {
 } from '../const';
 import { dropToken, getToken, saveToken } from '../services/token';
 import { TAuthData } from '../types/auth-data';
-import { TComment } from '../types/comment';
+import { TComment, TNewComment } from '../types/comment';
 import { TOffer } from '../types/offer';
 import { TOfferPreview } from '../types/offer-preview';
 import { AppDispatch, State } from '../types/state';
@@ -22,6 +22,8 @@ import {
   getOfferNearBy,
   redirectToRoute,
   requireAuthorization,
+  setComment,
+  setCommentIsLoadingStatus,
   setError,
   setFavoriteIsLoading,
   setIsLoading,
@@ -39,7 +41,7 @@ export const fetchOffersAction = createAsyncThunk<
 >('cities/fetchOffers', async (_arg, { dispatch, extra: api }) => {
   dispatch(setIsLoading(true));
   const { data } = await api.get<TOfferPreview[]>(APIRoute.Offers);
-  if(!data) {
+  if (!data) {
     dispatch(redirectToRoute(AppRoute.NotFound));
   }
   dispatch(getAllOffers(data));
@@ -165,3 +167,23 @@ export const fetchFavoriteOffersAction = createAsyncThunk<
   dispatch(getFavoriteOffers(data));
   dispatch(setFavoriteIsLoading(false));
 });
+
+export const postCommentAction = createAsyncThunk<
+  void,
+  TNewComment,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
+  'offer/postComment',
+  async ({comment, rating}, { dispatch, getState, extra: api }) => {
+    const state = getState();
+    const offerId = state.offer.offerId;
+    dispatch(setCommentIsLoadingStatus(true));
+    await api.post(`${APIRoute.Comments}/${offerId}`, {comment, rating});
+    dispatch(setComment({comment, rating}));
+    dispatch(setCommentIsLoadingStatus(false));
+  }
+);
