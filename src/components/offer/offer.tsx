@@ -38,7 +38,6 @@ function Offer(): JSX.Element {
     slicedOffersNearBy = offersNearBy.slice(0, 3);
   }
 
-  // if (isLoading && !offer) { - почему с таким условием валится страница?
   if (!offer) {
     return <NotFound />;
   }

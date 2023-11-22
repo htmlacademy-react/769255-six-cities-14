@@ -39,6 +39,9 @@ export const fetchOffersAction = createAsyncThunk<
 >('cities/fetchOffers', async (_arg, { dispatch, extra: api }) => {
   dispatch(setIsLoading(true));
   const { data } = await api.get<TOfferPreview[]>(APIRoute.Offers);
+  if(!data) {
+    dispatch(redirectToRoute(AppRoute.NotFound));
+  }
   dispatch(getAllOffers(data));
   dispatch(setIsLoading(false));
 });

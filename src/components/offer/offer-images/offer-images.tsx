@@ -5,11 +5,13 @@ type OfferImagesProps = {
 };
 
 function OfferImages({ images }: OfferImagesProps): JSX.Element {
-  let slicedImages: TOfferImages | [] = [];
+  let slicedImages: TOfferImages = [];
 
   const countImage = images.length;
   if (countImage > 6) {
     slicedImages = images.slice(0, 6);
+  } else {
+    slicedImages = images;
   }
 
   return (
