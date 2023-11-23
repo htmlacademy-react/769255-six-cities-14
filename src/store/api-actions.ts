@@ -7,7 +7,7 @@ import {
   AuthorizationStatus,
   TIMEOUT_SHOW_ERROR,
 } from '../const';
-import { dropToken, getToken, saveToken } from '../services/token';
+import { dropToken, saveToken } from '../services/token';
 import { TAuthData } from '../types/auth-data';
 import { TComment, TNewComment } from '../types/comment';
 import { TOffer } from '../types/offer';
@@ -22,12 +22,11 @@ import {
   getOfferNearBy,
   redirectToRoute,
   requireAuthorization,
-  setComment,
   setCommentIsLoadingStatus,
   setError,
   setFavoriteIsLoading,
   setIsLoading,
-  setOfferIsLoadingStatus,
+  setOfferIsLoadingStatus
 } from './actions';
 
 export const fetchOffersAction = createAsyncThunk<
@@ -162,7 +161,6 @@ export const fetchFavoriteOffersAction = createAsyncThunk<
   }
 >('favorite/fetchFavoriteOffers', async (_arg, { dispatch, extra: api }) => {
   dispatch(setFavoriteIsLoading(true));
-  getToken();
   const { data } = await api.get<TOfferPreview[]>(APIRoute.Favorite);
   dispatch(getFavoriteOffers(data));
   dispatch(setFavoriteIsLoading(false));
@@ -182,8 +180,10 @@ export const postCommentAction = createAsyncThunk<
     const state = getState();
     const offerId = state.offer.offerId;
     dispatch(setCommentIsLoadingStatus(true));
-    await api.post(`${APIRoute.Comments}/${offerId}`, {comment, rating});
-    dispatch(setComment({comment, rating}));
+    const {data} = await api.post<TComment>(`${APIRoute.Comments}/${offerId}`, {comment, rating});
+    if(data) {
+      dispatch(fetchOfferCommentsAction());
+    }
     dispatch(setCommentIsLoadingStatus(false));
   }
 );

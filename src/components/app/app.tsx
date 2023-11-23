@@ -9,8 +9,8 @@ import MainPage from '../../pages/main-page/main-page';
 import NotFoundPage from '../../pages/not-found-page';
 import OfferPage from '../../pages/offer-page';
 import Layout from '../layout/layout';
-import HistoryRouter from '../system/history-route/history-route';
-import PrivateRoute from '../system/private-route/private-route';
+import HistoryRouter from '../routes/history-route/history-route';
+import PrivateRoute from '../routes/private-route/private-route';
 
 function App(): JSX.Element {
   const authorizationStatus = useAppSelector(
