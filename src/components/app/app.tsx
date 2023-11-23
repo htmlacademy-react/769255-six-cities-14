@@ -3,19 +3,18 @@ import { Route, Routes } from 'react-router-dom';
 import browserHistory from '../../browser-history';
 import { AppRoute } from '../../const';
 import { useAppSelector } from '../../hooks';
-import { favorites } from '../../mocks/favorites';
-import FavoritesPage from '../../pages/favorites-page';
+import FavoritesPage from '../../pages/favorite-page';
 import LoginPage from '../../pages/login-page';
 import MainPage from '../../pages/main-page/main-page';
 import NotFoundPage from '../../pages/not-found-page';
 import OfferPage from '../../pages/offer-page';
-import HistoryRouter from '../history-route/history-route';
 import Layout from '../layout/layout';
-import PrivateRoute from '../private-route/private-route';
+import HistoryRouter from '../routes/history-route/history-route';
+import PrivateRoute from '../routes/private-route/private-route';
 
 function App(): JSX.Element {
   const authorizationStatus = useAppSelector(
-    (state) => state.authorizationStatus
+    (state) => state.auth.authorizationStatus
   );
   return (
     <HelmetProvider>
@@ -23,13 +22,13 @@ function App(): JSX.Element {
         <Routes>
           <Route path={AppRoute.Main} element={<Layout />}>
             <Route index element={<MainPage />} />
-            <Route path={`${AppRoute.Offer}/:id`} element={<OfferPage />} />
+            <Route path={`${AppRoute.Offers}/:id`} element={<OfferPage />} />
             <Route path={AppRoute.Login} element={<LoginPage />} />
             <Route
-              path={AppRoute.Favorites}
+              path={AppRoute.Favorite}
               element={
                 <PrivateRoute authorizationStatus={authorizationStatus}>
-                  <FavoritesPage favorites={favorites} />
+                  <FavoritesPage />
                 </PrivateRoute>
               }
             />

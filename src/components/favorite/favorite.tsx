@@ -1,14 +1,21 @@
+import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import { TOffer } from '../../types/offer';
-import FavoritesCard from './favorites-card/favorites-card';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { fetchFavoriteOffersAction } from '../../store/api-actions';
+import Spinner from '../common/spinner/spinner';
+import FavoriteCard from './favorite-card/favorite-card';
 import Footer from './footer/footer';
 
-type FavoritesProps = {
-  favorites: TOffer[];
-};
+function Favorite(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const favorites = useAppSelector((state) => state.favorite.offers);
+  const isLoading = useAppSelector((state) => state.favorite.isLoading);
 
-function Favorites({ favorites }: FavoritesProps): JSX.Element {
+  useEffect(() => {
+    dispatch(fetchFavoriteOffersAction());
+  }, [dispatch]);
+
   return (
     <>
       <Helmet>
@@ -24,15 +31,19 @@ function Favorites({ favorites }: FavoritesProps): JSX.Element {
                   <div className="favorites__locations locations locations--current">
                     <div className="locations__item">
                       <Link className="locations__item-link" to="/">
-                        <span>Amsterdam</span>
+                        <span>Go to main</span>
                       </Link>
                     </div>
                   </div>
-                  <div className="favorites__places">
-                    {favorites.map((favorite) => (
-                      <FavoritesCard favorite={favorite} key={favorite.id} />
-                    ))}
-                  </div>
+                  {isLoading ? (
+                    <Spinner />
+                  ) : (
+                    <div className="favorites__places">
+                      {favorites.map((favorite) => (
+                        <FavoriteCard favorite={favorite} key={favorite.id} />
+                      ))}
+                    </div>
+                  )}
                 </li>
               </ul>
             </section>
@@ -44,4 +55,4 @@ function Favorites({ favorites }: FavoritesProps): JSX.Element {
   );
 }
 
-export default Favorites;
+export default Favorite;

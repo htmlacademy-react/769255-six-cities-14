@@ -2,14 +2,14 @@ import { useState } from 'react';
 import { sortingTypes } from '../../../const';
 import { useAppSelector } from '../../../hooks';
 import { getCityOffers, getLocations, sortOffers } from '../../../utils';
-import Spinner from '../../spinner/spinner';
+import Spinner from '../../common/spinner/spinner';
 import Map from './map/map';
-import OffersList from './offers-list/offers-list';
+import OffersPreviewList from './offers-preview-list/offers-preview-list';
 import Sorting from './sorting/sorting';
 
 export default function Locations() {
-  const activeCityName = useAppSelector((state) => state.activeCity);
-  const offers = useAppSelector((state) => state.offers);
+  const activeCityName = useAppSelector((state) => state.places.activeCity);
+  const offers = useAppSelector((state) => state.places.offers);
   const cityOffers = getCityOffers(offers, activeCityName);
 
   const city = cityOffers.find(
@@ -23,8 +23,8 @@ export default function Locations() {
   );
   const sortedOffers = sortOffers(cityOffers, activeSorting);
 
-  const [hoverOffer, setHoverOffer] = useState<number | null>(null);
-  const handleHoverOffer = (offerId: number | null) => {
+  const [hoverOffer, setHoverOffer] = useState<string | null>(null);
+  const handleHoverOffer = (offerId: string | null) => {
     setHoverOffer(offerId);
   };
   const hoverLocation = cityOffers.find(
@@ -47,7 +47,7 @@ export default function Locations() {
             activeSorting={activeSorting}
             setActiveSorting={setActiveSorting}
           />
-          <OffersList
+          <OffersPreviewList
             cityOffers={sortedOffers}
             handleHoverOffer={handleHoverOffer}
           />
