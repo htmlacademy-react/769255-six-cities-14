@@ -14,10 +14,10 @@ export default function ReviewFrom() {
     setText(event.target.value);
   };
   const handleClick = (
-    event: React.MouseEventHandler<HTMLInputElement> | undefined
+    event: React.MouseEvent<HTMLInputElement> | undefined
   ) => {
     if (event) {
-      setRating(event.target.value);
+      setRating(event.currentTarget.value);
     }
   };
 

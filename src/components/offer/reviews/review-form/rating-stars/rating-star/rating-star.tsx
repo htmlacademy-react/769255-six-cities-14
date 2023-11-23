@@ -1,7 +1,5 @@
 type RatingStarProps = {
-  handleClick: (
-    event: React.MouseEventHandler<HTMLInputElement> | undefined
-  ) => void;
+  handleClick: (event: React.MouseEvent<HTMLInputElement> | undefined) => void;
   ratingRef: React.MutableRefObject<HTMLInputElement | null>;
   rating: string;
 };

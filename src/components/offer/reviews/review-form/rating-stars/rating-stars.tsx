@@ -1,9 +1,7 @@
 import RatingStar from './rating-star/rating-star';
 
 type RatingStarsProps = {
-  handleClick: (
-    event: React.MouseEventHandler<HTMLInputElement> | undefined
-  ) => void;
+  handleClick: (event: React.MouseEvent<HTMLInputElement> | undefined) => void;
   ratingRef: React.MutableRefObject<HTMLInputElement | null>;
 };
 
