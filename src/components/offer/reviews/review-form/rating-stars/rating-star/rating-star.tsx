@@ -1,5 +1,7 @@
 type RatingStarProps = {
-  handleClick: (event: React.ChangeEvent<HTMLInputElement> | null) => void;
+  handleClick: (
+    event: React.MouseEventHandler<HTMLInputElement> | undefined
+  ) => void;
   ratingRef: React.MutableRefObject<HTMLInputElement | null>;
   rating: string;
 };
@@ -14,7 +16,7 @@ export default function RatingStar({
       <input
         className="form__rating-input visually-hidden"
         name="rating"
-        value={rating}
+        value={6 - Number(rating)}
         id={`${rating}-stars`}
         type="radio"
         onClick={handleClick}

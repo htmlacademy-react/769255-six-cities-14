@@ -13,7 +13,9 @@ export default function ReviewFrom() {
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(event.target.value);
   };
-  const handleClick = (event: React.ChangeEvent<HTMLInputElement> | null) => {
+  const handleClick = (
+    event: React.MouseEventHandler<HTMLInputElement> | undefined
+  ) => {
     if (event) {
       setRating(event.target.value);
     }
