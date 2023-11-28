@@ -1,12 +1,10 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { NameSpace } from '../../const';
-import { TOfferData } from '../../types/state';
-import {
-  fetchOfferAction,
-  fetchOfferCommentsAction,
-  fetchOffersNearByAction,
-  postCommentAction,
-} from '../api-actions';
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { APIRoute, NameSpace } from '../../const';
+import { AppDispatch, State, TOfferData } from '../../types/state';
+import { AxiosInstance } from 'axios';
+import { TOffer } from '../../types/offer';
+import { TComment, TNewComment } from '../../types/comment';
+import { TOfferPreview } from '../../types/offer-preview';
 
 const initialState: TOfferData = {
   offer: {
@@ -28,11 +26,77 @@ const initialState: TOfferData = {
   },
 };
 
+export const fetchOfferAction = createAsyncThunk<
+  TOffer,
+  undefined,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>('offer/fetchOffer', async (_arg, { getState, extra: api }) => {
+  const state = getState();
+  const offerId = state.OFFER.offer.offerId;
+  const { data } = await api.get<TOffer>(`${APIRoute.Offers}/${offerId}`);
+  return data;
+});
+
+export const fetchOffersNearByAction = createAsyncThunk<
+  TOfferPreview[],
+  undefined,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>('offer/fetchOffersNearBy', async (_arg, { getState, extra: api }) => {
+  const state = getState();
+  const offerId = state.OFFER.offer.offerId;
+  const { data } = await api.get<TOfferPreview[]>(
+    `${APIRoute.Offers}/${offerId}/nearBy`
+  );
+  return data;
+});
+
+export const fetchOfferCommentsAction = createAsyncThunk<
+  TComment[],
+  undefined,
+  { dispatch: AppDispatch; state: State; extra: AxiosInstance }
+>('offer/fetchOfferComments', async (_arg, { getState, extra: api }) => {
+  const state = getState();
+  const offerId = state.OFFER.offer.offerId;
+  const { data } = await api.get<TComment[]>(`${APIRoute.Comments}/${offerId}`);
+  return data;
+});
+
+export const postCommentAction = createAsyncThunk<
+  TComment,
+  TNewComment,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
+  'offer/postComment',
+  async ({ comment, rating }, { dispatch, getState, extra: api }) => {
+    const state = getState();
+    const offerId = state.OFFER.offer.offerId;
+    const { data } = await api.post<TComment>(
+      `${APIRoute.Comments}/${offerId}`,
+      { comment, rating }
+    );
+    if (data) {
+      dispatch(fetchOfferCommentsAction());
+    }
+    return data;
+  }
+);
 export const offerData = createSlice({
   name: NameSpace.Offer,
   initialState,
   reducers: {
-    setOfferId(state, action) {
+    setOfferId(state, action: PayloadAction<string>) {
       state.offer.offerId = action.payload;
     },
   },

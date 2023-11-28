@@ -1,12 +1,26 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { TFavoriteData } from '../../types/state';
-import { NameSpace } from '../../const';
-import { fetchFavoriteOffersAction } from '../api-actions';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { AppDispatch, State, TFavoriteData } from '../../types/state';
+import { APIRoute, NameSpace } from '../../const';
+import { AxiosInstance } from 'axios';
+import { TOfferPreview } from '../../types/offer-preview';
 
 const initialState: TFavoriteData = {
   offers: [],
   isLoading: false,
 };
+
+export const fetchFavoriteOffersAction = createAsyncThunk<
+  TOfferPreview[],
+  undefined,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>('favorite/fetchFavoriteOffers', async (_arg, { extra: api }) => {
+  const { data } = await api.get<TOfferPreview[]>(APIRoute.Favorite);
+  return data;
+});
 
 export const favoriteData = createSlice({
   name: NameSpace.Favorite,

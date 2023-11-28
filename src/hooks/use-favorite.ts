@@ -4,7 +4,7 @@ import {
   getFavoriteOffers,
   getFavoriteOffersIsLoading,
 } from '../store/favorite-data/favorite-data.selectors';
-import { fetchFavoriteOffersAction } from '../store/api-actions';
+import { fetchFavoriteOffersAction } from '../store/favorite-data/favorite-data.slice';
 
 export default function useFavorite() {
   const dispatch = useAppDispatch();

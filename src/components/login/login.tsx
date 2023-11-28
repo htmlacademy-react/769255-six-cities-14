@@ -2,8 +2,8 @@ import { FormEvent, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
-import { loginAction } from '../../store/api-actions';
 import { HelmetTitles } from '../../const';
+import { loginAction } from '../../store/user-process/user-process.slice';
 
 function Login(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);

@@ -1,16 +1,12 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '.';
-import {
-  fetchOfferAction,
-  fetchOfferCommentsAction,
-  fetchOffersNearByAction,
-} from '../store/api-actions';
+
 import {
   getOffer,
   getOfferIsLoading,
   getOffersNearBy,
 } from '../store/offer-data/offer-data.selectors';
-import { setOfferId } from '../store/offer-data/offer-data.slice';
+import { fetchOfferAction, fetchOfferCommentsAction, fetchOffersNearByAction, setOfferId } from '../store/offer-data/offer-data.slice';
 
 export default function useOffer(offerId: string | undefined) {
   const dispatch = useAppDispatch();

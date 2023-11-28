@@ -9,6 +9,7 @@ type LocationCityProps = {
 function LocationCity({ city }: LocationCityProps): JSX.Element {
   const dispatch = useAppDispatch();
   const handleClick = (event: React.MouseEvent<HTMLLIElement>) => {
+    event.preventDefault();
     dispatch(changeCity(event.currentTarget.textContent));
   };
 
