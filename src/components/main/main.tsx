@@ -1,22 +1,17 @@
-import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchOffersAction } from '../../store/api-actions';
+import useOffers from '../../hooks/use-offers';
+import Spinner from '../common/spinner/spinner';
 import LocationCities from './location-cities/location-cities';
 import Locations from './locations/locations';
-import Spinner from '../common/spinner/spinner';
+import { HelmetTitles } from '../../const';
 
 function Main(): JSX.Element {
-  const isLoading = useAppSelector((state) => state.places.isLoading);
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(fetchOffersAction());
-  }, [dispatch]);
+  const isLoading = useOffers();
 
   return (
     <>
       <Helmet>
-        <title>6 cities</title>
+        <title>{HelmetTitles.Main}</title>
       </Helmet>
       {isLoading ? (
         <Spinner />

@@ -1,7 +1,7 @@
 import { FormEvent, useRef, useState } from 'react';
 import { useAppDispatch } from '../../../../hooks';
-import { postCommentAction } from '../../../../store/api-actions';
-import RatingStarts from './rating-stars/rating-stars';
+import { postCommentAction2 } from '../../../../store/api-actions';
+import RatingStars from './rating-stars/rating-stars';
 
 export default function ReviewFrom() {
   const dispatch = useAppDispatch();
@@ -31,10 +31,9 @@ export default function ReviewFrom() {
         rating: Number(ratingRef.current.value),
         comment: commentRef.current.value,
       };
-      dispatch(postCommentAction(newComment));
+      dispatch(postCommentAction2(newComment));
     }
   };
-
   return (
     <form
       className="reviews__form form"
@@ -45,7 +44,7 @@ export default function ReviewFrom() {
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
-      <RatingStarts handleClick={handleClick} ratingRef={ratingRef} />
+      <RatingStars handleClick={handleClick} ratingRef={ratingRef} />
       <textarea
         className="reviews__textarea form__textarea"
         id="review"

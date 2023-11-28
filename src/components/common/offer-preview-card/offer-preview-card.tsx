@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../../const';
 import { useAppDispatch } from '../../../hooks';
-import { setOfferId } from '../../../store/actions';
 import { TOfferPreview } from '../../../types/offer-preview';
+import { setOfferId } from '../../../store/offer-data/offer-data.slice';
 
 type OfferCardProps = {
   offer: TOfferPreview;
@@ -10,19 +10,23 @@ type OfferCardProps = {
 };
 
 function OfferPreviewCard({ offer, handleHoverOffer }: OfferCardProps) {
+  const { id, rating, isPremium, price, title, type } = offer;
+
   const dispatch = useAppDispatch();
   const handleClickOffer = () => {
-    dispatch(setOfferId(offer.id));
+    dispatch(setOfferId(id));
   };
 
+  const ratingStar = (rating * 20).toString();
+
   return (
-    <Link to={`${AppRoute.Offers}/${offer.id}`}>
+    <Link to={`${AppRoute.Offers}/${id}`}>
       <article
         className="cities__card place-card"
-        onMouseOver={() => handleHoverOffer(offer.id)}
+        onMouseOver={() => handleHoverOffer(id)}
         onClick={handleClickOffer}
       >
-        {offer.isPremium && (
+        {isPremium && (
           <div className="place-card__mark">
             <span>Premium</span>
           </div>
@@ -39,7 +43,7 @@ function OfferPreviewCard({ offer, handleHoverOffer }: OfferCardProps) {
         <div className="place-card__info">
           <div className="place-card__price-wrapper">
             <div className="place-card__price">
-              <b className="place-card__price-value">&euro;{offer.price}</b>
+              <b className="place-card__price-value">&euro;{price}</b>
               <span className="place-card__price-text">&#47;&nbsp;night</span>
             </div>
             <button
@@ -54,12 +58,12 @@ function OfferPreviewCard({ offer, handleHoverOffer }: OfferCardProps) {
           </div>
           <div className="place-card__rating rating">
             <div className="place-card__stars rating__stars">
-              <span style={{ width: '80%' }}></span>
+              <span style={{ width: `${ratingStar}%` }}></span>
               <span className="visually-hidden">Rating</span>
             </div>
           </div>
-          <h2 className="place-card__name">{offer.title}</h2>
-          <p className="place-card__type">{offer.type}</p>
+          <h2 className="place-card__name">{title}</h2>
+          <p className="place-card__type">{type}</p>
         </div>
       </article>
     </Link>

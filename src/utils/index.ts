@@ -23,6 +23,10 @@ export function getCities(offers: TOfferPreview[]) {
   return cities;
 }
 
+export function getCity(offers: TOfferPreview[], activeCityName: string) {
+  return offers.find((offer) => offer.city.name === activeCityName)?.city;
+}
+
 export function getCityOffers(
   offers: TOfferPreview[],
   cityName: string | null

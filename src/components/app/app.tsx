@@ -11,11 +11,10 @@ import OfferPage from '../../pages/offer-page';
 import Layout from '../layout/layout';
 import HistoryRouter from '../routes/history-route/history-route';
 import PrivateRoute from '../routes/private-route/private-route';
+import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
 
 function App(): JSX.Element {
-  const authorizationStatus = useAppSelector(
-    (state) => state.auth.authorizationStatus
-  );
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   return (
     <HelmetProvider>
       <HistoryRouter history={browserHistory}>

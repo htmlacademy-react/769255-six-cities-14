@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
+import { HelmetTitles } from '../../const';
 
 function Login(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
@@ -24,7 +25,7 @@ function Login(): JSX.Element {
   return (
     <>
       <Helmet>
-        <title>6 cities. Login</title>
+        <title>{HelmetTitles.Login}</title>
       </Helmet>
       <div className="page page--gray page--login">
         <main className="page__main page__main--login">

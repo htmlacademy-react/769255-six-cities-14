@@ -14,7 +14,7 @@ export default function RatingStar({
       <input
         className="form__rating-input visually-hidden"
         name="rating"
-        value={6 - Number(rating)}
+        value={Number(rating)}
         id={`${rating}-stars`}
         type="radio"
         onClick={handleClick}

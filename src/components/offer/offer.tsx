@@ -1,42 +1,17 @@
-import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import {
-  fetchOfferAction,
-  fetchOfferCommentsAction,
-  fetchOffersNearByAction,
-} from '../../store/api-actions';
-import { TOfferPreview } from '../../types/offer-preview';
+import useOffer from '../../hooks/use-offer';
 import OfferPreviewCard from '../common/offer-preview-card/offer-preview-card';
 import Spinner from '../common/spinner/spinner';
 import NotFound from '../not-found/not-found';
 import OfferImages from './offer-images/offer-images';
 import Reviews from './reviews/reviews';
-import { setOfferId } from '../../store/actions';
+import { HelmetTitles } from '../../const';
 
 //Карточка предложения
 function Offer(): JSX.Element {
-  const dispatch = useAppDispatch();
   const offerId = useParams<string>().id;
-  const isLoading = useAppSelector((state) => state.offer.isLoading);
-  const offer = useAppSelector((state) => state.offer.offer);
-  const offersNearBy = useAppSelector((state) => state.offer.offersNearBy);
-
-  useEffect(() => {
-    if (offerId) {
-      dispatch(setOfferId(offerId));
-      dispatch(fetchOfferAction());
-      dispatch(fetchOffersNearByAction());
-      dispatch(fetchOfferCommentsAction());
-    }
-  }, [dispatch, offerId]);
-
-  let slicedOffersNearBy: TOfferPreview[] = [];
-  const countImage = offersNearBy.length;
-  if (countImage > 3) {
-    slicedOffersNearBy = offersNearBy.slice(0, 3);
-  }
+  const { isLoading, offer, slicedOffersNearBy } = useOffer(offerId);
 
   if (!offer) {
     return <NotFound />;
@@ -53,12 +28,15 @@ function Offer(): JSX.Element {
     goods,
     host,
     description,
+    rating,
   } = offer;
+
+  const ratingStar = (rating * 20).toString();
 
   return (
     <>
       <Helmet>
-        <title>6 cities. Offer</title>
+        <title>{HelmetTitles.Offer}</title>
       </Helmet>
       {isLoading ? (
         <Spinner />
@@ -92,11 +70,11 @@ function Offer(): JSX.Element {
                   </div>
                   <div className="offer__rating rating">
                     <div className="offer__stars rating__stars">
-                      <span style={{ width: '80%' }}></span>
+                      <span style={{ width: `${ratingStar}%` }}></span>
                       <span className="visually-hidden">Rating</span>
                     </div>
                     <span className="offer__rating-value rating__value">
-                      4.8
+                      {rating}
                     </span>
                   </div>
                   <ul className="offer__features">

@@ -1,10 +1,11 @@
 import { useAppSelector } from '../../../hooks';
+import { getOffers } from '../../../store/main-data/main-data.selectors';
 import { getCities } from '../../../utils';
 import LocationCity from './location-city/location-city';
 
 //Список городов
 export default function LocationCities() {
-  const offers = useAppSelector((state) => state.places.offers);
+  const offers = useAppSelector(getOffers);
   const cities = getCities(offers);
 
   return (
