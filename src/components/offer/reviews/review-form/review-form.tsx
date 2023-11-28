@@ -1,6 +1,6 @@
 import { FormEvent, useRef, useState } from 'react';
 import { useAppDispatch } from '../../../../hooks';
-import { postCommentAction2 } from '../../../../store/api-actions';
+import { postCommentAction } from '../../../../store/api-actions';
 import RatingStars from './rating-stars/rating-stars';
 
 export default function ReviewFrom() {
@@ -31,7 +31,7 @@ export default function ReviewFrom() {
         rating: Number(ratingRef.current.value),
         comment: commentRef.current.value,
       };
-      dispatch(postCommentAction2(newComment));
+      dispatch(postCommentAction(newComment));
     }
   };
   return (

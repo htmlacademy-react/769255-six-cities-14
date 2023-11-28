@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { AuthorizationStatus, NameSpace } from '../../const';
-import { checkAuthAction2, loginAction, logoutAction } from '../api-actions';
+import { checkAuthAction, loginAction, logoutAction } from '../api-actions';
 import { TUserProcess } from '../../types/state';
 
 const initialState: TUserProcess = {
@@ -13,10 +13,10 @@ export const userProcess = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder
-      .addCase(checkAuthAction2.fulfilled, (state) => {
+      .addCase(checkAuthAction.fulfilled, (state) => {
         state.authorizationStatus = AuthorizationStatus.Auth;
       })
-      .addCase(checkAuthAction2.rejected, (state) => {
+      .addCase(checkAuthAction.rejected, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;
       })
       .addCase(loginAction.fulfilled, (state) => {

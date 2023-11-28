@@ -20,7 +20,7 @@ import {
   setError
 } from './actions';
 
-export const fetchOffersAction2 = createAsyncThunk<
+export const fetchOffersAction = createAsyncThunk<
   TOfferPreview[],
   undefined,
   {
@@ -36,7 +36,7 @@ export const fetchOffersAction2 = createAsyncThunk<
   return data;
 });
 
-export const checkAuthAction2 = createAsyncThunk<
+export const checkAuthAction = createAsyncThunk<
   void,
   undefined,
   {
@@ -82,7 +82,7 @@ export const clearErrorAction = createAsyncThunk('cities/clearError', () => {
   setTimeout(() => store.dispatch(setError(null)), TIMEOUT_SHOW_ERROR);
 });
 
-export const fetchOfferAction2 = createAsyncThunk<
+export const fetchOfferAction = createAsyncThunk<
   TOffer,
   undefined,
   {
@@ -97,7 +97,7 @@ export const fetchOfferAction2 = createAsyncThunk<
   return data;
 });
 
-export const fetchOffersNearByAction2 = createAsyncThunk<
+export const fetchOffersNearByAction = createAsyncThunk<
   TOfferPreview[],
   undefined,
   {
@@ -114,7 +114,7 @@ export const fetchOffersNearByAction2 = createAsyncThunk<
   return data;
 });
 
-export const fetchOfferCommentsAction2 = createAsyncThunk<
+export const fetchOfferCommentsAction = createAsyncThunk<
   TComment[],
   undefined,
   { dispatch: AppDispatch; state: State; extra: AxiosInstance }
@@ -125,7 +125,7 @@ export const fetchOfferCommentsAction2 = createAsyncThunk<
   return data;
 });
 
-export const postCommentAction2 = createAsyncThunk<
+export const postCommentAction = createAsyncThunk<
   TComment,
   TNewComment,
   {
@@ -143,13 +143,13 @@ export const postCommentAction2 = createAsyncThunk<
       { comment, rating }
     );
     if (data) {
-      dispatch(fetchOfferCommentsAction2());
+      dispatch(fetchOfferCommentsAction());
     }
     return data;
   }
 );
 
-export const fetchFavoriteOffersAction2 = createAsyncThunk<
+export const fetchFavoriteOffersAction = createAsyncThunk<
   TOfferPreview[],
   undefined,
   {

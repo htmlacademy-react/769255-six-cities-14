@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { TMainData } from '../../types/state';
 import { NameSpace } from '../../const';
-import { fetchOffersAction2 } from '../api-actions';
+import { fetchOffersAction } from '../api-actions';
 
 const initialState: TMainData = {
   activeCity: 'Paris',
@@ -20,15 +20,15 @@ export const mainData = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(fetchOffersAction2.pending, (state) => {
+      .addCase(fetchOffersAction.pending, (state) => {
         state.isLoading = true;
         state.hasError = false;
       })
-      .addCase(fetchOffersAction2.fulfilled, (state, action) => {
+      .addCase(fetchOffersAction.fulfilled, (state, action) => {
         state.offers = action.payload;
         state.isLoading = false;
       })
-      .addCase(fetchOffersAction2.rejected, (state) => {
+      .addCase(fetchOffersAction.rejected, (state) => {
         state.isLoading = false;
         state.hasError = true;
       });

@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '.';
 import {
-  fetchOfferAction2,
-  fetchOfferCommentsAction2,
-  fetchOffersNearByAction2,
+  fetchOfferAction,
+  fetchOfferCommentsAction,
+  fetchOffersNearByAction,
 } from '../store/api-actions';
 import {
   getOffer,
@@ -18,9 +18,9 @@ export default function useOffer(offerId: string | undefined) {
   useEffect(() => {
     if (offerId) {
       dispatch(setOfferId(offerId));
-      dispatch(fetchOfferAction2());
-      dispatch(fetchOffersNearByAction2());
-      dispatch(fetchOfferCommentsAction2());
+      dispatch(fetchOfferAction());
+      dispatch(fetchOffersNearByAction());
+      dispatch(fetchOfferCommentsAction());
     }
   }, [dispatch, offerId]);
 

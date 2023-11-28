@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '.';
-import { fetchFavoriteOffersAction2 } from '../store/api-actions';
 import {
   getFavoriteOffers,
   getFavoriteOffersIsLoading,
 } from '../store/favorite-data/favorite-data.selectors';
+import { fetchFavoriteOffersAction } from '../store/api-actions';
 
 export default function useFavorite() {
   const dispatch = useAppDispatch();
@@ -12,7 +12,7 @@ export default function useFavorite() {
   const isLoading = useAppSelector(getFavoriteOffersIsLoading);
 
   useEffect(() => {
-    dispatch(fetchFavoriteOffersAction2());
+    dispatch(fetchFavoriteOffersAction());
   }, [dispatch]);
 
   return { isLoading, favorites };
