@@ -1,19 +1,21 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { AxiosInstance } from 'axios';
 import {
   APIRoute,
   AppRoute,
   AuthorizationStatus,
-  NameSpace,
+  NameSpace
 } from '../../const';
-import { AppDispatch, State, TUserProcess } from '../../types/state';
-import { AxiosInstance } from 'axios';
-import { saveToken, dropToken } from '../../services/token';
+import { dropToken, saveToken } from '../../services/token';
 import { TAuthData } from '../../types/auth-data';
+import { AppDispatch, State, TUserProcess } from '../../types/state';
 import { TUserData } from '../../types/user-data';
-import { requireAuthorization, redirectToRoute } from '../actions';
+import { redirectToRoute, requireAuthorization } from '../actions';
 
 const initialState: TUserProcess = {
   authorizationStatus: AuthorizationStatus.Unknown,
+  error: false,
+  errorMessage: null,
 };
 
 export const checkAuthAction = createAsyncThunk<
@@ -61,7 +63,11 @@ export const logoutAction = createAsyncThunk<
 export const userProcess = createSlice({
   name: NameSpace.User,
   initialState,
-  reducers: {},
+  reducers: {
+    setError(state, action: PayloadAction<string | null>) {
+      state.errorMessage = action.payload;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(checkAuthAction.fulfilled, (state) => {
@@ -75,9 +81,12 @@ export const userProcess = createSlice({
       })
       .addCase(loginAction.rejected, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;
+        state.error = true;
       })
       .addCase(logoutAction.fulfilled, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;
       });
   },
 });
+
+export const { setError } = userProcess.actions;

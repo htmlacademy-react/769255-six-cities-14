@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
 import { HelmetTitles } from '../../const';
-import { loginAction } from '../../store/user-process/user-process.slice';
+import { loginAction } from '../../store/user/user.slice';
 
 function Login(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);

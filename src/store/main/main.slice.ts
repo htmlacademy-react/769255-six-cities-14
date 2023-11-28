@@ -1,8 +1,8 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { AppDispatch, State, TMainData } from '../../types/state';
-import { APIRoute, AppRoute, NameSpace } from '../../const';
 import { AxiosInstance } from 'axios';
+import { APIRoute, AppRoute, NameSpace } from '../../const';
 import { TOfferPreview } from '../../types/offer-preview';
+import { AppDispatch, State, TMainData } from '../../types/state';
 import { redirectToRoute } from '../actions';
 
 const initialState: TMainData = {

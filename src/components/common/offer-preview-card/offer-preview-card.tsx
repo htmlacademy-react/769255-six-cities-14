@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../../const';
 import { useAppDispatch } from '../../../hooks';
 import { TOfferPreview } from '../../../types/offer-preview';
-import { setOfferId } from '../../../store/offer-data/offer-data.slice';
+import { setOfferId } from '../../../store/offer/offer.slice';
 
 type OfferCardProps = {
   offer: TOfferPreview;

@@ -1,7 +1,7 @@
 import { FormEvent, useRef, useState } from 'react';
 import { useAppDispatch } from '../../../../hooks';
 import RatingStars from './rating-stars/rating-stars';
-import { postCommentAction } from '../../../../store/offer-data/offer-data.slice';
+import { postCommentAction } from '../../../../store/reviews/reviews.slice';
 
 export default function ReviewFrom() {
   const dispatch = useAppDispatch();

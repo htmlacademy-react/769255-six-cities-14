@@ -1,8 +1,8 @@
-import { TComment } from '../../../../types/comment';
+import { TReview } from '../../../../types/review';
 import { dateFormat } from '../../../../utils';
 
 type ReviewProps = {
-  review: TComment;
+  review: TReview;
 };
 export default function Review({ review }: ReviewProps) {
   const { user, rating, comment, date } = review;

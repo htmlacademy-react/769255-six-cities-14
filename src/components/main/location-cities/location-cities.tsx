@@ -1,5 +1,5 @@
 import { useAppSelector } from '../../../hooks';
-import { getOffers } from '../../../store/main-data/main-data.selectors';
+import { getOffers } from '../../../store/main/main.selectors';
 import { getCities } from '../../../utils';
 import LocationCity from './location-city/location-city';
 

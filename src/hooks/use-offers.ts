@@ -1,14 +1,16 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '.';
-import { getOffersIsLoading } from '../store/main-data/main-data.selectors';
-import { fetchOffersAction } from '../store/main-data/main-data.slice';
+import { getErrorStatus, getOffersIsLoading } from '../store/main/main.selectors';
+import { fetchOffersAction } from '../store/main/main.slice';
 
-export default function useOffers(): boolean {
+export default function useOffers() {
   const dispatch = useAppDispatch();
+  const hasError = useAppSelector(getErrorStatus);
+
   useEffect(() => {
     dispatch(fetchOffersAction());
   }, [dispatch]);
   const isLoading = useAppSelector(getOffersIsLoading);
 
-  return isLoading;
+  return {isLoading, hasError};
 }

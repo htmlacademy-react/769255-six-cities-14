@@ -1,11 +1,16 @@
 import { AuthorizationStatus } from '../const';
 import { store } from '../store';
-import { TComment, TNewComment } from './comment';
+import { TReview, TNewReview } from './review';
 import { TOffer } from './offer';
 import { TOfferPreview } from './offer-preview';
 
+export type State = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+
 export type TUserProcess = {
   authorizationStatus: AuthorizationStatus;
+  error: boolean;
+  errorMessage: string | null;
 };
 
 export type TMainData = {
@@ -16,21 +21,23 @@ export type TMainData = {
 };
 
 export type TOfferData = {
-  offer: {
-    data: TOffer | null;
+  data: TOffer | null;
+  isLoading: boolean;
+  offerId: string;
+};
+
+export type TOffersNearByData = {
+  data: TOfferPreview[];
+  isLoading: boolean;
+};
+
+export type TReviewData = {
+  reviews: {
+    data: TReview[];
     isLoading: boolean;
-    offerId: string;
   };
-  offersNearBy: {
-    data: TOfferPreview[];
-    isLoading: boolean;
-  };
-  comments: {
-    data: TComment[];
-    isLoading: boolean;
-  };
-  newComment: {
-    data: TNewComment | null;
+  newReview: {
+    data: TNewReview | null;
     isLoading: boolean;
   };
 };
@@ -39,6 +46,3 @@ export type TFavoriteData = {
   offers: TOfferPreview[];
   isLoading: boolean;
 };
-
-export type State = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;

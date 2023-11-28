@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../../const';
 import { useAppDispatch } from '../../../hooks';
-import { logoutAction } from '../../../store/user-process/user-process.slice';
+import { logoutAction } from '../../../store/user/user.slice';
 
 function Header(): JSX.Element {
   const dispatch = useAppDispatch();

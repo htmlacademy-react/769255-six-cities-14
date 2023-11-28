@@ -2,7 +2,7 @@ import { useAppSelector } from '.';
 import {
   getActiveCity,
   getOffers,
-} from '../store/main-data/main-data.selectors';
+} from '../store/main/main.selectors';
 import { getCity, getCityOffers } from '../utils';
 
 export default function useLocations() {

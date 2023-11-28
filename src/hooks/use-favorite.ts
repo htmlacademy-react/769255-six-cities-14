@@ -3,8 +3,8 @@ import { useAppDispatch, useAppSelector } from '.';
 import {
   getFavoriteOffers,
   getFavoriteOffersIsLoading,
-} from '../store/favorite-data/favorite-data.selectors';
-import { fetchFavoriteOffersAction } from '../store/favorite-data/favorite-data.slice';
+} from '../store/favorite/favorite.selectors';
+import { fetchFavoriteOffersAction } from '../store/favorite/favorite.slice';
 
 export default function useFavorite() {
   const dispatch = useAppDispatch();

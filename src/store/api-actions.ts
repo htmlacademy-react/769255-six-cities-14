@@ -1,13 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { store } from '.';
-import {
-  TIMEOUT_SHOW_ERROR
-} from '../const';
-import {
-  setError
-} from './actions';
+import { TIMEOUT_SHOW_ERROR } from '../const';
+import { setError } from './user/user.slice';
 
-
-export const clearErrorAction = createAsyncThunk('cities/clearError', () => {
-  setTimeout(() => store.dispatch(setError(null)), TIMEOUT_SHOW_ERROR);
-});
+export const clearErrorAction = createAsyncThunk(
+  'cities/clearError',
+  (_arg, { dispatch }) => {
+    setTimeout(() => dispatch(setError(null)), TIMEOUT_SHOW_ERROR);
+  }
+);

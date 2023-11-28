@@ -8,3 +8,5 @@ export const getOffersIsLoading = (state: State): boolean =>
   state[NameSpace.Main].isLoading;
 export const getActiveCity = (state: State): string =>
   state[NameSpace.Main].activeCity;
+export const getErrorStatus = (state: State): boolean =>
+  state[NameSpace.Main].hasError;

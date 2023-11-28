@@ -1,7 +1,7 @@
 import { AuthorizationStatus } from '../../../const';
 import { useAppSelector } from '../../../hooks';
-import { getComments } from '../../../store/offer-data/offer-data.selectors';
-import { getAuthorizationStatus } from '../../../store/user-process/user-process.selectors';
+import { getComments } from '../../../store/reviews/reviews.selectors';
+import { getAuthorizationStatus } from '../../../store/user/user.selectors';
 import ReviewFrom from './review-form/review-form';
 import Review from './review/review';
 
