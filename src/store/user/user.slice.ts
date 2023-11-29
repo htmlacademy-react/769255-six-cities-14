@@ -1,8 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import {
-  AuthorizationStatus,
-  NameSpace
-} from '../../const';
+import { AuthorizationStatus, NameSpace } from '../../const';
 import { TUserProcess } from '../../types/state';
 import { checkAuthAction, loginAction, logoutAction } from './user.api-actions';
 
@@ -12,14 +9,10 @@ const initialState: TUserProcess = {
   errorMessage: null,
 };
 
-
 export const userProcess = createSlice({
   name: NameSpace.User,
   initialState,
   reducers: {
-    requireAuthorization(state, action: PayloadAction<AuthorizationStatus>) {
-      state.authorizationStatus = action.payload;
-    },
     setError(state, action: PayloadAction<string | null>) {
       state.errorMessage = action.payload;
     },
@@ -45,4 +38,4 @@ export const userProcess = createSlice({
   },
 });
 
-export const { requireAuthorization, setError } = userProcess.actions;
+export const { setError } = userProcess.actions;
