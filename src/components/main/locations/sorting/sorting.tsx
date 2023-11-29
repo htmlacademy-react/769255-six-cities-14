@@ -9,7 +9,7 @@ type SortingProps = {
 export default function Sorting({
   activeSorting,
   setActiveSorting,
-}: SortingProps) {
+}: SortingProps): JSX.Element {
   const [openSorting, setOpenSorting] = useState(false);
 
   const handlerActiveSorting = (event: {

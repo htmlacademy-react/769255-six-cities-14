@@ -1,12 +1,13 @@
-import { TComment } from '../../../../types/comment';
+import { TReview } from '../../../../types/review';
 import { dateFormat } from '../../../../utils';
 
 type ReviewProps = {
-  review: TComment;
+  review: TReview;
 };
-
 export default function Review({ review }: ReviewProps) {
-  const { user } = review;
+  const { user, rating, comment, date } = review;
+  const ratingStar = (rating * 20).toString();
+
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
@@ -24,14 +25,12 @@ export default function Review({ review }: ReviewProps) {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{ width: '80%' }}></span>
-            <span className="visually-hidden">{review.rating}</span>
+            <span style={{ width: `${ratingStar}%` }}></span>
+            <span className="visually-hidden">{rating}</span>
           </div>
         </div>
-        <p className="reviews__text">{review.comment}</p>
-        <time className="reviews__time" dateTime="2019-04-24">
-          {dateFormat(review.date)}
-        </time>
+        <p className="reviews__text">{comment}</p>
+        <time className="reviews__time">{dateFormat(date)}</time>
       </div>
     </li>
   );

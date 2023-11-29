@@ -1,33 +1,39 @@
-import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchOffersAction } from '../../store/api-actions';
+import { HelmetTitles } from '../../const';
+import useOffers from '../../hooks/use-offers';
+import Spinner from '../common/spinner/spinner';
+import ErrorScreen from './error-screen/error-screen';
 import LocationCities from './location-cities/location-cities';
 import Locations from './locations/locations';
-import Spinner from '../common/spinner/spinner';
+
+function Wrapper(): JSX.Element {
+  const { isLoading, hasError } = useOffers();
+
+  if (isLoading) {
+    return <Spinner />;
+  }
+
+  if (!isLoading && hasError) {
+    return <ErrorScreen />;
+  }
+
+  return (
+    <div className="page page--gray page--main">
+      <main className="page__main page__main--index">
+        <LocationCities />
+        <Locations />
+      </main>
+    </div>
+  );
+}
 
 function Main(): JSX.Element {
-  const isLoading = useAppSelector((state) => state.places.isLoading);
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(fetchOffersAction());
-  }, [dispatch]);
-
   return (
     <>
       <Helmet>
-        <title>6 cities</title>
+        <title>{HelmetTitles.Main}</title>
       </Helmet>
-      {isLoading ? (
-        <Spinner />
-      ) : (
-        <div className="page page--gray page--main">
-          <main className="page__main page__main--index">
-            <LocationCities />
-            <Locations />
-          </main>
-        </div>
-      )}
+      <Wrapper />
     </>
   );
 }

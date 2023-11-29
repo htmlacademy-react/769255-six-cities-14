@@ -1,25 +1,18 @@
-import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchFavoriteOffersAction } from '../../store/api-actions';
+import { HelmetTitles } from '../../const';
+import useFavorite from '../../hooks/use-favorite';
+import Footer from '../common/footer/footer';
 import Spinner from '../common/spinner/spinner';
 import FavoriteCard from './favorite-card/favorite-card';
-import Footer from './footer/footer';
 
 function Favorite(): JSX.Element {
-  const dispatch = useAppDispatch();
-  const favorites = useAppSelector((state) => state.favorite.offers);
-  const isLoading = useAppSelector((state) => state.favorite.isLoading);
-
-  useEffect(() => {
-    dispatch(fetchFavoriteOffersAction());
-  }, [dispatch]);
+  const { isLoading, favorites } = useFavorite();
 
   return (
     <>
       <Helmet>
-        <title>6 cities. Favorites</title>
+        <title>{HelmetTitles.Favorite}</title>
       </Helmet>
       <div className="page">
         <main className="page__main page__main--favorites">

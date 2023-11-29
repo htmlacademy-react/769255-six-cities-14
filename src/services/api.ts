@@ -4,8 +4,15 @@ import { processErrorHandle } from './process-error-handle';
 import { getToken } from './token';
 
 type DetailMessageType = {
-  type: string;
+  errorType: string;
   message: string;
+  details: [
+    {
+      property: string;
+      value: number;
+      messages: string[];
+    }
+  ];
 };
 
 const StatusCodeMapping: Record<number, boolean> = {

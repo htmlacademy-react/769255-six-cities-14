@@ -1,9 +1,14 @@
 import { TUser } from './user';
 
 export type TReview = {
-  comment: string;
+  id: string;
   date: string;
-  id: number;
-  rating: number;
   user: TUser;
+  comment: string;
+  rating: number;
+};
+
+export type TNewReview = {
+  comment: string;
+  rating: number;
 };

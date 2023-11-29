@@ -8,14 +8,14 @@ import LoginPage from '../../pages/login-page';
 import MainPage from '../../pages/main-page/main-page';
 import NotFoundPage from '../../pages/not-found-page';
 import OfferPage from '../../pages/offer-page';
+import { getAuthorizationStatus } from '../../store/user/user.selectors';
 import Layout from '../layout/layout';
 import HistoryRouter from '../routes/history-route/history-route';
 import PrivateRoute from '../routes/private-route/private-route';
 
 function App(): JSX.Element {
-  const authorizationStatus = useAppSelector(
-    (state) => state.auth.authorizationStatus
-  );
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+
   return (
     <HelmetProvider>
       <HistoryRouter history={browserHistory}>

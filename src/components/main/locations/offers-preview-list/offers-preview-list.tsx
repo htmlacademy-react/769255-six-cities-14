@@ -6,7 +6,6 @@ type OffersListProps = {
   handleHoverOffer: (offerId: string | null) => void;
 };
 
-//Список предложений
 function OffersPreviewList({ cityOffers, handleHoverOffer }: OffersListProps) {
   return (
     <div className="cities__places-list places__list tabs__content">
