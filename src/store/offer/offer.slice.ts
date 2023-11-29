@@ -19,7 +19,7 @@ export const fetchOfferAction = createAsyncThunk<
     state: State;
     extra: AxiosInstance;
   }
->('offer/fetchOffer', async (_arg, { getState, extra: api }) => {
+>('OFFER/fetchOffer', async (_arg, { getState, extra: api }) => {
   const state = getState();
   const offerId = state.OFFER.offerId;
   const { data } = await api.get<TOffer>(`${APIRoute.Offers}/${offerId}`);
@@ -34,7 +34,7 @@ export const fetchOffersNearByAction = createAsyncThunk<
     state: State;
     extra: AxiosInstance;
   }
->('offer/fetchOffersNearBy', async (_arg, { getState, extra: api }) => {
+>('OFFER/fetchOffersNearBy', async (_arg, { getState, extra: api }) => {
   const state = getState();
   const offerId = state.OFFER.offerId;
   const { data } = await api.get<TOfferPreview[]>(

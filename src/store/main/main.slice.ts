@@ -20,7 +20,7 @@ export const fetchOffersAction = createAsyncThunk<
     state: State;
     extra: AxiosInstance;
   }
->('cities/fetchOffers', async (_arg, { dispatch, extra: api }) => {
+>('MAIN/fetchOffers', async (_arg, { dispatch, extra: api }) => {
   const { data } = await api.get<TOfferPreview[]>(APIRoute.Offers);
   if (!data) {
     dispatch(redirectToRoute(AppRoute.NotFound));

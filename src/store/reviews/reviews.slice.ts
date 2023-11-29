@@ -19,7 +19,7 @@ export const fetchOfferCommentsAction = createAsyncThunk<
   TReview[],
   undefined,
   { dispatch: AppDispatch; state: State; extra: AxiosInstance }
->('offer/fetchOfferComments', async (_arg, { getState, extra: api }) => {
+>('REVIEWS/fetchOfferComments', async (_arg, { getState, extra: api }) => {
   const state = getState();
   const offerId = state.OFFER.offerId;
   const { data } = await api.get<TReview[]>(`${APIRoute.Comments}/${offerId}`);
@@ -35,7 +35,7 @@ export const postCommentAction = createAsyncThunk<
     extra: AxiosInstance;
   }
 >(
-  'offer/postComment',
+  'REVIEWS/postComment',
   async ({ comment, rating }, { dispatch, getState, extra: api }) => {
     const state = getState();
     const offerId = state.OFFER.offerId;

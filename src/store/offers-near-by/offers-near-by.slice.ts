@@ -17,7 +17,7 @@ export const fetchOffersNearByAction = createAsyncThunk<
     state: State;
     extra: AxiosInstance;
   }
->('offer/fetchOffersNearBy', async (_arg, { getState, extra: api }) => {
+>('OFFERS_NEAR_BY/fetchOffersNearBy', async (_arg, { getState, extra: api }) => {
   const state = getState();
   const offerId = state.OFFER.offerId;
   const { data } = await api.get<TOfferPreview[]>(
