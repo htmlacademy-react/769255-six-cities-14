@@ -1,3 +1,13 @@
+
+export const CITIES = [
+  'Paris',
+  'Cologne',
+  'Brussels',
+  'Amsterdam',
+  'Hamburg',
+  'Dusseldorf',
+];
+
 export const TIMEOUT_SHOW_ERROR = 2000;
 
 export const URL_MARKER_DEFAULT =
@@ -18,7 +28,7 @@ export enum HelmetTitles {
 
 export enum AppRoute {
   Login = '/login',
-  Favorite = '/favorite',
+  Favorites = '/favorites',
   Main = '/',
   Offers = '/offers',
   NotFound = '/notFound',
@@ -50,6 +60,6 @@ export enum NameSpace {
   Offer = 'OFFER',
   User = 'USER',
   Favorite = 'FAVORITE',
-  OffersNearBy='OFFERS_NEAR_BY',
-  Reviews = 'REVIEWS'
+  OffersNearBy = 'OFFERS_NEAR_BY',
+  Reviews = 'REVIEWS',
 }

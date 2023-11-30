@@ -2,11 +2,11 @@ import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../../../hooks';
 import { changeCity } from '../../../../store/main/main.slice';
 
-type LocationCityProps = {
+type CityProps = {
   city: string;
 };
 
-function LocationCity({ city }: LocationCityProps): JSX.Element {
+function City({ city }: CityProps): JSX.Element {
   const dispatch = useAppDispatch();
   const handleClick = (event: React.MouseEvent<HTMLLIElement>) => {
     event.preventDefault();
@@ -22,4 +22,4 @@ function LocationCity({ city }: LocationCityProps): JSX.Element {
   );
 }
 
-export default LocationCity;
+export default City;

@@ -5,9 +5,10 @@ import {
   getOffer,
   getOfferIsLoading,
 } from '../store/offer/offer.selectors';
-import { fetchOfferAction, fetchOffersNearByAction, setOfferId } from '../store/offer/offer.slice';
+import { fetchOfferAction, setOfferId } from '../store/offer/offer.slice';
 import { getOffersNearBy } from '../store/offers-near-by/offers-near-by.selectors';
 import { fetchOfferCommentsAction } from '../store/reviews/reviews.slice';
+import { fetchOffersNearByAction } from '../store/offers-near-by/offers-near-by.slice';
 
 export default function useOffer(offerId: string | undefined) {
   const dispatch = useAppDispatch();

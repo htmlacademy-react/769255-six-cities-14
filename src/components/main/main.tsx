@@ -3,7 +3,7 @@ import { HelmetTitles } from '../../const';
 import useOffers from '../../hooks/use-offers';
 import Spinner from '../common/spinner/spinner';
 import ErrorScreen from './error-screen/error-screen';
-import LocationCities from './location-cities/location-cities';
+import Cities from './cities/cities';
 import Locations from './locations/locations';
 
 function Wrapper(): JSX.Element {
@@ -20,7 +20,7 @@ function Wrapper(): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <main className="page__main page__main--index">
-        <LocationCities />
+        <Cities />
         <Locations />
       </main>
     </div>

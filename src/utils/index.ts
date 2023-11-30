@@ -1,4 +1,3 @@
-import { TCity } from '../types/city';
 import { TLocation } from '../types/location';
 import { TOfferPreview } from '../types/offer-preview';
 
@@ -10,17 +9,6 @@ export function getLocations(offers: TOfferPreview[]): TLocation[] {
   });
 
   return locations;
-}
-
-export function getCities(offers: TOfferPreview[]) {
-  const cities: TCity[] = [];
-
-  offers.filter((offer) => {
-    if (!cities.find((city) => city.name === offer.city.name)) {
-      cities.push(offer.city);
-    }
-  });
-  return cities;
 }
 
 export function getCity(offers: TOfferPreview[], activeCityName: string) {

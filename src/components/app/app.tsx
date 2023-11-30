@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import browserHistory from '../../browser-history';
 import { AppRoute } from '../../const';
 import { useAppSelector } from '../../hooks';
-import FavoritesPage from '../../pages/favorite-page';
+import FavoritesPage from '../../pages/favorites-page';
 import LoginPage from '../../pages/login-page';
 import MainPage from '../../pages/main-page/main-page';
 import NotFoundPage from '../../pages/not-found-page';
@@ -25,7 +25,7 @@ function App(): JSX.Element {
             <Route path={`${AppRoute.Offers}/:id`} element={<OfferPage />} />
             <Route path={AppRoute.Login} element={<LoginPage />} />
             <Route
-              path={AppRoute.Favorite}
+              path={AppRoute.Favorites}
               element={
                 <PrivateRoute authorizationStatus={authorizationStatus}>
                   <FavoritesPage />

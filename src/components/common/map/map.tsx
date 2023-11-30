@@ -1,10 +1,10 @@
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useEffect, useRef } from 'react';
-import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../../../const';
-import useMap from '../../../../hooks/use-map';
-import { TCity } from '../../../../types/city';
-import { TLocation } from '../../../../types/location';
+import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../../const';
+import useMap from '../../../hooks/use-map';
+import { TCity } from '../../../types/city';
+import { TLocation } from '../../../types/location';
 
 const defaultCustomIcon = leaflet.icon({
   iconUrl: URL_MARKER_DEFAULT,
@@ -22,10 +22,15 @@ type MapProps = {
   city: TCity;
   points: TLocation[];
   activeLocation: TLocation | undefined;
+  className: string;
 };
 
-//Карта с локациями предложений
-export default function Map({ city, points, activeLocation }: MapProps) {
+export default function Map({
+  city,
+  points,
+  activeLocation,
+  className,
+}: MapProps) {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -51,5 +56,5 @@ export default function Map({ city, points, activeLocation }: MapProps) {
     }
   }, [map, points, activeLocation]);
 
-  return <section className="cities__map map" ref={mapRef}></section>;
+  return <section className={`${className} map`} ref={mapRef}></section>;
 }

@@ -1,16 +1,16 @@
 import { AuthorizationStatus } from '../const';
 import { store } from '../store';
-import { TReview, TNewReview } from './review';
 import { TOffer } from './offer';
 import { TOfferPreview } from './offer-preview';
+import { TNewReview, TReview } from './review';
+import { TUserData } from './user-data';
 
 export type State = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
-export type TUserProcess = {
+export type TUserProcess = TUserData&{
   authorizationStatus: AuthorizationStatus;
-  error: boolean;
-  errorMessage: string | null;
+  error: string | null;
 };
 
 export type TMainData = {

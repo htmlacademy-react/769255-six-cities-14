@@ -4,9 +4,9 @@ import { HelmetTitles } from '../../const';
 import useFavorite from '../../hooks/use-favorite';
 import Footer from '../common/footer/footer';
 import Spinner from '../common/spinner/spinner';
-import FavoriteCard from './favorite-card/favorite-card';
+import FavoriteCard from './favorite-preview/favorite-preview';
 
-function Favorite(): JSX.Element {
+function Favorites(): JSX.Element {
   const { isLoading, favorites } = useFavorite();
 
   return (
@@ -48,4 +48,4 @@ function Favorite(): JSX.Element {
   );
 }
 
-export default Favorite;
+export default Favorites;

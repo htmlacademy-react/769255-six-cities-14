@@ -1,5 +1,5 @@
-import { TReview } from '../../../../types/review';
-import { dateFormat } from '../../../../utils';
+import { TReview } from '../../../types/review';
+import { dateFormat } from '../../../utils';
 
 type ReviewProps = {
   review: TReview;

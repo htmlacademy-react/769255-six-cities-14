@@ -2,7 +2,6 @@ import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { APIRoute, NameSpace } from '../../const';
 import { TOffer } from '../../types/offer';
-import { TOfferPreview } from '../../types/offer-preview';
 import { AppDispatch, State, TOfferData } from '../../types/state';
 
 const initialState: TOfferData = {
@@ -26,22 +25,6 @@ export const fetchOfferAction = createAsyncThunk<
   return data;
 });
 
-export const fetchOffersNearByAction = createAsyncThunk<
-  TOfferPreview[],
-  undefined,
-  {
-    dispatch: AppDispatch;
-    state: State;
-    extra: AxiosInstance;
-  }
->('OFFER/fetchOffersNearBy', async (_arg, { getState, extra: api }) => {
-  const state = getState();
-  const offerId = state.OFFER.offerId;
-  const { data } = await api.get<TOfferPreview[]>(
-    `${APIRoute.Offers}/${offerId}/nearBy`
-  );
-  return data;
-});
 
 export const offerData = createSlice({
   name: NameSpace.Offer,

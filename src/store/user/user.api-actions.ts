@@ -29,7 +29,7 @@ export const checkAuthAction = createAsyncThunk<
 });
 
 export const loginAction = createAsyncThunk<
-  void,
+  TUserData,
   TAuthData,
   {
     dispatch: AppDispatch;
@@ -39,11 +39,14 @@ export const loginAction = createAsyncThunk<
 >(
   'USER/login',
   async ({ login: email, password }, { dispatch, extra: api }) => {
-    const {
-      data: { token },
-    } = await api.post<TUserData>(APIRoute.Login, { email, password });
+    const { data } = await api.post<TUserData>(APIRoute.Login, {
+      email,
+      password,
+    });
+    const { token } = data;
     saveToken(token);
     dispatch(redirectToRoute(AppRoute.Main));
+    return data;
   }
 );
 

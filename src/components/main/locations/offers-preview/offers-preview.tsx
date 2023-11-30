@@ -1,16 +1,16 @@
 import { TOfferPreview } from '../../../../types/offer-preview';
-import OfferPreviewCard from '../../../common/offer-preview-card/offer-preview-card';
+import OfferPreview from '../../../common/offer-preview/offer-preview';
 
-type OffersListProps = {
+type OffersPreviewProps = {
   cityOffers: TOfferPreview[];
   handleHoverOffer: (offerId: string | null) => void;
 };
 
-function OffersPreviewList({ cityOffers, handleHoverOffer }: OffersListProps) {
+function OffersPreview({ cityOffers, handleHoverOffer }: OffersPreviewProps) {
   return (
     <div className="cities__places-list places__list tabs__content">
       {cityOffers.map((offer) => (
-        <OfferPreviewCard
+        <OfferPreview
           offer={offer}
           key={offer.id}
           handleHoverOffer={handleHoverOffer}
@@ -20,4 +20,4 @@ function OffersPreviewList({ cityOffers, handleHoverOffer }: OffersListProps) {
   );
 }
 
-export default OffersPreviewList;
+export default OffersPreview;

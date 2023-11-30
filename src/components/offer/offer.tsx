@@ -1,16 +1,26 @@
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
+import { HelmetTitles } from '../../const';
 import useOffer from '../../hooks/use-offer';
-import OfferPreviewCard from '../common/offer-preview-card/offer-preview-card';
+import OfferPreview from '../common/offer-preview/offer-preview';
 import Spinner from '../common/spinner/spinner';
 import NotFound from '../not-found/not-found';
 import OfferImages from './offer-images/offer-images';
-import Reviews from './reviews/reviews';
-import { HelmetTitles } from '../../const';
+import Reviews from '../reviews/reviews';
+import Map from '../common/map/map';
+import { getLocations } from '../../utils';
+import { useState } from 'react';
 
 function Offer(): JSX.Element {
   const offerId = useParams<string>().id;
   const { isLoading, offer, slicedOffersNearBy } = useOffer(offerId);
+  const [hoverOffer, setHoverOffer] = useState<string | null>(null);
+  const handleHoverOffer = (offerId: string | null) => {
+    setHoverOffer(offerId);
+  };
+  const hoverLocation = slicedOffersNearBy.find(
+    (offer) => offer.id === hoverOffer
+  )?.location;
 
   if (isLoading) {
     return <Spinner />;
@@ -19,7 +29,6 @@ function Offer(): JSX.Element {
   if (!offer) {
     return <NotFound />;
   }
-
   const {
     images,
     title,
@@ -32,9 +41,11 @@ function Offer(): JSX.Element {
     host,
     description,
     rating,
+    city,
+    isFavorite,
   } = offer;
 
-  const ratingStar = (rating * 20).toString();
+  const ratingStar = (Math.ceil(rating) * 20).toString();
 
   return (
     <>
@@ -56,7 +67,11 @@ function Offer(): JSX.Element {
                 <div className="offer__name-wrapper">
                   <h1 className="offer__name">{title}</h1>
                   <button
-                    className="offer__bookmark-button button"
+                    className={
+                      isFavorite
+                        ? 'offer__bookmark-button offer__bookmark-button--active button'
+                        : 'offer__bookmark-button button'
+                    }
                     type="button"
                   >
                     <svg
@@ -75,7 +90,7 @@ function Offer(): JSX.Element {
                     <span className="visually-hidden">Rating</span>
                   </div>
                   <span className="offer__rating-value rating__value">
-                    {rating}
+                    {Math.ceil(rating)}
                   </span>
                 </div>
                 <ul className="offer__features">
@@ -127,7 +142,12 @@ function Offer(): JSX.Element {
                 <Reviews />
               </div>
             </div>
-            <section className="offer__map map"></section>
+            <Map
+              city={city}
+              points={getLocations(slicedOffersNearBy)}
+              activeLocation={hoverLocation}
+              className="offer__map"
+            />
           </section>
           <div className="container">
             <section className="near-places places">
@@ -136,10 +156,10 @@ function Offer(): JSX.Element {
               </h2>
               <div className="near-places__list places__list">
                 {slicedOffersNearBy.map((offerNearBy) => (
-                  <OfferPreviewCard
+                  <OfferPreview
                     offer={offerNearBy}
                     key={offerNearBy.id}
-                    handleHoverOffer={() => {}}
+                    handleHoverOffer={handleHoverOffer}
                   />
                 ))}
               </div>

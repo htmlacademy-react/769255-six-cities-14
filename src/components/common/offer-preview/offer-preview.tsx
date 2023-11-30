@@ -10,14 +10,14 @@ type OfferCardProps = {
 };
 
 function OfferPreviewCard({ offer, handleHoverOffer }: OfferCardProps) {
-  const { id, rating, isPremium, price, title, type } = offer;
+  const { id, rating, isPremium, price, title, type, isFavorite } = offer;
 
   const dispatch = useAppDispatch();
   const handleClickOffer = () => {
     dispatch(setOfferId(id));
   };
 
-  const ratingStar = (rating * 20).toString();
+  const ratingStar = (Math.ceil(rating) * 20).toString();
 
   return (
     <Link to={`${AppRoute.Offers}/${id}`}>
@@ -47,7 +47,11 @@ function OfferPreviewCard({ offer, handleHoverOffer }: OfferCardProps) {
               <span className="place-card__price-text">&#47;&nbsp;night</span>
             </div>
             <button
-              className="place-card__bookmark-button button"
+              className={
+                isFavorite
+                  ? 'place-card__bookmark-button--active button'
+                  : 'place-card__bookmark-button button'
+              }
               type="button"
             >
               <svg className="place-card__bookmark-icon" width="18" height="19">

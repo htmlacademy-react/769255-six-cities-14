@@ -2,11 +2,11 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../../const';
 import { TOfferPreview } from '../../../types/offer-preview';
 
-type FavoriteCardProps = {
+type FavoritePreviewProps = {
   favorite: TOfferPreview;
 };
 
-function FavoriteCard({ favorite }: FavoriteCardProps): JSX.Element {
+function FavoritePreview({ favorite }: FavoritePreviewProps): JSX.Element {
   return (
     <article className="favorites__card place-card">
       {favorite.isPremium && (
@@ -56,4 +56,4 @@ function FavoriteCard({ favorite }: FavoriteCardProps): JSX.Element {
   );
 }
 
-export default FavoriteCard;
+export default FavoritePreview;

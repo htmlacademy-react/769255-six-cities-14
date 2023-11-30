@@ -3,12 +3,13 @@ import { sortingTypes } from '../../../const';
 import useLocations from '../../../hooks/use-locations';
 import { getLocations, sortOffers } from '../../../utils';
 import Spinner from '../../common/spinner/spinner';
-import Map from './map/map';
-import OffersPreviewList from './offers-preview-list/offers-preview-list';
+import Map from '../../common/map/map';
 import Sorting from './sorting/sorting';
+import OffersPreview from './offers-preview/offers-preview';
+import LocationsEmpty from '../locations-empty/locations-empty';
 
 export default function Locations(): JSX.Element {
-  const { cityOffers, city } = useLocations();
+  const { cityOffers, city, hasError } = useLocations();
 
   const [activeSorting, setActiveSorting] = useState<string | null>(
     sortingTypes[0]
@@ -25,6 +26,9 @@ export default function Locations(): JSX.Element {
   if (city === undefined) {
     return <Spinner />;
   }
+  if (hasError) {
+    return <LocationsEmpty />;
+  }
 
   return (
     <div className="cities">
@@ -38,7 +42,7 @@ export default function Locations(): JSX.Element {
             activeSorting={activeSorting}
             setActiveSorting={setActiveSorting}
           />
-          <OffersPreviewList
+          <OffersPreview
             cityOffers={sortOffers(cityOffers, activeSorting)}
             handleHoverOffer={handleHoverOffer}
           />
@@ -48,6 +52,7 @@ export default function Locations(): JSX.Element {
             city={city}
             points={getLocations(cityOffers)}
             activeLocation={hoverLocation}
+            className="cities__map"
           />
         </div>
       </div>
