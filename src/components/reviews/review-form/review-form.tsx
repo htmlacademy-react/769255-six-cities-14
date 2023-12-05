@@ -39,21 +39,24 @@ export default function ReviewFrom() {
     }
   };
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    (async () => {
+      event.preventDefault();
 
-    if (ratingRef.current !== null && commentRef.current !== null) {
-      const newComment = {
-        rating: Number(ratingRef.current.value),
-        comment: commentRef.current.value,
-      };
-      setIsLoading(true);
-      await dispatch(postCommentAction(newComment));
-      setIsLoading(false);
-      if (!error) {
-        commentRef.current.value = '';
+      if (ratingRef.current !== null && commentRef.current !== null) {
+        const newComment = {
+          rating: Number(ratingRef.current.value),
+          comment: commentRef.current.value,
+        };
+        setIsLoading(true);
+        await dispatch(postCommentAction(newComment));
+        setIsLoading(false);
+
+        if (!error) {
+          commentRef.current.value = '';
+        }
       }
-    }
+    })();
   };
   return (
     <form
