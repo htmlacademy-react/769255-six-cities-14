@@ -8,13 +8,21 @@ export const CITIES = [
   'Dusseldorf',
 ];
 
+export const REVIEW_MIN_LENGTH = 50;
+
+export const REVIEW_MAX_LENGTH = 300;
+
+export const COUNT_OFFER_IMAGES = 6;
+
+export const COUNT_OFFERS_NEAR_BY = 3;
+
 export const TIMEOUT_SHOW_ERROR = 3000;
 
 export const URL_MARKER_DEFAULT =
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
+  'markup/img/pin.svg';
 
 export const URL_MARKER_CURRENT =
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
+  'markup/img/pin-active.svg';
 
 export const TITLE = '6 cities';
 

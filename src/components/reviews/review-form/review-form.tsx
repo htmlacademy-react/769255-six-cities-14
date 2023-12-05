@@ -1,18 +1,36 @@
-import { FormEvent, useRef, useState } from 'react';
-import { useAppDispatch } from '../../../hooks';
-import RatingStars from '../rating-stars/rating-stars';
+import { FormEvent, useEffect, useRef, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
+import { getError } from '../../../store/error/error.selectors';
 import { postCommentAction } from '../../../store/reviews/reviews.api-actions';
+import RatingStars from '../rating-stars/rating-stars';
+import { REVIEW_MAX_LENGTH, REVIEW_MIN_LENGTH } from '../../../const';
 
 export default function ReviewFrom() {
   const dispatch = useAppDispatch();
+  const error = useAppSelector(getError);
+
   const ratingRef = useRef<HTMLInputElement | null>(null);
   const commentRef = useRef<HTMLTextAreaElement | null>(null);
+
   const [text, setText] = useState('');
   const [rating, setRating] = useState('');
+  const [isDisabled, setIsDisabled] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (
+      text.length >= REVIEW_MIN_LENGTH &&
+      text.length <= REVIEW_MAX_LENGTH &&
+      !!rating
+    ) {
+      setIsDisabled(false);
+    }
+  }, [text, rating]);
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(event.target.value);
   };
+
   const handleClick = (
     event: React.MouseEvent<HTMLInputElement> | undefined
   ) => {
@@ -21,13 +39,7 @@ export default function ReviewFrom() {
     }
   };
 
-  const disabled = !(
-    text.length >= 50 &&
-    text.length <= 300 &&
-    Number(rating) > 0
-  );
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (ratingRef.current !== null && commentRef.current !== null) {
@@ -35,7 +47,12 @@ export default function ReviewFrom() {
         rating: Number(ratingRef.current.value),
         comment: commentRef.current.value,
       };
-      dispatch(postCommentAction(newComment));
+      setIsLoading(true);
+      await dispatch(postCommentAction(newComment));
+      setIsLoading(false);
+      if (!error) {
+        commentRef.current.value = '';
+      }
     }
   };
   return (
@@ -48,7 +65,11 @@ export default function ReviewFrom() {
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
-      <RatingStars handleClick={handleClick} ratingRef={ratingRef} />
+      <RatingStars
+        handleClick={handleClick}
+        ratingRef={ratingRef}
+        disabled={isLoading}
+      />
       <textarea
         className="reviews__textarea form__textarea"
         id="review"
@@ -56,6 +77,7 @@ export default function ReviewFrom() {
         placeholder="Tell how was your stay, what you like and what can be improved"
         ref={commentRef}
         onChange={handleChange}
+        disabled={isLoading}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -66,7 +88,7 @@ export default function ReviewFrom() {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={disabled}
+          disabled={isDisabled || isLoading}
         >
           Submit
         </button>

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
@@ -13,9 +12,9 @@ import { postFavoriteAction } from '../../store/offer/offer.api-actions';
 import { TOfferPreview } from '../../types/offer-preview';
 import { getLocations } from '../../utils';
 import Map from '../common/map/map';
-import OfferPreview from '../common/offer-preview/offer-preview';
 import Spinner from '../common/spinner/spinner';
 import NotFound from '../not-found/not-found';
+import OffersNearBy from '../offers-near-by/offers-near-by';
 import Reviews from '../reviews/reviews';
 import OfferImages from './offer-images/offer-images';
 
@@ -29,11 +28,6 @@ function Offer(): JSX.Element {
 
   const offerId = useParams<string>().id;
   const { isLoading, offer, slicedOffersNearBy } = useOffer(offerId);
-  const [hoverOffer] = useState<string | null>(null);
-  const hoverLocation = slicedOffersNearBy.find(
-    (slicedOffer) => slicedOffer.id === hoverOffer
-  )?.location;
-
   if (isLoading) {
     return <Spinner />;
   }
@@ -185,25 +179,12 @@ function Offer(): JSX.Element {
             <Map
               city={city}
               points={getLocations(offersForMap)}
-              activeLocation={hoverLocation}
+              activeLocation={offerPreview.location}
               className="offer__map"
             />
           </section>
           <div className="container">
-            <section className="near-places places">
-              <h2 className="near-places__title">
-                Other places in the neighbourhood
-              </h2>
-              <div className="near-places__list places__list">
-                {slicedOffersNearBy.map((offerNearBy) => (
-                  <OfferPreview
-                    offer={offerNearBy}
-                    key={offerNearBy.id}
-                    handleHoverOffer={() => {}}
-                  />
-                ))}
-              </div>
-            </section>
+            <OffersNearBy offers={slicedOffersNearBy} />
           </div>
         </main>
       </div>

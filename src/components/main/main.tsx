@@ -6,34 +6,25 @@ import ErrorScreen from './error-screen/error-screen';
 import Cities from './cities/cities';
 import Locations from './locations/locations';
 
-function Wrapper(): JSX.Element {
+function Main(): JSX.Element {
   const { isLoading, hasError } = useOffers();
-
-  if (isLoading) {
-    return <Spinner />;
-  }
 
   if (!isLoading && hasError) {
     return <ErrorScreen />;
   }
 
   return (
-    <div className="page page--gray page--main">
-      <main className="page__main page__main--index">
-        <Cities />
-        <Locations />
-      </main>
-    </div>
-  );
-}
-
-function Main(): JSX.Element {
-  return (
     <>
       <Helmet>
         <title>{HelmetTitles.Main}</title>
       </Helmet>
-      <Wrapper />
+      <div className="page page--gray page--main">
+        <main className="page__main page__main--index">
+          {isLoading && <Spinner />}
+          <Cities />
+          <Locations />
+        </main>
+      </div>
     </>
   );
 }
