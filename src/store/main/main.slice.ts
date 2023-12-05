@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { TMainData } from '../../types/state';
-import { postFavoriteAction } from '../favorite/favotite.api-actions';
+import { postFavoriteAction } from '../favorite/favorite.api-actions';
 import { fetchOffersAction } from './main.api-actions';
 
 const initialState: TMainData = {

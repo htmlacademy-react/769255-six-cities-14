@@ -3,7 +3,7 @@ import { AppRoute, AuthorizationStatus, NameSpace } from '../../../const';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { logoutAction } from '../../../store/user/user.api-actions';
 import { useEffect } from 'react';
-import { fetchFavoriteOffersAction } from '../../../store/favorite/favotite.api-actions';
+import { fetchFavoriteOffersAction } from '../../../store/favorite/favorite.api-actions';
 
 function Header(): JSX.Element {
   const dispatch = useAppDispatch();

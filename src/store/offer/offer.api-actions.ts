@@ -3,7 +3,7 @@ import { AxiosInstance } from 'axios';
 import { APIRoute } from '../../const';
 import { TOffer } from '../../types/offer';
 import { AppDispatch, State } from '../../types/state';
-import { fetchFavoriteOffersAction } from '../favorite/favotite.api-actions';
+import { fetchFavoriteOffersAction } from '../favorite/favorite.api-actions';
 
 export const fetchOfferAction = createAsyncThunk<
   TOffer,

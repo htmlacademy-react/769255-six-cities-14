@@ -1,7 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { TReviewData } from '../../types/state';
-import { fetchOfferCommentsAction, postCommentAction } from './reviews.api-actions';
+import {
+  fetchOfferCommentsAction,
+  postCommentAction,
+} from './reviews.api-actions';
 
 const initialState: TReviewData = {
   reviews: {

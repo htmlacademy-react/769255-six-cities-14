@@ -1,16 +1,14 @@
 import { Helmet } from 'react-helmet-async';
 import { HelmetTitles } from '../../const';
-import useFavorite from '../../hooks/use-favorite';
-import { getCities, getCityOffers } from '../../utils';
+import { getCityOffers } from '../../utils';
 import Footer from '../common/footer/footer';
 import Spinner from '../common/spinner/spinner';
-import FavoritesEmpty from './favorites-empty/favorites-empty';
 import FavoriteLocation from './favorite-location/favorite-location';
+import FavoritesEmpty from './favorites-empty/favorites-empty';
+import useFavorites from '../../hooks/use-favorites';
 
 function Favorites(): JSX.Element {
-  const { isLoading, favorites } = useFavorite();
-
-  const cities = getCities(favorites);
+  const { isLoading, favorites, cities } = useFavorites();
 
   return (
     <>

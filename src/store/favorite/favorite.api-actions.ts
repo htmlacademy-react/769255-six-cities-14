@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { APIRoute } from '../../const';
-import { TFavoritePost } from '../../types/favorite-data';
+import { TFavoritePost } from '../../types/state';
 import { TOffer } from '../../types/offer';
 import { TOfferPreview } from '../../types/offer-preview';
 import { AppDispatch, State } from '../../types/state';

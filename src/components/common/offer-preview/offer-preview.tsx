@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { setOfferId } from '../../../store/offer/offer.slice';
 import { TOfferPreview } from '../../../types/offer-preview';
 import { postFavoriteAction } from '../../../store/main/main.api-actions';
+import { FormEvent } from 'react';
 
 type OfferPreviewCardProps = {
   offer: TOfferPreview;
@@ -24,7 +25,8 @@ function OfferPreviewCard({ offer, handleHoverOffer }: OfferPreviewCardProps) {
     dispatch(setOfferId(id));
   };
 
-  const handleClick = () => {
+  const handleClick = (event: FormEvent<HTMLButtonElement>) => {
+    event.preventDefault();
     const status = Number(!isFavorite);
     if (isLoggedIn) {
       dispatch(postFavoriteAction({ status, id }));

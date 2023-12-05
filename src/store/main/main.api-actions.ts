@@ -1,12 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { APIRoute, AppRoute } from '../../const';
-import { TFavoritePost } from '../../types/favorite-data';
+import { TFavoritePost } from '../../types/state';
 import { TOffer } from '../../types/offer';
 import { TOfferPreview } from '../../types/offer-preview';
 import { AppDispatch, State } from '../../types/state';
 import { redirectToRoute } from '../actions';
-import { fetchFavoriteOffersAction } from '../favorite/favotite.api-actions';
+import { fetchFavoriteOffersAction } from '../favorite/favorite.api-actions';
 
 export const fetchOffersAction = createAsyncThunk<
   TOfferPreview[],

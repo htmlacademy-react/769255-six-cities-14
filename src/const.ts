@@ -8,7 +8,7 @@ export const CITIES = [
   'Dusseldorf',
 ];
 
-export const TIMEOUT_SHOW_ERROR = 2000;
+export const TIMEOUT_SHOW_ERROR = 3000;
 
 export const URL_MARKER_DEFAULT =
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
@@ -62,4 +62,5 @@ export enum NameSpace {
   Favorite = 'FAVORITE',
   OffersNearBy = 'OFFERS_NEAR_BY',
   Reviews = 'REVIEWS',
+  Error='ERROR'
 }

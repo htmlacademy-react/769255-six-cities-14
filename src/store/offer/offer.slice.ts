@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { TOfferData } from '../../types/state';
-import { postFavoriteAction } from '../favorite/favotite.api-actions';
+import { postFavoriteAction } from '../favorite/favorite.api-actions';
 import { fetchOfferAction } from './offer.api-actions';
 
 const initialState: TOfferData = {

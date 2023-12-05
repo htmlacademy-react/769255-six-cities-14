@@ -2,11 +2,11 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { APIRoute, AppRoute, TIMEOUT_SHOW_ERROR } from '../../const';
 import { dropToken, saveToken } from '../../services/token';
-import { TAuthData } from '../../types/auth-data';
+import { TAuthData } from '../../types/state';
 import { AppDispatch, State } from '../../types/state';
-import { TUserData } from '../../types/user-data';
+import { TUserData } from '../../types/state';
 import { redirectToRoute } from '../actions';
-import { setError } from './user.slice';
+import { setError } from '../error/error.slice';
 
 export const clearErrorAction = createAsyncThunk(
   'USER/clearError',

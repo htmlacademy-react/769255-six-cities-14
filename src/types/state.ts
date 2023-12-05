@@ -3,14 +3,25 @@ import { store } from '../store';
 import { TOffer } from './offer';
 import { TOfferPreview } from './offer-preview';
 import { TNewReview, TReview } from './review';
-import { TUserData } from './user-data';
 
 export type State = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
-export type TUserProcess = TUserData&{
+export type TUserProcess = TUserData & {
   authorizationStatus: AuthorizationStatus;
-  error: string | null;
+};
+
+export type TUserData = {
+  token: string;
+  email: string;
+  name: string;
+  avatarUrl: string;
+  isPro: boolean;
+};
+
+export type TAuthData = {
+  login: string;
+  password: string;
 };
 
 export type TMainData = {
@@ -46,3 +57,12 @@ export type TFavoriteData = {
   offers: TOfferPreview[];
   isLoading: boolean;
 };
+
+export type TFavoritePost = {
+  status: number;
+  id: string;
+};
+
+export type TError = {
+  error: string | null;
+}

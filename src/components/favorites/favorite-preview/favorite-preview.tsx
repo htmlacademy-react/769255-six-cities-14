@@ -2,7 +2,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus, NameSpace } from '../../../const';
 import { TOfferPreview } from '../../../types/offer-preview';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
-import { postFavoriteAction } from '../../../store/favorite/favotite.api-actions';
+import { postFavoriteAction } from '../../../store/favorite/favorite.api-actions';
+import { FormEvent } from 'react';
 
 type FavoritePreviewProps = {
   favorite: TOfferPreview;
@@ -17,7 +18,8 @@ function FavoritePreview({ favorite }: FavoritePreviewProps): JSX.Element {
   const isLoggedIn = authStatus === AuthorizationStatus.Auth;
   const navigate = useNavigate();
 
-  const handleClick = () => {
+  const handleClick = (event: FormEvent<HTMLButtonElement>) => {
+    event.preventDefault();
     const status = Number(!isFavorite);
     if (isLoggedIn) {
       dispatch(postFavoriteAction({ status, id }));

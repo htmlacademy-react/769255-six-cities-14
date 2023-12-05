@@ -4,7 +4,7 @@ import { TFavoriteData } from '../../types/state';
 import {
   fetchFavoriteOffersAction,
   postFavoriteAction,
-} from './favotite.api-actions';
+} from './favorite.api-actions';
 
 const initialState: TFavoriteData = {
   offers: [],

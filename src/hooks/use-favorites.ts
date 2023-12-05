@@ -4,16 +4,19 @@ import {
   getFavoriteOffers,
   getFavoriteOffersIsLoading,
 } from '../store/favorite/favorite.selectors';
-import { fetchFavoriteOffersAction } from '../store/favorite/favotite.api-actions';
+import { fetchFavoriteOffersAction } from '../store/favorite/favorite.api-actions';
+import { getCities } from '../utils';
 
 export default function useFavorite() {
   const dispatch = useAppDispatch();
   const favorites = useAppSelector(getFavoriteOffers);
   const isLoading = useAppSelector(getFavoriteOffersIsLoading);
+  const cities = getCities(favorites);
+
 
   useEffect(() => {
     dispatch(fetchFavoriteOffersAction());
   }, [dispatch]);
 
-  return { isLoading, favorites };
+  return { isLoading, favorites, cities };
 }
