@@ -12,6 +12,7 @@ import { getAuthorizationStatus } from '../../store/user/user.selectors';
 import Layout from '../layout/layout';
 import HistoryRouter from '../routes/history-route/history-route';
 import PrivateRoute from '../routes/private-route/private-route';
+import LoginRoute from '../routes/login-route/login-route';
 
 function App(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
@@ -23,7 +24,14 @@ function App(): JSX.Element {
           <Route path={AppRoute.Main} element={<Layout />}>
             <Route index element={<MainPage />} />
             <Route path={`${AppRoute.Offers}/:id`} element={<OfferPage />} />
-            <Route path={AppRoute.Login} element={<LoginPage />} />
+            <Route
+              path={AppRoute.Login}
+              element={
+                <LoginRoute authorizationStatus={authorizationStatus}>
+                  <LoginPage />
+                </LoginRoute>
+              }
+            />
             <Route
               path={AppRoute.Favorites}
               element={

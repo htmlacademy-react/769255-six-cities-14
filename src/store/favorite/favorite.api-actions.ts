@@ -1,10 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { APIRoute } from '../../const';
-import { TFavoritePost } from '../../types/state';
 import { TOffer } from '../../types/offer';
 import { TOfferPreview } from '../../types/offer-preview';
-import { AppDispatch, State } from '../../types/state';
+import { AppDispatch, State, TFavoritePost } from '../../types/state';
 
 export const fetchFavoriteOffersAction = createAsyncThunk<
   TOfferPreview[],
@@ -27,7 +26,7 @@ export const postFavoriteAction = createAsyncThunk<
     state: State;
     extra: AxiosInstance;
   }
->('FAVORITE/postFavorite', async ({ status, id }, { dispatch, extra: api }) => {
+>('FAVORITE/postFavorite', async ({ status, id }, {dispatch, extra: api }) => {
   const { data } = await api.post<TOffer>(
     `${APIRoute.Favorite}/${id}/${status}`
   );

@@ -7,6 +7,7 @@ import { TOfferPreview } from '../../types/offer-preview';
 import { AppDispatch, State } from '../../types/state';
 import { redirectToRoute } from '../actions';
 import { fetchFavoriteOffersAction } from '../favorite/favorite.api-actions';
+import { getToken } from '../../services/token';
 
 export const fetchOffersAction = createAsyncThunk<
   TOfferPreview[],
@@ -25,7 +26,7 @@ export const fetchOffersAction = createAsyncThunk<
 });
 
 export const postFavoriteAction = createAsyncThunk<
-  TOffer,
+  TOffer | undefined,
   TFavoritePost,
   {
     dispatch: AppDispatch;
@@ -33,11 +34,17 @@ export const postFavoriteAction = createAsyncThunk<
     extra: AxiosInstance;
   }
 >('MAIN/postFavorite', async ({ status, id }, { dispatch, extra: api }) => {
-  const { data } = await api.post<TOffer>(
-    `${APIRoute.Favorite}/${id}/${status}`
-  );
-  if (data) {
-    dispatch(fetchFavoriteOffersAction());
+  const token = getToken();
+
+  if (token !== '' && token) {
+    const { data } = await api.post<TOffer>(
+      `${APIRoute.Favorite}/${id}/${status}`
+    );
+    if (data) {
+      dispatch(fetchFavoriteOffersAction());
+    }
+    return data;
+  } else {
+    dispatch(redirectToRoute(AppRoute.Login));
   }
-  return data;
 });

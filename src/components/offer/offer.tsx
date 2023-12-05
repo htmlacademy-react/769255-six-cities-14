@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
-import { useNavigate, useParams } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus, HelmetTitles } from '../../const';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useParams } from 'react-router-dom';
+import { HelmetTitles } from '../../const';
+import { useAppDispatch } from '../../hooks';
 import useOffer from '../../hooks/use-offer';
 import { postFavoriteAction } from '../../store/offer/offer.api-actions';
 import { TOfferPreview } from '../../types/offer-preview';
@@ -12,13 +12,10 @@ import NotFound from '../not-found/not-found';
 import OffersNearBy from '../offers-near-by/offers-near-by';
 import Reviews from '../reviews/reviews';
 import OfferImages from './offer-images/offer-images';
-import { getAuthorizationStatus } from '../../store/user/user.selectors';
 
 function Offer(): JSX.Element {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
-  const authStatus = useAppSelector(getAuthorizationStatus);
   const offerId = useParams<string>().id;
   const { isLoading, offer, slicedOffersNearBy } = useOffer(offerId);
 
@@ -66,11 +63,7 @@ function Offer(): JSX.Element {
   const ratingStar = (Math.ceil(rating) * 20).toString();
 
   const handleClick = () => {
-    if (authStatus === AuthorizationStatus.Auth) {
-      dispatch(postFavoriteAction(Number(!isFavorite)));
-    } else {
-      navigate(AppRoute.Login);
-    }
+    dispatch(postFavoriteAction(Number(!isFavorite)));
   };
 
   return (

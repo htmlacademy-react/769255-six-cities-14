@@ -1,10 +1,9 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../../const';
-import { useAppDispatch, useAppSelector } from '../../../hooks';
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../../const';
+import { useAppDispatch } from '../../../hooks';
 import { postFavoriteAction } from '../../../store/main/main.api-actions';
 import { setOfferId } from '../../../store/offer/offer.slice';
-import { getAuthorizationStatus } from '../../../store/user/user.selectors';
 import { TOfferPreview } from '../../../types/offer-preview';
 
 type OfferPreviewCardProps = {
@@ -17,9 +16,6 @@ function OfferPreviewCard({ offer, onMouseOver }: OfferPreviewCardProps) {
 
   const [isFavoriteState, setIsFavoriteState] = useState(isFavorite);
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-
-  const authStatus = useAppSelector(getAuthorizationStatus);
 
   const handleClickOffer = () => {
     dispatch(setOfferId(id));
@@ -27,12 +23,7 @@ function OfferPreviewCard({ offer, onMouseOver }: OfferPreviewCardProps) {
 
   const handleClickBookmark = () => {
     setIsFavoriteState(!isFavoriteState);
-
-    if (authStatus === AuthorizationStatus.Auth) {
-      dispatch(postFavoriteAction({ status: Number(!isFavoriteState), id }));
-    } else {
-      navigate(AppRoute.Login);
-    }
+    dispatch(postFavoriteAction({ status: Number(!isFavoriteState), id }));
   };
 
   const ratingStar = (Math.ceil(rating) * 20).toString();

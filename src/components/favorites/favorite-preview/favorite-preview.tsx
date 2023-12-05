@@ -1,8 +1,7 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../../const';
-import { useAppDispatch, useAppSelector } from '../../../hooks';
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../../const';
+import { useAppDispatch } from '../../../hooks';
 import { postFavoriteAction } from '../../../store/favorite/favorite.api-actions';
-import { getAuthorizationStatus } from '../../../store/user/user.selectors';
 import { TOfferPreview } from '../../../types/offer-preview';
 
 type FavoritePreviewProps = {
@@ -13,16 +12,9 @@ function FavoritePreview({ favorite }: FavoritePreviewProps): JSX.Element {
   const { id, isFavorite, price, title, type, isPremium } = favorite;
 
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-
-  const authStatus = useAppSelector(getAuthorizationStatus);
 
   const handleClick = () => {
-    if (authStatus === AuthorizationStatus.Auth) {
-      dispatch(postFavoriteAction({ status: Number(!isFavorite), id }));
-    } else {
-      navigate(AppRoute.Login);
-    }
+    dispatch(postFavoriteAction({ status: Number(!isFavorite), id }));
   };
 
   return (
