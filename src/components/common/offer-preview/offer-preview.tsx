@@ -1,4 +1,4 @@
-import { FormEvent } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../../const';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
@@ -14,6 +14,8 @@ type OfferPreviewCardProps = {
 
 function OfferPreviewCard({ offer, onMouseOver }: OfferPreviewCardProps) {
   const { id, rating, isPremium, price, title, type, isFavorite } = offer;
+
+  const [isFavoriteState, setIsFavoriteState] = useState(isFavorite);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -23,11 +25,11 @@ function OfferPreviewCard({ offer, onMouseOver }: OfferPreviewCardProps) {
     dispatch(setOfferId(id));
   };
 
-  const handleClick = (event: FormEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    const status = Number(!isFavorite);
+  const handleClickBookmark = () => {
+    setIsFavoriteState(!isFavoriteState);
+
     if (authStatus === AuthorizationStatus.Auth) {
-      dispatch(postFavoriteAction({ status, id }));
+      dispatch(postFavoriteAction({ status: Number(!isFavoriteState), id }));
     } else {
       navigate(AppRoute.Login);
     }
@@ -66,12 +68,12 @@ function OfferPreviewCard({ offer, onMouseOver }: OfferPreviewCardProps) {
           </div>
           <button
             className={
-              isFavorite
+              isFavoriteState
                 ? 'place-card__bookmark-button--active button'
                 : 'place-card__bookmark-button button'
             }
             type="button"
-            onClick={handleClick}
+            onClick={handleClickBookmark}
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>

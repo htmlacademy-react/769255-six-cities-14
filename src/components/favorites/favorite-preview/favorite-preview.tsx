@@ -1,4 +1,3 @@
-import { FormEvent, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../../const';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
@@ -15,13 +14,10 @@ function FavoritePreview({ favorite }: FavoritePreviewProps): JSX.Element {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [isFavoriteState, setIsFavoriteState] = useState(isFavorite);
-  console.log(isFavorite);
 
   const authStatus = useAppSelector(getAuthorizationStatus);
 
   const handleClick = () => {
-    setIsFavoriteState(!isFavoriteState);
     if (authStatus === AuthorizationStatus.Auth) {
       dispatch(postFavoriteAction({ status: Number(!isFavorite), id }));
     } else {
@@ -54,12 +50,7 @@ function FavoritePreview({ favorite }: FavoritePreviewProps): JSX.Element {
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button
-            //className="place-card__bookmark-button place-card__bookmark-button--active button"
-            className={
-              isFavoriteState
-                ? 'place-card__bookmark-button place-card__bookmark-button--active button'
-                : 'place-card__bookmark-button place-card__bookmark-button button'
-            }
+            className="place-card__bookmark-button place-card__bookmark-button--active button"
             type="button"
             onClick={handleClick}
           >

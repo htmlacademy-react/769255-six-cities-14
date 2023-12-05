@@ -66,9 +66,8 @@ function Offer(): JSX.Element {
   const ratingStar = (Math.ceil(rating) * 20).toString();
 
   const handleClick = () => {
-    const status = Number(!isFavorite);
     if (authStatus === AuthorizationStatus.Auth) {
-      dispatch(postFavoriteAction(status));
+      dispatch(postFavoriteAction(Number(!isFavorite)));
     } else {
       navigate(AppRoute.Login);
     }

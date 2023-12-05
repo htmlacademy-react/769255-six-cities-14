@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus, NameSpace } from '../../../const';
+import { AppRoute, AuthorizationStatus } from '../../../const';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
-import { logoutAction } from '../../../store/user/user.api-actions';
 import { fetchFavoriteOffersAction } from '../../../store/favorite/favorite.api-actions';
 import { getFavoriteOffers } from '../../../store/favorite/favorite.selectors';
+import { logoutAction } from '../../../store/user/user.api-actions';
 import {
   getAuthorizationStatus,
   getUser,
@@ -22,7 +22,7 @@ function Header(): JSX.Element {
     if (isLoggedIn) {
       dispatch(fetchFavoriteOffersAction());
     }
-  }, [dispatch, authStatus]);
+  }, [dispatch, isLoggedIn]);
 
   const handleLogout = () => {
     if (isLoggedIn) {
