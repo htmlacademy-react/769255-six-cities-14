@@ -8,6 +8,8 @@ export const CITIES = [
   'Dusseldorf',
 ];
 
+export const RATINGS = ['1', '2', '3', '4', '5'];
+
 export const REVIEW_MIN_LENGTH = 50;
 
 export const REVIEW_MAX_LENGTH = 300;
@@ -15,6 +17,8 @@ export const REVIEW_MAX_LENGTH = 300;
 export const COUNT_OFFER_IMAGES = 6;
 
 export const COUNT_OFFERS_NEAR_BY = 3;
+
+export const COUNT_REVIEWS = 10;
 
 export const TIMEOUT_SHOW_ERROR = 3000;
 

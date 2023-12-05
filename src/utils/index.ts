@@ -1,6 +1,7 @@
 import { TCity } from '../types/city';
 import { TLocation } from '../types/location';
 import { TOfferPreview } from '../types/offer-preview';
+import { TReview } from '../types/review';
 
 export function getLocations(offers: TOfferPreview[]): TLocation[] {
   const locations: TLocation[] = [];
@@ -73,4 +74,8 @@ export function dateFormat(date: string) {
     day: 'numeric',
   };
   return formatDate.toLocaleString('ru-RU', options);
+}
+
+export function sortCommentsByDate(comments: TReview[]) {
+  return comments.sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
 }

@@ -9,13 +9,13 @@ export default function ReviewFrom() {
   const dispatch = useAppDispatch();
   const error = useAppSelector(getError);
 
-  const ratingRef = useRef<HTMLInputElement | null>(null);
-  const commentRef = useRef<HTMLTextAreaElement | null>(null);
-
   const [text, setText] = useState('');
   const [rating, setRating] = useState('');
   const [isDisabled, setIsDisabled] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+
+  const ratingRef = useRef<HTMLInputElement | null>(null);
+  const commentRef = useRef<HTMLTextAreaElement | null>(null);
 
   useEffect(() => {
     if (
@@ -69,7 +69,7 @@ export default function ReviewFrom() {
         Your review
       </label>
       <RatingStars
-        handleClick={handleClick}
+        onClick={handleClick}
         ratingRef={ratingRef}
         disabled={isLoading}
       />

@@ -1,31 +1,34 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus, NameSpace } from '../../../const';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { logoutAction } from '../../../store/user/user.api-actions';
-import { useEffect } from 'react';
 import { fetchFavoriteOffersAction } from '../../../store/favorite/favorite.api-actions';
+import { getFavoriteOffers } from '../../../store/favorite/favorite.selectors';
+import {
+  getAuthorizationStatus,
+  getUser,
+} from '../../../store/user/user.selectors';
 
 function Header(): JSX.Element {
   const dispatch = useAppDispatch();
-  const authStatus = useAppSelector(
-    (state) => state[NameSpace.User].authorizationStatus
-  );
+  const authStatus = useAppSelector(getAuthorizationStatus);
+  const user = useAppSelector(getUser);
+  const favoriteOffers = useAppSelector(getFavoriteOffers);
+
   const isLoggedIn = authStatus === AuthorizationStatus.Auth;
-  const favoriteOffers = useAppSelector(
-    (state) => state[NameSpace.Favorite].offers
-  );
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      dispatch(fetchFavoriteOffersAction());
+    }
+  }, [dispatch, authStatus]);
 
   const handleLogout = () => {
     if (isLoggedIn) {
       dispatch(logoutAction());
     }
   };
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      dispatch(fetchFavoriteOffersAction());
-    }
-  }, [dispatch, isLoggedIn]);
 
   return (
     <header className="header">
@@ -51,7 +54,7 @@ function Header(): JSX.Element {
                   to={AppRoute.Favorites}
                 >
                   <span className="header__user-name user__name">
-                    Oliver.conner@gmail.com
+                    {user?.email}
                   </span>
                 </Link>
                 <span className="header__favorite-count">

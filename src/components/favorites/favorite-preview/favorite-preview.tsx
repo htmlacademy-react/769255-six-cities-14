@@ -1,9 +1,10 @@
+import { FormEvent, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus, NameSpace } from '../../../const';
-import { TOfferPreview } from '../../../types/offer-preview';
+import { AppRoute, AuthorizationStatus } from '../../../const';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { postFavoriteAction } from '../../../store/favorite/favorite.api-actions';
-import { FormEvent } from 'react';
+import { getAuthorizationStatus } from '../../../store/user/user.selectors';
+import { TOfferPreview } from '../../../types/offer-preview';
 
 type FavoritePreviewProps = {
   favorite: TOfferPreview;
@@ -11,18 +12,18 @@ type FavoritePreviewProps = {
 
 function FavoritePreview({ favorite }: FavoritePreviewProps): JSX.Element {
   const { id, isFavorite, price, title, type, isPremium } = favorite;
-  const dispatch = useAppDispatch();
-  const authStatus = useAppSelector(
-    (state) => state[NameSpace.User].authorizationStatus
-  );
-  const isLoggedIn = authStatus === AuthorizationStatus.Auth;
-  const navigate = useNavigate();
 
-  const handleClick = (event: FormEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    const status = Number(!isFavorite);
-    if (isLoggedIn) {
-      dispatch(postFavoriteAction({ status, id }));
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const [isFavoriteState, setIsFavoriteState] = useState(isFavorite);
+  console.log(isFavorite);
+
+  const authStatus = useAppSelector(getAuthorizationStatus);
+
+  const handleClick = () => {
+    setIsFavoriteState(!isFavoriteState);
+    if (authStatus === AuthorizationStatus.Auth) {
+      dispatch(postFavoriteAction({ status: Number(!isFavorite), id }));
     } else {
       navigate(AppRoute.Login);
     }
@@ -53,7 +54,12 @@ function FavoritePreview({ favorite }: FavoritePreviewProps): JSX.Element {
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button
-            className="place-card__bookmark-button place-card__bookmark-button--active button"
+            //className="place-card__bookmark-button place-card__bookmark-button--active button"
+            className={
+              isFavoriteState
+                ? 'place-card__bookmark-button place-card__bookmark-button--active button'
+                : 'place-card__bookmark-button place-card__bookmark-button button'
+            }
             type="button"
             onClick={handleClick}
           >

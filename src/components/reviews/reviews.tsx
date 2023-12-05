@@ -1,20 +1,15 @@
-import { AuthorizationStatus } from '../../const';
+import { AuthorizationStatus, COUNT_REVIEWS } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { getComments } from '../../store/reviews/reviews.selectors';
 import { getAuthorizationStatus } from '../../store/user/user.selectors';
+import { sortCommentsByDate } from '../../utils';
 import ReviewFrom from './review-form/review-form';
 import Review from './review/review';
 
 function Reviews() {
-  // const comments = useAppSelector(getComments).sort(
-  //   (a, b) => Date.parse(b.date) - Date.parse(a.date)
-  // );
   const comments = useAppSelector(getComments);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
-  const slicedComments = comments.slice(0, 10);
-  // const sortedComments = comments.sort(
-  //   (a, b) => Date.parse(b.date) - Date.parse(a.date)
-  // );
+  const slicedComments = sortCommentsByDate(comments.slice(0, COUNT_REVIEWS));
 
   return (
     <section className="offer__reviews reviews">

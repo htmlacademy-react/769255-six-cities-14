@@ -1,6 +1,6 @@
+import { useEffect, useRef } from 'react';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { useEffect, useRef } from 'react';
 import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../../const';
 import useMap from '../../../hooks/use-map';
 import { TCity } from '../../../types/city';

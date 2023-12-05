@@ -11,11 +11,7 @@ export default function OffersNearBy({ offers }: OffersNearByProps) {
       <h2 className="near-places__title">Other places in the neighbourhood</h2>
       <div className="near-places__list places__list">
         {offers.map((offer) => (
-          <OfferPreview
-            offer={offer}
-            key={offer.id}
-            handleHoverOffer={() => {}}
-          />
+          <OfferPreview offer={offer} key={offer.id} onMouseOver={() => {}} />
         ))}
       </div>
     </section>

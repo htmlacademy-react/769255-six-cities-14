@@ -1,23 +1,22 @@
 import RatingStar from './rating-star/rating-star';
+import { RATINGS } from '../../../const';
 
 type RatingStarsProps = {
-  handleClick: (event: React.MouseEvent<HTMLInputElement> | undefined) => void;
+  onClick: (event: React.MouseEvent<HTMLInputElement> | undefined) => void;
   ratingRef: React.MutableRefObject<HTMLInputElement | null>;
   disabled: boolean;
 };
 
 export default function RatingStars({
-  handleClick,
+  onClick,
   ratingRef,
   disabled,
 }: RatingStarsProps) {
-  const ratings = ['1', '2', '3', '4', '5'];
-
   return (
     <div className="reviews__rating-form form__rating">
-      {ratings.map((rating) => (
+      {RATINGS.map((rating) => (
         <RatingStar
-          handleClick={handleClick}
+          onClick={onClick}
           ratingRef={ratingRef}
           rating={rating}
           key={rating}

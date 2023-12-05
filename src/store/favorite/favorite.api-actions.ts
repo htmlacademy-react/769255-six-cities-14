@@ -29,11 +29,9 @@ export const postFavoriteAction = createAsyncThunk<
   }
 >('FAVORITE/postFavorite', async ({ status, id }, { dispatch, extra: api }) => {
   const { data } = await api.post<TOffer>(
-    `${APIRoute.Favorite}/${id}/${status}`,
-    { status, id }
-  );
-  if (data) {
-    dispatch(fetchFavoriteOffersAction());
-  }
-  return data;
+    `${APIRoute.Favorite}/${id}/${status}`);
+  // if (data) {
+  //   dispatch(fetchFavoriteOffersAction());
+  // }
+   return data;
 });

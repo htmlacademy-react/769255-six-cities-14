@@ -1,26 +1,24 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus, NameSpace } from '../../../const';
-import { useAppDispatch, useAppSelector } from '../../../hooks';
-import { setOfferId } from '../../../store/offer/offer.slice';
-import { TOfferPreview } from '../../../types/offer-preview';
-import { postFavoriteAction } from '../../../store/main/main.api-actions';
 import { FormEvent } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { AppRoute, AuthorizationStatus } from '../../../const';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
+import { postFavoriteAction } from '../../../store/main/main.api-actions';
+import { setOfferId } from '../../../store/offer/offer.slice';
+import { getAuthorizationStatus } from '../../../store/user/user.selectors';
+import { TOfferPreview } from '../../../types/offer-preview';
 
 type OfferPreviewCardProps = {
   offer: TOfferPreview;
-  handleHoverOffer: (offerId: string | null) => void;
+  onMouseOver: (offerId: string | null) => void;
 };
 
-function OfferPreviewCard({ offer, handleHoverOffer }: OfferPreviewCardProps) {
+function OfferPreviewCard({ offer, onMouseOver }: OfferPreviewCardProps) {
   const { id, rating, isPremium, price, title, type, isFavorite } = offer;
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const authStatus = useAppSelector(
-    (state) => state[NameSpace.User].authorizationStatus
-  );
-  const isLoggedIn = authStatus === AuthorizationStatus.Auth;
+  const authStatus = useAppSelector(getAuthorizationStatus);
 
-  const dispatch = useAppDispatch();
   const handleClickOffer = () => {
     dispatch(setOfferId(id));
   };
@@ -28,7 +26,7 @@ function OfferPreviewCard({ offer, handleHoverOffer }: OfferPreviewCardProps) {
   const handleClick = (event: FormEvent<HTMLButtonElement>) => {
     event.preventDefault();
     const status = Number(!isFavorite);
-    if (isLoggedIn) {
+    if (authStatus === AuthorizationStatus.Auth) {
       dispatch(postFavoriteAction({ status, id }));
     } else {
       navigate(AppRoute.Login);
@@ -40,7 +38,7 @@ function OfferPreviewCard({ offer, handleHoverOffer }: OfferPreviewCardProps) {
   return (
     <article
       className="cities__card place-card"
-      onMouseOver={() => handleHoverOffer(id)}
+      onMouseOver={() => onMouseOver(id)}
       onClick={handleClickOffer}
     >
       {isPremium && (

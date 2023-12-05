@@ -1,11 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { useNavigate, useParams } from 'react-router-dom';
-import {
-  AppRoute,
-  AuthorizationStatus,
-  HelmetTitles,
-  NameSpace,
-} from '../../const';
+import { AppRoute, AuthorizationStatus, HelmetTitles } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import useOffer from '../../hooks/use-offer';
 import { postFavoriteAction } from '../../store/offer/offer.api-actions';
@@ -17,17 +12,16 @@ import NotFound from '../not-found/not-found';
 import OffersNearBy from '../offers-near-by/offers-near-by';
 import Reviews from '../reviews/reviews';
 import OfferImages from './offer-images/offer-images';
+import { getAuthorizationStatus } from '../../store/user/user.selectors';
 
 function Offer(): JSX.Element {
   const dispatch = useAppDispatch();
-  const authStatus = useAppSelector(
-    (state) => state[NameSpace.User].authorizationStatus
-  );
-  const isLoggedIn = authStatus === AuthorizationStatus.Auth;
   const navigate = useNavigate();
 
+  const authStatus = useAppSelector(getAuthorizationStatus);
   const offerId = useParams<string>().id;
   const { isLoading, offer, slicedOffersNearBy } = useOffer(offerId);
+
   if (isLoading) {
     return <Spinner />;
   }
@@ -73,7 +67,7 @@ function Offer(): JSX.Element {
 
   const handleClick = () => {
     const status = Number(!isFavorite);
-    if (isLoggedIn) {
+    if (authStatus === AuthorizationStatus.Auth) {
       dispatch(postFavoriteAction(status));
     } else {
       navigate(AppRoute.Login);

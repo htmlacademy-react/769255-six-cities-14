@@ -16,9 +16,11 @@ export default function Locations(): JSX.Element {
   );
 
   const [hoverOffer, setHoverOffer] = useState<string | null>(null);
+
   const handleHoverOffer = (offerId: string | null) => {
     setHoverOffer(offerId);
   };
+
   const hoverLocation = cityOffers.find(
     (offer) => offer.id === hoverOffer
   )?.location;
@@ -26,6 +28,7 @@ export default function Locations(): JSX.Element {
   if (city === undefined) {
     return <Spinner />;
   }
+
   if (hasError) {
     return <LocationsEmpty />;
   }
@@ -44,7 +47,7 @@ export default function Locations(): JSX.Element {
           />
           <OffersPreview
             cityOffers={sortOffers(cityOffers, activeSorting)}
-            handleHoverOffer={handleHoverOffer}
+            onMouseOver={handleHoverOffer}
           />
         </section>
         <div className="cities__right-section">

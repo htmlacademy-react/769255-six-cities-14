@@ -1,12 +1,12 @@
 type RatingStarProps = {
-  handleClick: (event: React.MouseEvent<HTMLInputElement> | undefined) => void;
+  onClick: (event: React.MouseEvent<HTMLInputElement> | undefined) => void;
   ratingRef: React.MutableRefObject<HTMLInputElement | null>;
   rating: string;
   disabled: boolean;
 };
 
 export default function RatingStar({
-  handleClick,
+  onClick,
   ratingRef,
   rating,
   disabled,
@@ -19,7 +19,7 @@ export default function RatingStar({
         value={Number(rating)}
         id={`${rating}-stars`}
         type="radio"
-        onClick={handleClick}
+        onClick={onClick}
         ref={ratingRef}
         disabled={disabled}
       />

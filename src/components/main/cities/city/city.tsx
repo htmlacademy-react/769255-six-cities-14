@@ -8,6 +8,7 @@ type CityProps = {
 
 function City({ city }: CityProps): JSX.Element {
   const dispatch = useAppDispatch();
+
   const handleClick = (event: React.MouseEvent<HTMLLIElement>) => {
     event.preventDefault();
     dispatch(changeCity(event.currentTarget.textContent));
