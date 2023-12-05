@@ -10,7 +10,7 @@ const initialState: TUserProcess = {
   token: '',
   name: '',
   avatarUrl: '',
-  isPro: false
+  isPro: false,
 };
 
 export const userProcess = createSlice({
@@ -31,8 +31,8 @@ export const userProcess = createSlice({
       })
       .addCase(loginAction.fulfilled, (state, action) => {
         state.authorizationStatus = AuthorizationStatus.Auth;
-        state.email=action.payload.email;
-        state.avatarUrl=action.payload.avatarUrl
+        state.email = action.payload.email;
+        state.avatarUrl = action.payload.avatarUrl;
       })
       .addCase(loginAction.rejected, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;

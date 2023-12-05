@@ -6,9 +6,15 @@ import ReviewFrom from './review-form/review-form';
 import Review from './review/review';
 
 function Reviews() {
+  // const comments = useAppSelector(getComments).sort(
+  //   (a, b) => Date.parse(b.date) - Date.parse(a.date)
+  // );
   const comments = useAppSelector(getComments);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const slicedComments = comments.slice(0, 10);
+  // const sortedComments = comments.sort(
+  //   (a, b) => Date.parse(b.date) - Date.parse(a.date)
+  // );
 
   return (
     <section className="offer__reviews reviews">

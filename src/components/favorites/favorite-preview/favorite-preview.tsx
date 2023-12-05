@@ -1,21 +1,40 @@
-import { Link } from 'react-router-dom';
-import { AppRoute } from '../../../const';
+import { Link, useNavigate } from 'react-router-dom';
+import { AppRoute, AuthorizationStatus, NameSpace } from '../../../const';
 import { TOfferPreview } from '../../../types/offer-preview';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
+import { postFavoriteAction } from '../../../store/favorite/favotite.api-actions';
 
 type FavoritePreviewProps = {
   favorite: TOfferPreview;
 };
 
 function FavoritePreview({ favorite }: FavoritePreviewProps): JSX.Element {
+  const { id, isFavorite, price, title, type, isPremium } = favorite;
+  const dispatch = useAppDispatch();
+  const authStatus = useAppSelector(
+    (state) => state[NameSpace.User].authorizationStatus
+  );
+  const isLoggedIn = authStatus === AuthorizationStatus.Auth;
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    const status = Number(!isFavorite);
+    if (isLoggedIn) {
+      dispatch(postFavoriteAction({ status, id }));
+    } else {
+      navigate(AppRoute.Login);
+    }
+  };
+
   return (
     <article className="favorites__card place-card">
-      {favorite.isPremium && (
+      {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       )}
       <div className="favorites__image-wrapper place-card__image-wrapper">
-        <Link to={`${AppRoute.Offers}/${favorite.id}`}>
+        <Link to={`${AppRoute.Offers}/${id}`}>
           <img
             className="place-card__image"
             src="img/apartment-small-03.jpg"
@@ -28,12 +47,13 @@ function FavoritePreview({ favorite }: FavoritePreviewProps): JSX.Element {
       <div className="favorites__card-info place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">&euro;{favorite.price}</b>
+            <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button
             className="place-card__bookmark-button place-card__bookmark-button--active button"
             type="button"
+            onClick={handleClick}
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
@@ -48,9 +68,9 @@ function FavoritePreview({ favorite }: FavoritePreviewProps): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`${AppRoute.Offers}/${favorite.id}`}>{favorite.title}</Link>
+          <Link to={`${AppRoute.Offers}/${id}`}>{title}</Link>
         </h2>
-        <p className="place-card__type">{favorite.type}</p>
+        <p className="place-card__type">{type}</p>
       </div>
     </article>
   );

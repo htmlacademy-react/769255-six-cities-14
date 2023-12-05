@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus, NameSpace } from '../../../const';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { logoutAction } from '../../../store/user/user.api-actions';
+import { useEffect } from 'react';
+import { fetchFavoriteOffersAction } from '../../../store/favorite/favotite.api-actions';
 
 function Header(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -9,12 +11,21 @@ function Header(): JSX.Element {
     (state) => state[NameSpace.User].authorizationStatus
   );
   const isLoggedIn = authStatus === AuthorizationStatus.Auth;
+  const favoriteOffers = useAppSelector(
+    (state) => state[NameSpace.Favorite].offers
+  );
 
   const handleLogout = () => {
     if (isLoggedIn) {
       dispatch(logoutAction());
     }
   };
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      dispatch(fetchFavoriteOffersAction());
+    }
+  }, [dispatch, isLoggedIn]);
 
   return (
     <header className="header">
@@ -34,16 +45,18 @@ function Header(): JSX.Element {
           <nav className="header__nav">
             <ul className="header__nav-list">
               <li className="header__nav-item user">
+                <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                 <Link
                   className="header__nav-link header__nav-link--profile"
                   to={AppRoute.Favorites}
                 >
-                  <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                   <span className="header__user-name user__name">
                     Oliver.conner@gmail.com
                   </span>
-                  <span className="header__favorite-count">3</span>
                 </Link>
+                <span className="header__favorite-count">
+                  {favoriteOffers.length}
+                </span>
               </li>
               <li className="header__nav-item">
                 <Link

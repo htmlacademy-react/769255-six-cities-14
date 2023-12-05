@@ -1,25 +1,37 @@
+import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useParams } from 'react-router-dom';
-import { HelmetTitles } from '../../const';
+import { useNavigate, useParams } from 'react-router-dom';
+import {
+  AppRoute,
+  AuthorizationStatus,
+  HelmetTitles,
+  NameSpace,
+} from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import useOffer from '../../hooks/use-offer';
+import { postFavoriteAction } from '../../store/offer/offer.api-actions';
+import { TOfferPreview } from '../../types/offer-preview';
+import { getLocations } from '../../utils';
+import Map from '../common/map/map';
 import OfferPreview from '../common/offer-preview/offer-preview';
 import Spinner from '../common/spinner/spinner';
 import NotFound from '../not-found/not-found';
-import OfferImages from './offer-images/offer-images';
 import Reviews from '../reviews/reviews';
-import Map from '../common/map/map';
-import { getLocations } from '../../utils';
-import { useState } from 'react';
+import OfferImages from './offer-images/offer-images';
 
 function Offer(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const authStatus = useAppSelector(
+    (state) => state[NameSpace.User].authorizationStatus
+  );
+  const isLoggedIn = authStatus === AuthorizationStatus.Auth;
+  const navigate = useNavigate();
+
   const offerId = useParams<string>().id;
   const { isLoading, offer, slicedOffersNearBy } = useOffer(offerId);
-  const [hoverOffer, setHoverOffer] = useState<string | null>(null);
-  const handleHoverOffer = (offerId: string | null) => {
-    setHoverOffer(offerId);
-  };
+  const [hoverOffer] = useState<string | null>(null);
   const hoverLocation = slicedOffersNearBy.find(
-    (offer) => offer.id === hoverOffer
+    (slicedOffer) => slicedOffer.id === hoverOffer
   )?.location;
 
   if (isLoading) {
@@ -43,9 +55,36 @@ function Offer(): JSX.Element {
     rating,
     city,
     isFavorite,
+    location,
+    id,
+    previewImage,
   } = offer;
 
+  const offerPreview: TOfferPreview = {
+    id,
+    title,
+    isPremium,
+    type,
+    price,
+    rating,
+    city,
+    isFavorite,
+    location,
+    previewImage,
+  };
+
+  const offersForMap = [...slicedOffersNearBy, offerPreview];
+
   const ratingStar = (Math.ceil(rating) * 20).toString();
+
+  const handleClick = () => {
+    const status = Number(!isFavorite);
+    if (isLoggedIn) {
+      dispatch(postFavoriteAction(status));
+    } else {
+      navigate(AppRoute.Login);
+    }
+  };
 
   return (
     <>
@@ -73,6 +112,7 @@ function Offer(): JSX.Element {
                         : 'offer__bookmark-button button'
                     }
                     type="button"
+                    onClick={handleClick}
                   >
                     <svg
                       className="offer__bookmark-icon"
@@ -101,7 +141,7 @@ function Offer(): JSX.Element {
                     {bedrooms} {bedrooms > 1 ? 'Bedrooms' : 'Bedroom'}
                   </li>
                   <li className="offer__feature offer__feature--adults">
-                    Max {maxAdults} adults
+                    Max {maxAdults > 1 ? 'adults' : 'adult'}
                   </li>
                 </ul>
                 <div className="offer__price">
@@ -144,7 +184,7 @@ function Offer(): JSX.Element {
             </div>
             <Map
               city={city}
-              points={getLocations(slicedOffersNearBy)}
+              points={getLocations(offersForMap)}
               activeLocation={hoverLocation}
               className="offer__map"
             />
@@ -159,7 +199,7 @@ function Offer(): JSX.Element {
                   <OfferPreview
                     offer={offerNearBy}
                     key={offerNearBy.id}
-                    handleHoverOffer={handleHoverOffer}
+                    handleHoverOffer={() => {}}
                   />
                 ))}
               </div>

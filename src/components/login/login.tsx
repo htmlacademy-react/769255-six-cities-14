@@ -1,15 +1,15 @@
 import { FormEvent, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import { useAppDispatch } from '../../hooks';
 import { HelmetTitles } from '../../const';
+import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/user/user.api-actions';
 
 function Login(): JSX.Element {
+  const dispatch = useAppDispatch();
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
-  const dispatch = useAppDispatch();
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 

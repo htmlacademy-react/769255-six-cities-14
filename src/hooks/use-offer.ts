@@ -5,10 +5,11 @@ import {
   getOffer,
   getOfferIsLoading,
 } from '../store/offer/offer.selectors';
-import { fetchOfferAction, setOfferId } from '../store/offer/offer.slice';
+import { fetchOfferAction } from '../store/offer/offer.api-actions';
 import { getOffersNearBy } from '../store/offers-near-by/offers-near-by.selectors';
-import { fetchOfferCommentsAction } from '../store/reviews/reviews.slice';
-import { fetchOffersNearByAction } from '../store/offers-near-by/offers-near-by.slice';
+import { fetchOfferCommentsAction } from '../store/reviews/reviews.api-actions';
+import { fetchOffersNearByAction } from '../store/offers-near-by/offers-near-by.api-actions';
+import { setOfferId } from '../store/offer/offer.slice';
 
 export default function useOffer(offerId: string | undefined) {
   const dispatch = useAppDispatch();

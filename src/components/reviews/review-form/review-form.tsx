@@ -1,7 +1,7 @@
 import { FormEvent, useRef, useState } from 'react';
 import { useAppDispatch } from '../../../hooks';
-import RatingStars from './rating-stars/rating-stars';
-import { postCommentAction } from '../../../store/reviews/reviews.slice';
+import RatingStars from '../rating-stars/rating-stars';
+import { postCommentAction } from '../../../store/reviews/reviews.api-actions';
 
 export default function ReviewFrom() {
   const dispatch = useAppDispatch();
@@ -21,7 +21,11 @@ export default function ReviewFrom() {
     }
   };
 
-  const disabled = !(text.length >= 50 && Number(rating) > 0);
+  const disabled = !(
+    text.length >= 50 &&
+    text.length <= 300 &&
+    Number(rating) > 0
+  );
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
