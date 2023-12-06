@@ -1,20 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
-import { APIRoute, AppRoute, TIMEOUT_SHOW_ERROR } from '../../const';
+import { APIRoute, AppRoute } from '../../const';
 import { dropToken, saveToken } from '../../services/token';
 import { AppDispatch, State, TAuthData, TUserData } from '../../types/state';
 import { redirectToRoute } from '../actions';
-import { setError } from '../error/error.slice';
-
-export const clearErrorAction = createAsyncThunk(
-  'USER/clearError',
-  (_arg, { dispatch }) => {
-    setTimeout(() => dispatch(setError(null)), TIMEOUT_SHOW_ERROR);
-  }
-);
 
 export const checkAuthAction = createAsyncThunk<
-  void,
+  TUserData,
   undefined,
   {
     dispatch: AppDispatch;
@@ -22,7 +14,8 @@ export const checkAuthAction = createAsyncThunk<
     extra: AxiosInstance;
   }
 >('USER/checkAuth', async (_arg, { extra: api }) => {
-  await api.get(APIRoute.Login);
+  const { data } = await api.get<TUserData>(APIRoute.Login);
+  return data;
 });
 
 export const loginAction = createAsyncThunk<

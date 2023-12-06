@@ -68,12 +68,10 @@ export function sortOffers(
 export function dateFormat(date: string) {
   const formatDate = new Date(date);
   const options: Intl.DateTimeFormatOptions = {
-    weekday: 'long',
-    year: 'numeric',
     month: 'long',
-    day: 'numeric',
+    year: 'numeric',
   };
-  return formatDate.toLocaleString('ru-RU', options);
+  return formatDate.toLocaleString('en-GB', options);
 }
 
 export function sortCommentsByDate(comments: TReview[]) {

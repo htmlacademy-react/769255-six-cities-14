@@ -1,7 +1,8 @@
 import { AuthorizationStatus, NameSpace } from '../../const';
-import { State, TUserProcess } from '../../types/state';
+import { State } from '../../types/state';
 
 export const getAuthorizationStatus = (state: State): AuthorizationStatus =>
   state[NameSpace.User].authorizationStatus;
 
-export const getUser = (state: State): TUserProcess => state[NameSpace.User];
+export const getUserEmail = (state: State): string =>
+  state[NameSpace.User].email;

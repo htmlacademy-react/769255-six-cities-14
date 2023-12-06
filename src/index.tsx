@@ -7,7 +7,7 @@ import { store } from './store';
 import ErrorMessage from './components/common/error-message/error-message';
 import { checkAuthAction } from './store/user/user.api-actions';
 
-store.dispatch(checkAuthAction);
+store.dispatch(checkAuthAction());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

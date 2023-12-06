@@ -7,13 +7,13 @@ import { getFavoriteOffers } from '../../../store/favorite/favorite.selectors';
 import { logoutAction } from '../../../store/user/user.api-actions';
 import {
   getAuthorizationStatus,
-  getUser,
+  getUserEmail,
 } from '../../../store/user/user.selectors';
 
 function Header(): JSX.Element {
   const dispatch = useAppDispatch();
   const authStatus = useAppSelector(getAuthorizationStatus);
-  const user = useAppSelector(getUser);
+  const email = useAppSelector(getUserEmail);
   const favoriteOffers = useAppSelector(getFavoriteOffers);
 
   const isLoggedIn = authStatus === AuthorizationStatus.Auth;
@@ -47,20 +47,20 @@ function Header(): JSX.Element {
           </div>
           <nav className="header__nav">
             <ul className="header__nav-list">
-              <li className="header__nav-item user">
-                <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                <Link
-                  className="header__nav-link header__nav-link--profile"
-                  to={AppRoute.Favorites}
-                >
-                  <span className="header__user-name user__name">
-                    {user?.email}
+              <Link
+                className="header__nav-link header__nav-link--profile"
+                to={AppRoute.Favorites}
+              >
+                <li className="header__nav-item user">
+                  <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+
+                  <span className="header__user-name user__name">{email}</span>
+
+                  <span className="header__favorite-count">
+                    {favoriteOffers.length}
                   </span>
-                </Link>
-                <span className="header__favorite-count">
-                  {favoriteOffers.length}
-                </span>
-              </li>
+                </li>
+              </Link>
               <li className="header__nav-item">
                 <Link
                   className="header__nav-link"
@@ -68,7 +68,7 @@ function Header(): JSX.Element {
                   onClick={handleLogout}
                 >
                   <span className="header__signout">
-                    {isLoggedIn ? 'Sign out' : 'Sign in'}
+                    {isLoggedIn ? 'Log out' : 'Login'}
                   </span>
                 </Link>
               </li>
