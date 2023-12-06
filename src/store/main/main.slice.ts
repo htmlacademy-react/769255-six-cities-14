@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { TMainData } from '../../types/state';
-import { postFavoriteAction } from '../favorite/favorite.api-actions';
+import { addFavoriteFromMainAction } from '../main/main.api-actions';
 import { fetchOffersAction } from './main.api-actions';
 
 const initialState: TMainData = {
@@ -9,6 +9,7 @@ const initialState: TMainData = {
   offers: [],
   isLoading: false,
   hasError: false,
+  isLoadingAddFavorite: false
 };
 
 export const mainData = createSlice({
@@ -35,15 +36,19 @@ export const mainData = createSlice({
         state.isLoading = false;
         state.hasError = true;
       })
-      .addCase(postFavoriteAction.pending, (state) => {
-        state.isLoading = true;
+      .addCase(addFavoriteFromMainAction.pending, (state) => {
+        state.isLoadingAddFavorite = true;
         state.hasError = false;
       })
-      .addCase(postFavoriteAction.fulfilled, (state) => {
-        state.isLoading = false;
+      .addCase(addFavoriteFromMainAction.fulfilled, (state, action) => {
+        state.isLoadingAddFavorite = false;
+        if(action.payload){
+          const index = state.offers.findIndex((item) => item.id === action?.payload?.id);
+          state.offers[index].isFavorite = action.payload.isFavorite;
+        }
       })
-      .addCase(postFavoriteAction.rejected, (state) => {
-        state.isLoading = false;
+      .addCase(addFavoriteFromMainAction.rejected, (state) => {
+        state.isLoadingAddFavorite = false;
         state.hasError = true;
       });
   },

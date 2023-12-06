@@ -1,13 +1,14 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { TOfferData } from '../../types/state';
-import { postFavoriteAction } from '../favorite/favorite.api-actions';
+import { addFavoriteFromOfferAction } from '../offer/offer.api-actions';
 import { fetchOfferAction } from './offer.api-actions';
 
 const initialState: TOfferData = {
   data: null,
   isLoading: false,
   offerId: '',
+  isLoadingFavoritePost: false,
 };
 
 export const offerData = createSlice({
@@ -30,15 +31,17 @@ export const offerData = createSlice({
       .addCase(fetchOfferAction.rejected, (state) => {
         state.isLoading = false;
       })
-      .addCase(postFavoriteAction.fulfilled, (state, action) => {
-        state.data = action.payload;
-        state.isLoading = false;
+      .addCase(addFavoriteFromOfferAction.fulfilled, (state, action) => {
+        if (action.payload) {
+          state.data = action.payload;
+        }
+        state.isLoadingAddFavorite = false;
       })
-      .addCase(postFavoriteAction.pending, (state) => {
-        state.isLoading = true;
+      .addCase(addFavoriteFromOfferAction.pending, (state) => {
+        state.isLoadingAddFavorite = true;
       })
-      .addCase(postFavoriteAction.rejected, (state) => {
-        state.isLoading = false;
+      .addCase(addFavoriteFromOfferAction.rejected, (state) => {
+        state.isLoadingAddFavorite = false;
       });
   },
 });

@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { HelmetTitles } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import useOffer from '../../hooks/use-offer';
-import { postFavoriteAction } from '../../store/offer/offer.api-actions';
+import { addFavoriteFromOfferAction } from '../../store/offer/offer.api-actions';
 import { TOfferPreview } from '../../types/offer-preview';
 import { getCountStars, getLocations } from '../../utils';
 import Map from '../common/map/map';
@@ -63,7 +63,7 @@ function Offer(): JSX.Element {
   const ratingStar = getCountStars(rating);
 
   const handleClick = () => {
-    dispatch(postFavoriteAction(Number(!isFavorite)));
+    dispatch(addFavoriteFromOfferAction(Number(!isFavorite)));
   };
 
   return (

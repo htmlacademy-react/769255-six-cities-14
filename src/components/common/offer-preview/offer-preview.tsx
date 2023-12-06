@@ -2,10 +2,9 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../../const';
 import { useAppDispatch } from '../../../hooks';
-import { postFavoriteAction } from '../../../store/main/main.api-actions';
-import { setOfferId } from '../../../store/offer/offer.slice';
 import { TOfferPreview } from '../../../types/offer-preview';
 import { getCountStars } from '../../../utils';
+import { addFavoriteFromMainAction } from '../../../store/main/main.api-actions';
 
 type OfferPreviewProps = {
   offer: TOfferPreview;
@@ -18,30 +17,27 @@ function OfferPreview({ offer, onMouseOver }: OfferPreviewProps) {
   const [isFavoriteState, setIsFavoriteState] = useState(isFavorite);
   const dispatch = useAppDispatch();
 
-  const handleClickOffer = () => {
-    dispatch(setOfferId(id));
-  };
-
   const handleClickBookmark = () => {
-    dispatch(postFavoriteAction({ status: Number(!isFavoriteState), id }));
+    dispatch(
+      addFavoriteFromMainAction({ status: Number(!isFavoriteState), id })
+    );
     setIsFavoriteState(!isFavoriteState);
   };
 
   const ratingStar = getCountStars(rating);
 
   return (
-    <article
-      className="cities__card place-card"
-      onMouseOver={() => onMouseOver(id)}
-      onClick={handleClickOffer}
-    >
+    <article className="cities__card place-card">
       {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       )}
       <Link to={`${AppRoute.Offers}/${id}`}>
-        <div className="cities__image-wrapper place-card__image-wrapper">
+        <div
+          className="cities__image-wrapper place-card__image-wrapper"
+          onMouseOver={() => onMouseOver(id)}
+        >
           <img
             className="place-card__image"
             src={offer.previewImage}

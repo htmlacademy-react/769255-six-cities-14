@@ -29,12 +29,14 @@ export type TMainData = {
   offers: TOfferPreview[];
   isLoading: boolean;
   hasError: boolean;
+  isLoadingAddFavorite: boolean;
 };
 
 export type TOfferData = {
   data: TOffer | null;
   isLoading: boolean;
   offerId: string;
+  isLoadingAddFavorite: boolean;
 };
 
 export type TOffersNearByData = {
@@ -56,6 +58,7 @@ export type TReviewData = {
 export type TFavoriteData = {
   offers: TOfferPreview[];
   isLoading: boolean;
+  isLoadingAddFavorite: boolean;
 };
 
 export type TFavoritePost = {
