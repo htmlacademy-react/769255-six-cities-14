@@ -8,7 +8,7 @@ const initialState: TOfferData = {
   data: null,
   isLoading: false,
   offerId: '',
-  isLoadingFavoritePost: false,
+  isLoadingAddFavorite: false,
 };
 
 export const offerData = createSlice({
