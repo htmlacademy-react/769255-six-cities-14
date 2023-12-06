@@ -9,6 +9,7 @@ import {
   getAuthorizationStatus,
   getUserEmail,
 } from '../../../store/user/user.selectors';
+import styles from './header.module.css';
 
 function Header(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -51,15 +52,19 @@ function Header(): JSX.Element {
                 className="header__nav-link header__nav-link--profile"
                 to={AppRoute.Favorites}
               >
-                <li className="header__nav-item user">
-                  <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+                {isLoggedIn && (
+                  <li className={`${styles.email} header__nav-item user`}>
+                    <div className="header__avatar-wrapper user__avatar-wrapper"></div>
 
-                  <span className="header__user-name user__name">{email}</span>
+                    <span className="header__user-name user__name">
+                      {email}
+                    </span>
 
-                  <span className="header__favorite-count">
-                    {favoriteOffers.length}
-                  </span>
-                </li>
+                    <span className="header__favorite-count">
+                      {favoriteOffers.length}
+                    </span>
+                  </li>
+                )}
               </Link>
               <li className="header__nav-item">
                 <Link
