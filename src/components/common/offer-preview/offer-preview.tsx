@@ -5,6 +5,7 @@ import { useAppDispatch } from '../../../hooks';
 import { postFavoriteAction } from '../../../store/main/main.api-actions';
 import { setOfferId } from '../../../store/offer/offer.slice';
 import { TOfferPreview } from '../../../types/offer-preview';
+import { getCountStars } from '../../../utils';
 
 type OfferPreviewCardProps = {
   offer: TOfferPreview;
@@ -22,11 +23,11 @@ function OfferPreviewCard({ offer, onMouseOver }: OfferPreviewCardProps) {
   };
 
   const handleClickBookmark = () => {
-    setIsFavoriteState(!isFavoriteState);
     dispatch(postFavoriteAction({ status: Number(!isFavoriteState), id }));
+    setIsFavoriteState(!isFavoriteState);
   };
 
-  const ratingStar = (Math.ceil(rating) * 20).toString();
+  const ratingStar = getCountStars(rating);
 
   return (
     <article

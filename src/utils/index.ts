@@ -77,3 +77,7 @@ export function dateFormat(date: string) {
 export function sortCommentsByDate(comments: TReview[]) {
   return comments.sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
 }
+
+export function getCountStars(rating: number) {
+  return (Math.round(rating) * 20).toString();
+}
