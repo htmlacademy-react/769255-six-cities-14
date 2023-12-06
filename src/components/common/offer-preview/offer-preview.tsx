@@ -7,12 +7,12 @@ import { setOfferId } from '../../../store/offer/offer.slice';
 import { TOfferPreview } from '../../../types/offer-preview';
 import { getCountStars } from '../../../utils';
 
-type OfferPreviewCardProps = {
+type OfferPreviewProps = {
   offer: TOfferPreview;
   onMouseOver: (offerId: string | null) => void;
 };
 
-function OfferPreviewCard({ offer, onMouseOver }: OfferPreviewCardProps) {
+function OfferPreview({ offer, onMouseOver }: OfferPreviewProps) {
   const { id, rating, isPremium, price, title, type, isFavorite } = offer;
 
   const [isFavoriteState, setIsFavoriteState] = useState(isFavorite);
@@ -86,4 +86,4 @@ function OfferPreviewCard({ offer, onMouseOver }: OfferPreviewCardProps) {
   );
 }
 
-export default OfferPreviewCard;
+export default OfferPreview;
