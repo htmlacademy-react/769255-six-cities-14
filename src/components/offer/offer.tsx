@@ -3,9 +3,9 @@ import { useParams } from 'react-router-dom';
 import { HelmetTitles } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import useOffer from '../../hooks/use-offer';
-import { postFavoriteAction } from '../../store/offer/offer.api-actions';
+import { addFavoriteFromOfferAction } from '../../store/offer/offer.api-actions';
 import { TOfferPreview } from '../../types/offer-preview';
-import { getLocations } from '../../utils';
+import { getCountStars, getLocations } from '../../utils';
 import Map from '../common/map/map';
 import Spinner from '../common/spinner/spinner';
 import NotFound from '../not-found/not-found';
@@ -60,10 +60,10 @@ function Offer(): JSX.Element {
 
   const offersForMap = [...slicedOffersNearBy, offerPreview];
 
-  const ratingStar = (Math.ceil(rating) * 20).toString();
+  const ratingStar = getCountStars(rating);
 
   const handleClick = () => {
-    dispatch(postFavoriteAction(Number(!isFavorite)));
+    dispatch(addFavoriteFromOfferAction(Number(!isFavorite)));
   };
 
   return (
@@ -110,7 +110,7 @@ function Offer(): JSX.Element {
                     <span className="visually-hidden">Rating</span>
                   </div>
                   <span className="offer__rating-value rating__value">
-                    {Math.ceil(rating)}
+                    {Math.round(rating)}
                   </span>
                 </div>
                 <ul className="offer__features">

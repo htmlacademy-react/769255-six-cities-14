@@ -3,12 +3,13 @@ import { NameSpace } from '../../const';
 import { TFavoriteData } from '../../types/state';
 import {
   fetchFavoriteOffersAction,
-  postFavoriteAction,
+  addFavoriteAction,
 } from './favorite.api-actions';
 
 const initialState: TFavoriteData = {
   offers: [],
   isLoading: false,
+  isLoadingAddFavorite: false
 };
 
 export const favoriteData = createSlice({
@@ -27,14 +28,14 @@ export const favoriteData = createSlice({
       .addCase(fetchFavoriteOffersAction.rejected, (state) => {
         state.isLoading = false;
       })
-      .addCase(postFavoriteAction.fulfilled, (state) => {
-        state.isLoading = false;
+      .addCase(addFavoriteAction.fulfilled, (state) => {
+        state.isLoadingAddFavorite = false;
       })
-      .addCase(postFavoriteAction.pending, (state) => {
-        state.isLoading = true;
+      .addCase(addFavoriteAction.pending, (state) => {
+        state.isLoadingAddFavorite = true;
       })
-      .addCase(postFavoriteAction.rejected, (state) => {
-        state.isLoading = false;
+      .addCase(addFavoriteAction.rejected, (state) => {
+        state.isLoadingAddFavorite = false;
       });
   },
 });

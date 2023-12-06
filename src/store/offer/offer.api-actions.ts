@@ -22,7 +22,7 @@ export const fetchOfferAction = createAsyncThunk<
   return data;
 });
 
-export const postFavoriteAction = createAsyncThunk<
+export const addFavoriteFromOfferAction = createAsyncThunk<
   TOffer | undefined,
   number,
   {

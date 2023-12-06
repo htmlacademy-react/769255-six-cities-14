@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../../const';
 import { useAppDispatch } from '../../../hooks';
-import { postFavoriteAction } from '../../../store/favorite/favorite.api-actions';
+import { addFavoriteAction } from '../../../store/favorite/favorite.api-actions';
 import { TOfferPreview } from '../../../types/offer-preview';
 
 type FavoritePreviewProps = {
@@ -14,7 +14,7 @@ function FavoritePreview({ favorite }: FavoritePreviewProps): JSX.Element {
   const dispatch = useAppDispatch();
 
   const handleClick = () => {
-    dispatch(postFavoriteAction({ status: Number(!isFavorite), id }));
+    dispatch(addFavoriteAction({ status: Number(!isFavorite), id }));
   };
 
   return (

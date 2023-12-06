@@ -53,7 +53,7 @@ function Header(): JSX.Element {
                 to={AppRoute.Favorites}
               >
                 {isLoggedIn && (
-                  <li className={`${styles.email} header__nav-item user`}>
+                  <li className={`${styles.header} header__nav-item user`}>
                     <div className="header__avatar-wrapper user__avatar-wrapper"></div>
 
                     <span className="header__user-name user__name">

@@ -18,7 +18,7 @@ export const fetchFavoriteOffersAction = createAsyncThunk<
   return data;
 });
 
-export const postFavoriteAction = createAsyncThunk<
+export const addFavoriteAction = createAsyncThunk<
   TOffer,
   TFavoritePost,
   {
