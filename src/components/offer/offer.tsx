@@ -1,14 +1,21 @@
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
+import { HelmetTitles } from '../../const';
+import { useAppDispatch } from '../../hooks';
 import useOffer from '../../hooks/use-offer';
-import OfferPreviewCard from '../common/offer-preview-card/offer-preview-card';
+import { postFavoriteAction } from '../../store/offer/offer.api-actions';
+import { TOfferPreview } from '../../types/offer-preview';
+import { getLocations } from '../../utils';
+import Map from '../common/map/map';
 import Spinner from '../common/spinner/spinner';
 import NotFound from '../not-found/not-found';
+import OffersNearBy from '../offers-near-by/offers-near-by';
+import Reviews from '../reviews/reviews';
 import OfferImages from './offer-images/offer-images';
-import Reviews from './reviews/reviews';
-import { HelmetTitles } from '../../const';
 
 function Offer(): JSX.Element {
+  const dispatch = useAppDispatch();
+
   const offerId = useParams<string>().id;
   const { isLoading, offer, slicedOffersNearBy } = useOffer(offerId);
 
@@ -19,7 +26,6 @@ function Offer(): JSX.Element {
   if (!offer) {
     return <NotFound />;
   }
-
   const {
     images,
     title,
@@ -32,9 +38,33 @@ function Offer(): JSX.Element {
     host,
     description,
     rating,
+    city,
+    isFavorite,
+    location,
+    id,
+    previewImage,
   } = offer;
 
-  const ratingStar = (rating * 20).toString();
+  const offerPreview: TOfferPreview = {
+    id,
+    title,
+    isPremium,
+    type,
+    price,
+    rating,
+    city,
+    isFavorite,
+    location,
+    previewImage,
+  };
+
+  const offersForMap = [...slicedOffersNearBy, offerPreview];
+
+  const ratingStar = (Math.ceil(rating) * 20).toString();
+
+  const handleClick = () => {
+    dispatch(postFavoriteAction(Number(!isFavorite)));
+  };
 
   return (
     <>
@@ -56,8 +86,13 @@ function Offer(): JSX.Element {
                 <div className="offer__name-wrapper">
                   <h1 className="offer__name">{title}</h1>
                   <button
-                    className="offer__bookmark-button button"
+                    className={
+                      isFavorite
+                        ? 'offer__bookmark-button offer__bookmark-button--active button'
+                        : 'offer__bookmark-button button'
+                    }
                     type="button"
+                    onClick={handleClick}
                   >
                     <svg
                       className="offer__bookmark-icon"
@@ -75,7 +110,7 @@ function Offer(): JSX.Element {
                     <span className="visually-hidden">Rating</span>
                   </div>
                   <span className="offer__rating-value rating__value">
-                    {rating}
+                    {Math.ceil(rating)}
                   </span>
                 </div>
                 <ul className="offer__features">
@@ -86,7 +121,7 @@ function Offer(): JSX.Element {
                     {bedrooms} {bedrooms > 1 ? 'Bedrooms' : 'Bedroom'}
                   </li>
                   <li className="offer__feature offer__feature--adults">
-                    Max {maxAdults} adults
+                    Max {maxAdults > 1 ? 'adults' : 'adult'}
                   </li>
                 </ul>
                 <div className="offer__price">
@@ -127,23 +162,15 @@ function Offer(): JSX.Element {
                 <Reviews />
               </div>
             </div>
-            <section className="offer__map map"></section>
+            <Map
+              city={city}
+              points={getLocations(offersForMap)}
+              activeLocation={offerPreview.location}
+              className="offer__map"
+            />
           </section>
           <div className="container">
-            <section className="near-places places">
-              <h2 className="near-places__title">
-                Other places in the neighbourhood
-              </h2>
-              <div className="near-places__list places__list">
-                {slicedOffersNearBy.map((offerNearBy) => (
-                  <OfferPreviewCard
-                    offer={offerNearBy}
-                    key={offerNearBy.id}
-                    handleHoverOffer={() => {}}
-                  />
-                ))}
-              </div>
-            </section>
+            <OffersNearBy offers={slicedOffersNearBy} />
           </div>
         </main>
       </div>

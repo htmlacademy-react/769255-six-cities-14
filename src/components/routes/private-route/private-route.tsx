@@ -6,7 +6,6 @@ type PrivateRouteProps = {
   children: JSX.Element;
 };
 
-//компонент для описания приватных маршрутов
 function PrivateRoute({ authorizationStatus, children }: PrivateRouteProps) {
   return authorizationStatus === AuthorizationStatus.Auth ? (
     children

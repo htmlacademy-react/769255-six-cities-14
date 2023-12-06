@@ -1,12 +1,33 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../../const';
-import { useAppDispatch } from '../../../hooks';
+import { AppRoute, AuthorizationStatus } from '../../../const';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
+import { fetchFavoriteOffersAction } from '../../../store/favorite/favorite.api-actions';
+import { getFavoriteOffers } from '../../../store/favorite/favorite.selectors';
 import { logoutAction } from '../../../store/user/user.api-actions';
+import {
+  getAuthorizationStatus,
+  getUserEmail,
+} from '../../../store/user/user.selectors';
 
 function Header(): JSX.Element {
   const dispatch = useAppDispatch();
+  const authStatus = useAppSelector(getAuthorizationStatus);
+  const email = useAppSelector(getUserEmail);
+  const favoriteOffers = useAppSelector(getFavoriteOffers);
+
+  const isLoggedIn = authStatus === AuthorizationStatus.Auth;
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      dispatch(fetchFavoriteOffersAction());
+    }
+  }, [dispatch, isLoggedIn]);
+
   const handleLogout = () => {
-    dispatch(logoutAction());
+    if (isLoggedIn) {
+      dispatch(logoutAction());
+    }
   };
 
   return (
@@ -26,25 +47,29 @@ function Header(): JSX.Element {
           </div>
           <nav className="header__nav">
             <ul className="header__nav-list">
-              <li className="header__nav-item user">
-                <Link
-                  className="header__nav-link header__nav-link--profile"
-                  to={AppRoute.Favorite}
-                >
+              <Link
+                className="header__nav-link header__nav-link--profile"
+                to={AppRoute.Favorites}
+              >
+                <li className="header__nav-item user">
                   <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                  <span className="header__user-name user__name">
-                    Oliver.conner@gmail.com
+
+                  <span className="header__user-name user__name">{email}</span>
+
+                  <span className="header__favorite-count">
+                    {favoriteOffers.length}
                   </span>
-                  <span className="header__favorite-count">3</span>
-                </Link>
-              </li>
+                </li>
+              </Link>
               <li className="header__nav-item">
                 <Link
                   className="header__nav-link"
                   to={AppRoute.Login}
                   onClick={handleLogout}
                 >
-                  <span className="header__signout">Sign out</span>
+                  <span className="header__signout">
+                    {isLoggedIn ? 'Log out' : 'Login'}
+                  </span>
                 </Link>
               </li>
             </ul>

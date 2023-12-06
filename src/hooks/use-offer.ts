@@ -5,9 +5,12 @@ import {
   getOffer,
   getOfferIsLoading,
 } from '../store/offer/offer.selectors';
-import { fetchOfferAction, fetchOffersNearByAction, setOfferId } from '../store/offer/offer.slice';
+import { fetchOfferAction } from '../store/offer/offer.api-actions';
 import { getOffersNearBy } from '../store/offers-near-by/offers-near-by.selectors';
-import { fetchOfferCommentsAction } from '../store/reviews/reviews.slice';
+import { fetchOfferCommentsAction } from '../store/reviews/reviews.api-actions';
+import { fetchOffersNearByAction } from '../store/offers-near-by/offers-near-by.api-actions';
+import { setOfferId } from '../store/offer/offer.slice';
+import { COUNT_OFFERS_NEAR_BY } from '../const';
 
 export default function useOffer(offerId: string | undefined) {
   const dispatch = useAppDispatch();
@@ -24,7 +27,7 @@ export default function useOffer(offerId: string | undefined) {
   const isLoading = useAppSelector(getOfferIsLoading);
   const offer = useAppSelector(getOffer);
   const offersNearBy = useAppSelector(getOffersNearBy);
-  const slicedOffersNearBy = offersNearBy.slice(0, 3);
+  const slicedOffersNearBy = offersNearBy.slice(0, COUNT_OFFERS_NEAR_BY);
 
   return { isLoading, offer, slicedOffersNearBy };
 }

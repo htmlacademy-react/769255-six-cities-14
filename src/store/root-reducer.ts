@@ -6,6 +6,7 @@ import { offerData } from './offer/offer.slice';
 import { favoriteData } from './favorite/favorite.slice';
 import { offersNearByData } from './offers-near-by/offers-near-by.slice';
 import { reviewsData } from './reviews/reviews.slice';
+import { errorData } from './error/error.slice';
 
 export const rootReducer = combineReducers({
   [NameSpace.Main]: mainData.reducer,
@@ -13,5 +14,6 @@ export const rootReducer = combineReducers({
   [NameSpace.Offer]: offerData.reducer,
   [NameSpace.Favorite]: favoriteData.reducer,
   [NameSpace.Reviews]: reviewsData.reducer,
-  [NameSpace.OffersNearBy]: offersNearByData.reducer
+  [NameSpace.OffersNearBy]: offersNearByData.reducer,
+  [NameSpace.Error]: errorData.reducer
 });

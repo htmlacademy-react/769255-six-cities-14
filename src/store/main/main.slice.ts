@@ -1,9 +1,8 @@
-import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { AxiosInstance } from 'axios';
-import { APIRoute, AppRoute, NameSpace } from '../../const';
-import { TOfferPreview } from '../../types/offer-preview';
-import { AppDispatch, State, TMainData } from '../../types/state';
-import { redirectToRoute } from '../actions';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { NameSpace } from '../../const';
+import { TMainData } from '../../types/state';
+import { postFavoriteAction } from '../favorite/favorite.api-actions';
+import { fetchOffersAction } from './main.api-actions';
 
 const initialState: TMainData = {
   activeCity: 'Paris',
@@ -11,22 +10,6 @@ const initialState: TMainData = {
   isLoading: false,
   hasError: false,
 };
-
-export const fetchOffersAction = createAsyncThunk<
-  TOfferPreview[],
-  undefined,
-  {
-    dispatch: AppDispatch;
-    state: State;
-    extra: AxiosInstance;
-  }
->('MAIN/fetchOffers', async (_arg, { dispatch, extra: api }) => {
-  const { data } = await api.get<TOfferPreview[]>(APIRoute.Offers);
-  if (!data) {
-    dispatch(redirectToRoute(AppRoute.NotFound));
-  }
-  return data;
-});
 
 export const mainData = createSlice({
   name: NameSpace.Main,
@@ -49,6 +32,17 @@ export const mainData = createSlice({
         state.isLoading = false;
       })
       .addCase(fetchOffersAction.rejected, (state) => {
+        state.isLoading = false;
+        state.hasError = true;
+      })
+      .addCase(postFavoriteAction.pending, (state) => {
+        state.isLoading = true;
+        state.hasError = false;
+      })
+      .addCase(postFavoriteAction.fulfilled, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(postFavoriteAction.rejected, (state) => {
         state.isLoading = false;
         state.hasError = true;
       });

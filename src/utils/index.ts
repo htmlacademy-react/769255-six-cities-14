@@ -1,6 +1,7 @@
 import { TCity } from '../types/city';
 import { TLocation } from '../types/location';
 import { TOfferPreview } from '../types/offer-preview';
+import { TReview } from '../types/review';
 
 export function getLocations(offers: TOfferPreview[]): TLocation[] {
   const locations: TLocation[] = [];
@@ -10,17 +11,6 @@ export function getLocations(offers: TOfferPreview[]): TLocation[] {
   });
 
   return locations;
-}
-
-export function getCities(offers: TOfferPreview[]) {
-  const cities: TCity[] = [];
-
-  offers.filter((offer) => {
-    if (!cities.find((city) => city.name === offer.city.name)) {
-      cities.push(offer.city);
-    }
-  });
-  return cities;
 }
 
 export function getCity(offers: TOfferPreview[], activeCityName: string) {
@@ -37,6 +27,16 @@ export function getCityOffers(
 
   const cityOffers = offers.filter((offer) => offer.city.name === cityName);
   return cityOffers;
+}
+
+export function getCities(offers: TOfferPreview[]) {
+  const cities: TCity[] = [];
+  offers.filter((offer) => {
+    if (!cities.find((city) => city.name === offer.city.name)) {
+      cities.push(offer.city);
+    }
+  });
+  return cities;
 }
 
 export function sortOffers(
@@ -68,10 +68,12 @@ export function sortOffers(
 export function dateFormat(date: string) {
   const formatDate = new Date(date);
   const options: Intl.DateTimeFormatOptions = {
-    weekday: 'long',
-    year: 'numeric',
     month: 'long',
-    day: 'numeric',
+    year: 'numeric',
   };
-  return formatDate.toLocaleString('ru-RU', options);
+  return formatDate.toLocaleString('en-GB', options);
+}
+
+export function sortCommentsByDate(comments: TReview[]) {
+  return comments.sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
 }

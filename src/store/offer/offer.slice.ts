@@ -1,47 +1,14 @@
-import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { AxiosInstance } from 'axios';
-import { APIRoute, NameSpace } from '../../const';
-import { TOffer } from '../../types/offer';
-import { TOfferPreview } from '../../types/offer-preview';
-import { AppDispatch, State, TOfferData } from '../../types/state';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { NameSpace } from '../../const';
+import { TOfferData } from '../../types/state';
+import { postFavoriteAction } from '../favorite/favorite.api-actions';
+import { fetchOfferAction } from './offer.api-actions';
 
 const initialState: TOfferData = {
   data: null,
   isLoading: false,
   offerId: '',
 };
-
-export const fetchOfferAction = createAsyncThunk<
-  TOffer,
-  undefined,
-  {
-    dispatch: AppDispatch;
-    state: State;
-    extra: AxiosInstance;
-  }
->('OFFER/fetchOffer', async (_arg, { getState, extra: api }) => {
-  const state = getState();
-  const offerId = state.OFFER.offerId;
-  const { data } = await api.get<TOffer>(`${APIRoute.Offers}/${offerId}`);
-  return data;
-});
-
-export const fetchOffersNearByAction = createAsyncThunk<
-  TOfferPreview[],
-  undefined,
-  {
-    dispatch: AppDispatch;
-    state: State;
-    extra: AxiosInstance;
-  }
->('OFFER/fetchOffersNearBy', async (_arg, { getState, extra: api }) => {
-  const state = getState();
-  const offerId = state.OFFER.offerId;
-  const { data } = await api.get<TOfferPreview[]>(
-    `${APIRoute.Offers}/${offerId}/nearBy`
-  );
-  return data;
-});
 
 export const offerData = createSlice({
   name: NameSpace.Offer,
@@ -61,6 +28,16 @@ export const offerData = createSlice({
         state.isLoading = true;
       })
       .addCase(fetchOfferAction.rejected, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(postFavoriteAction.fulfilled, (state, action) => {
+        state.data = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(postFavoriteAction.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(postFavoriteAction.rejected, (state) => {
         state.isLoading = false;
       });
   },
